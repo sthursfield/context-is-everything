@@ -1,0 +1,64 @@
+# PLACEHOLDER CONTACT INFORMATION - REPLACE WITH REAL DETAILS
+
+This file lists all placeholder contact information used throughout the website that needs to be replaced with actual business details.
+
+## Website URL/Domain
+- https://contextiseverything.ai (used in metadata, sitemap, structured data)
+
+## Email Addresses
+- hello@contextiseverything.ai (main contact email)
+- Used in: layout.tsx (hidden SEO content), page.tsx (footer contact info)
+
+## Phone Numbers
+- +1-555-CONTEXT (placeholder phone number)
+- Used in: layout.tsx (structured data, hidden content), page.tsx (footer contact)
+
+## Social Media Handles
+- @contextiseverything (Twitter/X handle)
+- https://linkedin.com/company/contextiseverything (LinkedIn company page)
+- https://twitter.com/contextiseverything (Twitter/X profile)
+- Used in: layout.tsx (metadata, structured data)
+
+## Google Verification
+- "your-google-verification-code" (Google Search Console verification)
+- Used in: layout.tsx (verification metadata)
+
+## Image Assets (Need Creation)
+- /og-image.png (1200x630px social media sharing image)
+- /icon.svg (SVG favicon)
+- /apple-touch-icon.png (180x180px Apple touch icon)
+- /icon-192.png (192x192px PWA icon)
+- /icon-512.png (512x512px PWA icon)
+- /logo.png (main logo for structured data)
+
+## Business Details in Structured Data
+- Founded: "2024" (founding year)
+- Number of employees: "10-50" (company size range)
+- Address country: "US" (business location)
+
+## Files That Need Updates
+1. src/app/layout.tsx (lines 29, 35-36, 50-51, 56-57, 73, 90, 101-103, 105-107)
+2. src/app/page.tsx (lines 165-166)
+3. src/app/sitemap.ts (line 4 - base URL)
+4. src/app/robots.ts (lines 8, 9 - sitemap and host URLs)
+5. public/manifest.json (if keeping PWA functionality)
+
+## Search & Replace Instructions
+Use your code editor's search and replace function to update:
+
+1. "contextiseverything.ai" → "your-actual-domain.com"
+2. "hello@contextiseverything.ai" → "your-actual-email@domain.com"  
+3. "+1-555-CONTEXT" → "your-actual-phone-number"
+4. "@contextiseverything" → "@your-actual-handle"
+5. "linkedin.com/company/contextiseverything" → "linkedin.com/company/your-company"
+6. "your-google-verification-code" → "actual-verification-code-from-google"
+
+## Image Creation Needed
+Create and add the following images to the /public folder:
+- og-image.png (social media sharing)
+- icon.svg (favicon)
+- apple-touch-icon.png (iOS home screen)
+- icon-192.png & icon-512.png (PWA icons)
+- logo.png (for structured data)
+
+All placeholder information is marked clearly in the code with comments where possible.

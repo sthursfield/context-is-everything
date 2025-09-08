@@ -1,0 +1,26 @@
+{
+  "name": "Context is Everything - AI Consultancy",
+  "short_name": "Context AI",
+  "description": "Expert AI consultancy specializing in contextual solutions that adapt and scale with your business.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EAF6FF",
+  "theme_color": "#0EA5E9",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "productivity", "consulting"],
+  "lang": "en-US",
+  "orientation": "portrait-primary"
+}

@@ -1,0 +1,49 @@
+{
+  "theme": {
+    "colors": {
+      "dawn": {
+        "primary": "#FFF0F2",
+        "secondary": "#FFD6C5", 
+        "accent": "#FF7A59"
+      },
+      "midday": {
+        "primary": "#EAF6FF",
+        "secondary": "#C7EAFF",
+        "accent": "#0EA5E9"
+      },
+      "storm": {
+        "primary": "#F2F3F4",
+        "secondary": "#D9DEDF", 
+        "accent": "#6B8E74"
+      },
+      "night": {
+        "primary": "#0b1230",
+        "secondary": "#192b4a",
+        "accent": "#FFD36E"
+      }
+    },
+    "typography": {
+      "fontFamily": "Inter, 'GT America', 'Söhne', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      "wordmark": {
+        "fontSize": "28px",
+        "fontWeight": "600",
+        "letterSpacing": "0.46em",
+        "textTransform": "uppercase",
+        "lineHeight": "1"
+      }
+    },
+    "spacing": {
+      "logoSize": "320px",
+      "sectionPadding": "48px",
+      "componentGap": "28px"
+    },
+    "animation": {
+      "duration": {
+        "fast": "0.3s",
+        "medium": "0.6s", 
+        "slow": "1.2s"
+      },
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+    }
+  }
+}

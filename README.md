@@ -1,36 +1,156 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Context is Everything - Website
 
-## Getting Started
+A fully responsive, optimized website for the brand "Context is Everything" featuring 3D animation, typography reveal, adaptive color, and interactive AI consultation.
 
-First, run the development server:
+## 🌄 Core Metaphor
 
+The website embodies the brand philosophy through a 3D mountain that morphs into flat topographic rings, demonstrating how context reveals new shapes depending on angle, light, and depth.
+
+## ✨ Features
+
+### 3D Animation & Interactions
+- **Mountain-to-Topographic Morphing**: 3D mountain gradually transitions to flat contour rings on scroll
+- **Chiaroscuro Lighting**: Interactive lighting that responds to mouse movement
+- **GSAP ScrollTrigger**: Synchronized animations between 3D morphing and typography reveal
+
+### Typography & Design
+- **Progressive Word Reveal**: "Context is Everything" appears in reverse order with Swiss typography standards
+- **Adaptive Color Palette**: Background and elements adapt to contextual states (Dawn, Midday, Storm, Night)
+- **Responsive Design**: Optimized for mobile, tablet, and desktop
+
+### Interactive Components
+- **Team Section**: Professional team display with hover effects and chiaroscuro lighting
+- **Contact Form**: Fully functional form with validation using Shadcn components
+- **AI Consultant**: Google-style search interface powered by Anthropic Claude API
+
+### Performance & Security
+- **Performance Optimizations**: GPU acceleration, reduced motion support, optimized Three.js rendering
+- **Security**: API key protection, rate limiting, input validation
+- **Accessibility**: Proper semantic HTML, keyboard navigation, screen reader support
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. **Install dependencies**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Set up environment variables**
+```bash
+cp .env.example .env.local
+```
+Add your Anthropic API key to `.env.local`:
+```
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Run the development server**
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Open [http://localhost:3000](http://localhost:3000) to view the site**
 
-## Learn More
+## 🔧 Development Commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Start development server
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build for production
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start production server
+npm start
 
-## Deploy on Vercel
+# Run linting
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏗️ Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── api/ai-consultant/    # AI consultant API route
+│   ├── globals.css           # Global styles and contextual theme variables
+│   └── page.tsx              # Main homepage component
+├── components/
+│   ├── ui/                   # Shadcn UI components
+│   ├── MountainAnimation.tsx # 3D mountain morphing animation
+│   ├── TypographyReveal.tsx  # Progressive text reveal with GSAP
+│   ├── TeamSection.tsx       # Professional team display
+│   ├── ContactForm.tsx       # Contact form with validation
+│   └── AIConsultant.tsx      # AI-powered consultant interface
+├── hooks/
+│   └── useContextualTheme.tsx # Adaptive color theme management
+└── lib/
+    ├── theme.json            # Design system configuration
+    └── utils.ts              # Utility functions
+```
+
+## 🎨 Design System
+
+### Contextual Color Palette
+- **Dawn**: Soft gradients, warm highlights (#FFF0F2, #FFD6C5, #FF7A59)
+- **Midday**: Cool, bright contrasts (#EAF6FF, #C7EAFF, #0EA5E9)
+- **Storm**: Muted greys with green undertones (#F2F3F4, #D9DEDF, #6B8E74)
+- **Night**: Deep navy/black with gold accents (#0b1230, #192b4a, #FFD36E)
+
+### Typography
+- **Font Stack**: Inter, GT America, Söhne, system-ui
+- **Swiss Typography Standards**: Precise kerning, optical balance, geometric proportions
+- **Responsive Scaling**: Fluid typography that adapts to screen size
+
+## 🔒 Security Features
+
+### AI Consultant Security
+- API keys stored securely in environment variables
+- Rate limiting (10 requests per hour per IP)
+- Input sanitization and validation
+- Error handling without exposing sensitive information
+
+### General Security
+- HTTPS enforcement in production
+- Input validation on all forms
+- No client-side secret exposure
+- Proper CORS configuration
+
+## 🎯 Performance Optimizations
+
+- **GPU Acceleration**: Transform3d and will-change properties for smooth animations
+- **Reduced Motion**: Respects user preferences for reduced motion
+- **Code Splitting**: Dynamic imports for optimal bundle size
+- **Image Optimization**: Next.js Image component with lazy loading
+- **Three.js Optimization**: Efficient geometry updates and disposal
+
+## 📱 Responsive Breakpoints
+
+- **Mobile**: < 768px
+- **Tablet**: 768px - 1024px  
+- **Desktop**: > 1024px
+- **Large Desktop**: > 1440px
+
+## 🔧 Customization
+
+### Theme Configuration
+Edit `src/lib/theme.json` to customize:
+- Color palettes for each contextual state
+- Typography settings
+- Spacing and sizing values
+- Animation durations and easings
+
+### Adding New Contextual States
+1. Add colors to theme.json
+2. Update `useContextualTheme.tsx` hook
+3. Add detection logic (time-based, weather API, etc.)
+
+---
+
+**Context is Everything** 
