@@ -15,6 +15,15 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
   const [isReady, setIsReady] = useState(false)
   const ringsRef = useRef<THREE.LineLoop[]>([])
   const animationProgress = useRef(0)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Load SVG contours and create rings - EXACTLY like your working model
   useEffect(() => {
@@ -66,17 +75,19 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
+            const scale = isMobile ? 0.9 : 0.35 // Much larger on mobile (200% increase)
+            
             commands.forEach(cmd => {
               switch (cmd.code) {
                 case 'M':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(currentX * 0.5, -currentY * 0.5, 0)) // Much larger scale, fix Y orientation
+                  points.push(new THREE.Vector3(currentX * scale, -currentY * scale, 0)) // Responsive scale
                   break
                 case 'L':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(currentX * 0.5, -currentY * 0.5, 0)) // Much larger scale, fix Y orientation
+                  points.push(new THREE.Vector3(currentX * scale, -currentY * scale, 0)) // Responsive scale
                   break
                 case 'C':
                   // Approximate bezier with line segments
@@ -89,7 +100,7 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
                              3 * Math.pow(1-t, 2) * t * cmd.y1 +
                              3 * (1-t) * Math.pow(t, 2) * cmd.y2 + 
                              Math.pow(t, 3) * cmd.y
-                    points.push(new THREE.Vector3(x * 0.5, -y * 0.5, 0)) // Much larger scale, fix Y orientation
+                    points.push(new THREE.Vector3(x * scale, -y * scale, 0)) // Responsive scale
                   }
                   currentX = cmd.x
                   currentY = cmd.y
@@ -105,7 +116,7 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
                              3 * Math.pow(1-t, 2) * t * (currentY + cmd.y1) +
                              3 * (1-t) * Math.pow(t, 2) * (currentY + cmd.y2) + 
                              Math.pow(t, 3) * (currentY + cmd.y)
-                    points.push(new THREE.Vector3(x * 0.5, -y * 0.5, 0)) // Much larger scale, fix Y orientation
+                    points.push(new THREE.Vector3(x * scale, -y * scale, 0)) // Responsive scale
                   }
                   currentX += cmd.x
                   currentY += cmd.y
@@ -258,14 +269,28 @@ interface WireframeMountainProps {
 }
 
 export default function WireframeMountain({ mousePosition, className = '' }: WireframeMountainProps) {
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
   return (
-    <div className={className} style={{ height: '500px', width: '100%' }}>
+    <div className={className} style={{ 
+      height: isMobile ? '100vw' : '450px', // Square aspect ratio on mobile
+      width: '100%',
+      overflow: 'visible',
+      position: 'relative'
+    }}>
       <Canvas
         camera={{
           position: [-100, -100, 300],
           fov: 45,
-          near: 1,
-          far: 2000
+          near: 0.1,
+          far: 5000
         }}
         gl={{
           antialias: true,
@@ -273,8 +298,11 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         }}
         style={{
           background: 'transparent',
-          width: '100%',
-          height: '100%'
+          width: '120%',
+          height: '120%',
+          position: 'relative',
+          left: '-10%',
+          top: '-10%'
         }}
       >
         <CameraSetup />

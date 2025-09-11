@@ -113,7 +113,7 @@ export default function HomePage() {
             <div className="w-full flex justify-center" role="img" aria-label="3D wireframe mountain with organic contour elevation">
               <WireframeMountain 
                 mousePosition={mousePosition}
-                className="w-full max-w-6xl h-96 -mt-4"
+                className="w-full max-w-full md:max-w-4xl aspect-square md:aspect-auto md:h-96 lg:max-w-5xl -mt-4"
               />
             </div>
             

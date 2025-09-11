@@ -1,6 +1,6 @@
 # Context is Everything - Website
 
-A fully responsive, optimized website for the brand "Context is Everything" featuring 3D animation, typography reveal, adaptive color, and interactive AI consultation.
+A fully responsive, optimized website for the brand "Context is Everything" featuring 3D animation, typography reveal, adaptive color, and interactive AI consultation. V1
 
 ## 🌄 Core Metaphor
 
