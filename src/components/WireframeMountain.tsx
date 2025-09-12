@@ -291,7 +291,7 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
       <Canvas
         camera={{
           position: [0, 0, 300],
-          fov: 45,
+          fov: isMobile ? 60 : 45, // Wider field of view on mobile to see more of the mountain
           near: 0.1,
           far: 5000
         }}
@@ -302,10 +302,7 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         style={{
           background: 'transparent',
           width: '100%',
-          height: isMobile ? '200%' : '100%', // Double height on mobile to prevent bottom clipping
-          position: 'absolute',
-          top: isMobile ? '-50%' : '0', // Position canvas so center shows in viewport
-          left: '0'
+          height: '100%'
         }}
       >
         <CameraSetup />
