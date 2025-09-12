@@ -249,15 +249,15 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
     }
   })
 
-  return <group ref={groupRef} position={[50, 50, 0]} /> // Move mountain group up and left
+  return <group ref={groupRef} position={[0, 0, 0]} /> // Center the mountain
 }
 
 function CameraSetup() {
   const { camera } = useThree()
   
   useEffect(() => {
-    // Better camera position - move up and left for better centering
-    camera.position.set(-100, -100, 300)
+    // Center camera for proper view
+    camera.position.set(0, 0, 300)
     camera.lookAt(0, 0, 0)
   }, [camera])
   
@@ -281,7 +281,7 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   
   return (
     <div className={className} style={{ 
-      height: isMobile ? '150vw' : '450px', // Taller on mobile to prevent clipping
+      height: isMobile ? '80vw' : '450px', // Reduced height to keep search bar visible
       width: '100%',
       overflow: 'visible',
       position: 'relative',
@@ -289,7 +289,7 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
     }}>
       <Canvas
         camera={{
-          position: [-100, -100, 300],
+          position: [0, 0, 300],
           fov: 45,
           near: 0.1,
           far: 5000
@@ -300,11 +300,9 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         }}
         style={{
           background: 'transparent',
-          width: isMobile ? '140%' : '120%',
-          height: isMobile ? '140%' : '120%',
-          position: 'relative',
-          left: isMobile ? '-20%' : '-10%',
-          top: isMobile ? '-20%' : '-10%'
+          width: '100%',
+          height: '100%',
+          position: 'relative'
         }}
       >
         <CameraSetup />
