@@ -305,10 +305,10 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
           alpha: true,
           preserveDrawingBuffer: true
         }}
-        onCreated={({ gl, scene, camera }) => {
+        onCreated={({ gl }) => {
           // Disable any viewport/scissor restrictions
-          gl.scissorTest = false
-          gl.viewport(0, 0, gl.domElement.width, gl.domElement.height)
+          gl.setScissorTest(false)
+          gl.setViewport(0, 0, gl.domElement.width, gl.domElement.height)
           console.log('Canvas size:', gl.domElement.width, gl.domElement.height)
         }}
         style={{
