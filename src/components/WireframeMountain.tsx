@@ -282,13 +282,16 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   return (
     <div className={className} style={{ 
       position: isMobile ? 'fixed' : 'relative',
-      top: isMobile ? '20vh' : 'auto', // Position in viewing window area
+      top: isMobile ? '0' : 'auto',
       left: isMobile ? '0' : 'auto', 
       width: isMobile ? '100vw' : '100%',
-      height: isMobile ? '60vh' : '450px', // Smaller height focused on viewing area
+      height: isMobile ? '100vh' : '450px', // Full viewport on mobile
       overflow: 'visible',
       zIndex: -1, // Far behind everything
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center', // Center vertically
+      justifyContent: 'center' // Center horizontally
     }}>
       <Canvas
         camera={{
@@ -303,8 +306,8 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         }}
         style={{
           background: 'transparent',
-          width: '100%',
-          height: '100%'
+          width: isMobile ? '100vw' : '100%',
+          height: isMobile ? '33vh' : '100%' // 33% of viewport height on mobile for the viewing area
         }}
       >
         <CameraSetup />
