@@ -75,8 +75,8 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            // Always use larger scale on narrow viewports
-            const scale = window.innerWidth < 768 ? 0.9 : 0.35 // Much larger on mobile (200% increase)
+            // Reduced scale to test if size is causing clipping
+            const scale = window.innerWidth < 768 ? 0.3 : 0.35 // Smaller scale to test clipping
             
             commands.forEach(cmd => {
               switch (cmd.code) {
@@ -296,13 +296,20 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
       <Canvas
         camera={{
           position: [0, 0, 300],
-          fov: isMobile ? 60 : 45, // Wider field of view on mobile to see more of the mountain
+          fov: isMobile ? 75 : 45, // Much wider FOV on mobile to see full mountain
           near: 0.1,
           far: 5000
         }}
         gl={{
           antialias: true,
-          alpha: true
+          alpha: true,
+          preserveDrawingBuffer: true
+        }}
+        onCreated={({ gl, scene, camera }) => {
+          // Disable any viewport/scissor restrictions
+          gl.scissorTest = false
+          gl.viewport(0, 0, gl.domElement.width, gl.domElement.height)
+          console.log('Canvas size:', gl.domElement.width, gl.domElement.height)
         }}
         style={{
           background: 'transparent',
