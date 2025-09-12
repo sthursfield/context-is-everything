@@ -303,8 +303,9 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
           background: 'transparent',
           width: '100%',
           height: isMobile ? '200%' : '100%', // Double height on mobile to prevent bottom clipping
-          position: 'relative',
-          top: isMobile ? '-25%' : '0' // Shift up to center the extended canvas
+          position: 'absolute',
+          top: isMobile ? '-50%' : '0', // Position canvas so center shows in viewport
+          left: '0'
         }}
       >
         <CameraSetup />
