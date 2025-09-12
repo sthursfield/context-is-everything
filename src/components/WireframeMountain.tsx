@@ -282,10 +282,10 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   return (
     <div className={className} style={{ 
       position: isMobile ? 'fixed' : 'relative',
-      top: isMobile ? '0' : 'auto',
+      top: isMobile ? '20vh' : 'auto', // Position in viewing window area
       left: isMobile ? '0' : 'auto', 
       width: isMobile ? '100vw' : '100%',
-      height: isMobile ? '100vh' : '450px',
+      height: isMobile ? '60vh' : '450px', // Smaller height focused on viewing area
       overflow: 'visible',
       zIndex: -1, // Far behind everything
       pointerEvents: 'none'
