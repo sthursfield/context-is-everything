@@ -281,10 +281,11 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   
   return (
     <div className={className} style={{ 
-      height: isMobile ? '100vw' : '450px', // Square aspect ratio on mobile
+      height: isMobile ? '150vw' : '450px', // Taller on mobile to prevent clipping
       width: '100%',
       overflow: 'visible',
-      position: 'relative'
+      position: 'relative',
+      zIndex: 0 // Behind search bar on mobile
     }}>
       <Canvas
         camera={{
@@ -299,11 +300,11 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         }}
         style={{
           background: 'transparent',
-          width: '120%',
-          height: '120%',
+          width: isMobile ? '140%' : '120%',
+          height: isMobile ? '140%' : '120%',
           position: 'relative',
-          left: '-10%',
-          top: '-10%'
+          left: isMobile ? '-20%' : '-10%',
+          top: isMobile ? '-20%' : '-10%'
         }}
       >
         <CameraSetup />

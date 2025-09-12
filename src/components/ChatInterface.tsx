@@ -102,7 +102,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto relative" style={{ zIndex: 10 }}>
       {/* Main Input Field */}
       <div className="mb-8 relative">
         <form onSubmit={handleInputSubmit}>
