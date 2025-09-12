@@ -110,10 +110,10 @@ export default function HomePage() {
             </div>
             
             {/* 3D Wireframe Mountain - Using superior per-vertex elevation approach */}
-            <div className="w-full flex justify-center mb-8 md:mb-0" role="img" aria-label="3D wireframe mountain with organic contour elevation">
+            <div className="w-full flex justify-center mb-8 md:mb-0 overflow-visible" role="img" aria-label="3D wireframe mountain with organic contour elevation">
               <WireframeMountain 
                 mousePosition={mousePosition}
-                className="w-full max-w-full md:max-w-4xl md:h-96 lg:max-w-5xl -mt-4"
+                className="w-full max-w-full md:max-w-4xl md:h-96 lg:max-w-5xl -mt-4 overflow-visible"
               />
             </div>
             
