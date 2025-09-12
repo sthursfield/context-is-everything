@@ -307,7 +307,10 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
         style={{
           background: 'transparent',
           width: isMobile ? '100vw' : '100%',
-          height: isMobile ? '33vh' : '100%' // 33% of viewport height on mobile for the viewing area
+          height: isMobile ? '200%' : '100%', // Extend canvas beyond container to prevent clipping
+          position: 'absolute',
+          top: isMobile ? '-50%' : '0', // Center the extended canvas
+          left: '0'
         }}
       >
         <CameraSetup />
