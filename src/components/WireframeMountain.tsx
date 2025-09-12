@@ -282,15 +282,15 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   return (
     <div className={className} style={{ 
       position: isMobile ? 'fixed' : 'relative',
-      top: isMobile ? '0' : 'auto',
+      top: isMobile ? 'calc(33vh - 15vh)' : 'auto', // 18vh from top (33vh chat position - 15vh above)
       left: isMobile ? '0' : 'auto', 
       width: isMobile ? '100vw' : '100%',
-      height: isMobile ? '100vh' : '450px', // Full viewport on mobile
+      height: isMobile ? '33vh' : '450px', // Animation area height
       overflow: 'visible',
       zIndex: -1, // Far behind everything
       pointerEvents: 'none',
       display: 'flex',
-      alignItems: 'center', // Center vertically
+      alignItems: 'center', // Center vertically within the area
       justifyContent: 'center' // Center horizontally
     }}>
       <Canvas
