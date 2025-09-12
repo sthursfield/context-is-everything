@@ -75,8 +75,8 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            // Responsive scaling: mobile optimized for no clipping, desktop restored to previous size
-            const scale = window.innerWidth < 768 ? 0.5 : 0.56 // Desktop 60% bigger (0.35 * 1.6 = 0.56)
+            // Safe scaling: mobile optimized for no clipping, desktop moderately increased
+            const scale = window.innerWidth < 768 ? 0.5 : 0.45 // Desktop safely bigger but not clipped
             
             commands.forEach(cmd => {
               switch (cmd.code) {
@@ -282,8 +282,8 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   return (
     <div className={className} style={{ 
       position: isMobile ? 'fixed' : 'relative',
-      top: isMobile ? '50%' : 'auto', // Center of screen
-      left: isMobile ? '50%' : 'auto', 
+      top: isMobile ? '25vh' : 'auto', // Lower in middle third - closer to bottom
+      left: isMobile ? '0' : 'auto', 
       width: isMobile ? '100vw' : '100%',
       height: isMobile ? '33vh' : '450px', // Animation area height
       overflow: 'visible',
@@ -291,8 +291,7 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center', // Center vertically within the area
-      justifyContent: 'center', // Center horizontally
-      transform: isMobile ? 'translate(-50%, -50%)' : 'none' // Perfect center on mobile
+      justifyContent: 'center' // Center horizontally
     }}>
       <Canvas
         camera={{
