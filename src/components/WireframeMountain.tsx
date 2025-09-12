@@ -281,12 +281,14 @@ export default function WireframeMountain({ mousePosition, className = '' }: Wir
   
   return (
     <div className={className} style={{ 
-      height: isMobile ? '80vw' : '450px', // Reduced height to keep search bar visible
+      height: isMobile ? '120vw' : '450px', // Taller container to prevent clipping mask
       width: '100%',
       overflow: 'visible !important',
       position: 'relative',
       zIndex: 0, // Behind search bar on mobile
-      clipPath: 'none'
+      clipPath: 'none',
+      maskImage: 'none',
+      WebkitMaskImage: 'none'
     }}>
       <Canvas
         camera={{
