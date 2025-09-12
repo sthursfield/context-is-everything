@@ -256,9 +256,9 @@ function CameraSetup() {
   const { camera } = useThree()
   
   useEffect(() => {
-    // Center camera for proper view
-    camera.position.set(0, 0, 300)
-    camera.lookAt(0, 0, 0)
+    // Position camera to see the full mountain including base
+    camera.position.set(0, 50, 300) // Raise camera position
+    camera.lookAt(0, -50, 0) // Look at a lower point to include mountain base
   }, [camera])
   
   return null
