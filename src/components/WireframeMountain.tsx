@@ -75,7 +75,8 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            const scale = isMobile ? 0.9 : 0.35 // Much larger on mobile (200% increase)
+            // Always use larger scale on narrow viewports
+            const scale = window.innerWidth < 768 ? 0.9 : 0.35 // Much larger on mobile (200% increase)
             
             commands.forEach(cmd => {
               switch (cmd.code) {
