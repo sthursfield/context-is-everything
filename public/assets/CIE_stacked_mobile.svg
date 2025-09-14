@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="245.33" height="92.05" viewBox="0 0 245.33 92.05">
+  <text transform="translate(2.42 35.95)" fill="#c7eaff" font-family="DINPro-Bold, DINPro, Arial, sans-serif" font-weight="700">
+    <tspan x="0" y="0" font-size="42px" letter-spacing="0em">C</tspan>
+    <tspan x="26.42" y="0" font-size="42px" letter-spacing="0em">O</tspan>
+    <tspan x="53.34" y="0" font-size="42px" letter-spacing="0em">N</tspan>
+    <tspan x="83.25" y="0" font-size="42px" letter-spacing="0em">T</tspan>
+    <tspan x="107.26" y="0" font-size="42px" letter-spacing=".03em">E</tspan>
+    <tspan x="133.91" y="0" font-size="42px" letter-spacing=".03em">X</tspan>
+    <tspan x="160.66" y="0" font-size="42px" letter-spacing=".01em">T </tspan>
+    <tspan x="195.31" y="0" font-size="42px" letter-spacing="0em">I</tspan>
+    <tspan x="208.35" y="0" font-size="42px" letter-spacing=".01em">S</tspan>
+  </text>
+  <text transform="translate(2.42 35.95)" fill="#F4D5C4" font-family="DINPro-Bold, DINPro, Arial, sans-serif" font-weight="700">
+    <tspan x="-1.25" y="36" font-size="40px" letter-spacing=".02em">E</tspan>
+    <tspan x="23.75" y="36" font-size="40px" letter-spacing="0em">V</tspan>
+    <tspan x="47.19" y="36" font-size="40px" letter-spacing="-.01em">E</tspan>
+    <tspan x="70.83" y="36" font-size="40px" letter-spacing="-.02em">R</tspan>
+    <tspan x="96.12" y="36" font-size="40px" letter-spacing=".03em">Y</tspan>
+    <tspan x="120.3" y="36" font-size="40px" letter-spacing="0em">T</tspan>
+    <tspan x="142.76" y="36" font-size="40px" letter-spacing="-.02em">H</tspan>
+    <tspan x="169.5" y="36" font-size="40px" letter-spacing="-.02em">I</tspan>
+    <tspan x="180.99" y="36" font-size="40px" letter-spacing="-.01em">N</tspan>
+    <tspan x="208.94" y="36" font-size="40px" letter-spacing="0em">G</tspan>
+  </text>
+</svg>

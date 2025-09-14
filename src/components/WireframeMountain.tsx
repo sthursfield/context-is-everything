@@ -1,32 +1,61 @@
-'use client'
+"use client";
 
-import { useRef, useState, useEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 import gsap from 'gsap'
 import * as parseSVGPath from 'svg-path-parser'
 
-interface WireframeMountainMeshProps {
-  mousePosition: { x: number; y: number }
-}
+export default function WireframeMountain() {
+  const mountRef = useRef<HTMLDivElement>(null);
 
-function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
-  const groupRef = useRef<THREE.Group>(null)
-  const [isReady, setIsReady] = useState(false)
-  const ringsRef = useRef<THREE.LineLoop[]>([])
-  const animationProgress = useRef(0)
-  const [isMobile, setIsMobile] = useState(false)
-  
-  // Check if mobile
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+    if (!mountRef.current) return;
 
-  // Load SVG contours and create rings - EXACTLY like your working model
-  useEffect(() => {
+    const mount = mountRef.current;
+
+    // Scene and camera
+    const scene = new THREE.Scene();
+    const isMobile = window.innerWidth < 768;
+    const camera = new THREE.PerspectiveCamera(
+      isMobile ? 75 : 50,  // Wider FOV on mobile
+      window.innerWidth / window.innerHeight,
+      0.1,
+      5000
+    );
+    camera.position.z = isMobile ? 3 : 5;  // Closer on mobile to fill screen
+    camera.lookAt(0, 0, 0);
+    // Rotate camera 90 degrees around Z axis
+    camera.rotation.z = Math.PI / 2;
+
+    // Renderer with explicit mobile viewport handling
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    
+    // Force full viewport dimensions
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x372528, 1); // #372528 background
+    
+    // Force full viewport positioning - bypass any CSS constraints
+    const canvas = renderer.domElement;
+    canvas.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: -1 !important;
+      display: block !important;
+    `;
+    
+    mount.appendChild(renderer.domElement);
+
+    // Mountain creation - restore original contour rings
+    const ringsRef: THREE.LineLoop[] = []
+    let animationProgress = 0
+    let isReady = false
+
     const createMountainRings = async () => {
       try {
         console.log('🏔️ Loading organic contour shapes...')
@@ -45,26 +74,16 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
           return className.includes('cls-') && (fill === 'none' || fill === '')
         })
         
-        console.log(`📍 Found ${contourPaths.length} organic contour paths`)
-        
-        // Sort by path complexity (largest contours first) - like your ringCount approach
+        // Sort by path complexity (largest contours first)
         const sortedPaths = contourPaths.sort((a, b) => {
           const aData = a.getAttribute('d') || ''
           const bData = b.getAttribute('d') || ''
           return bData.length - aData.length
         })
         
-        console.log('🔍 Sorted paths by complexity:', sortedPaths.map((p, i) => ({
-          index: i,
-          pathLength: (p.getAttribute('d') || '').length,
-          className: p.getAttribute('class')
-        })))
-        
         const rings: THREE.LineLoop[] = []
-        const scene = groupRef.current
-        if (!scene) return
         
-        // Create rings - EXACTLY like your working model structure
+        // Create rings
         sortedPaths.forEach((path, i) => {
           const pathData = path.getAttribute('d')
           if (!pathData) return
@@ -75,24 +94,31 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            // Safe scaling: mobile optimized for no clipping, desktop moderately increased
-            const scale = window.innerWidth < 768 ? 0.5 : 0.45 // Desktop safely bigger but not clipped
+            const scale = window.innerWidth < 768 ? 0.025 : 0.01  // Much larger on mobile
             
             commands.forEach(cmd => {
               switch (cmd.code) {
                 case 'M':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(currentX * scale, -currentY * scale, 0)) // Responsive scale
+                  points.push(new THREE.Vector3(
+                    (currentX - 165) * scale,
+                    -(currentY - 143) * scale, 
+                    0
+                  ))
                   break
                 case 'L':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(currentX * scale, -currentY * scale, 0)) // Responsive scale
+                  points.push(new THREE.Vector3(
+                    (currentX - 165) * scale,
+                    -(currentY - 143) * scale,
+                    0
+                  ))
                   break
                 case 'C':
                   // Approximate bezier with line segments
-                  for (let t = 0.1; t <= 1; t += 0.2) {
+                  for (let t = 0.1; t <= 1; t += 0.1) {
                     const x = Math.pow(1-t, 3) * currentX + 
                              3 * Math.pow(1-t, 2) * t * cmd.x1 +
                              3 * (1-t) * Math.pow(t, 2) * cmd.x2 + 
@@ -101,14 +127,18 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
                              3 * Math.pow(1-t, 2) * t * cmd.y1 +
                              3 * (1-t) * Math.pow(t, 2) * cmd.y2 + 
                              Math.pow(t, 3) * cmd.y
-                    points.push(new THREE.Vector3(x * scale, -y * scale, 0)) // Responsive scale
+                    points.push(new THREE.Vector3(
+                      (x - 165) * scale,
+                      -(y - 143) * scale,
+                      0
+                    ))
                   }
                   currentX = cmd.x
                   currentY = cmd.y
                   break
                 case 'c':
                   // Relative bezier
-                  for (let t = 0.1; t <= 1; t += 0.2) {
+                  for (let t = 0.1; t <= 1; t += 0.1) {
                     const x = Math.pow(1-t, 3) * currentX + 
                              3 * Math.pow(1-t, 2) * t * (currentX + cmd.x1) +
                              3 * (1-t) * Math.pow(t, 2) * (currentX + cmd.x2) + 
@@ -117,7 +147,11 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
                              3 * Math.pow(1-t, 2) * t * (currentY + cmd.y1) +
                              3 * (1-t) * Math.pow(t, 2) * (currentY + cmd.y2) + 
                              Math.pow(t, 3) * (currentY + cmd.y)
-                    points.push(new THREE.Vector3(x * scale, -y * scale, 0)) // Responsive scale
+                    points.push(new THREE.Vector3(
+                      (x - 165) * scale,
+                      -(y - 143) * scale,
+                      0
+                    ))
                   }
                   currentX += cmd.x
                   currentY += cmd.y
@@ -134,13 +168,13 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
             if (points.length > 0) {
               const geometry = new THREE.BufferGeometry().setFromPoints(points)
               const material = new THREE.LineBasicMaterial({ 
-                color: 0xFF7A59 // Your specified orange color
+                color: 0xff8800, // bright orange
+                linewidth: 2
               })
               const line = new THREE.LineLoop(geometry, material)
               
-              // EXACTLY like your working model: (ringCount - i) * elevation
-              // Larger rings (i=0) = lower elevation, smaller rings (i=7) = higher elevation
-              line.userData.elevation = (sortedPaths.length - i) * 15 // Same as your working model
+              // Set elevation data
+              line.userData.elevation = (sortedPaths.length - i) * 0.5
               
               rings.push(line)
               scene.add(line)
@@ -150,172 +184,116 @@ function WireframeMountainMesh({ }: WireframeMountainMeshProps) {
           }
         })
         
-        // Remove second SMALLEST ring (second to innermost) - not second largest
+        // Remove second smallest ring for better profile
         const filteredRings = rings.filter((ring, index) => {
           if (index === rings.length - 2 && rings.length > 2) {
-            console.log('🗑️ Removing second smallest ring for better mountain profile')
             scene.remove(ring)
             return false
           }
           return true
         })
         
-        ringsRef.current = filteredRings
-        setIsReady(true)
+        ringsRef.push(...filteredRings)
+        isReady = true
         
         console.log(`✅ Created ${filteredRings.length} organic mountain rings`)
-        console.log('🔍 Ring details:', filteredRings.map((ring, i) => ({
-          index: i,
-          elevation: ring.userData.elevation,
-          pointCount: ring.geometry.attributes.position.count
-        })))
         
-        // Start continuous cycling animation after 8 seconds (longer flat display)
-        const timer = setTimeout(() => {
+        // Start animation after delay
+        setTimeout(() => {
           startCyclingAnimation()
-        }, 8000)
-        
-        return () => clearTimeout(timer)
+        }, 2000)
         
       } catch (error) {
         console.error('❌ Failed to load organic mountain contours:', error)
       }
     }
     
+    // Animation functions
+    const updateMountainElevation = () => {
+      ringsRef.forEach((ring) => {
+        if (ring && ring.geometry.attributes.position) {
+          const positions = ring.geometry.attributes.position.array as Float32Array
+          const targetElevation = THREE.MathUtils.lerp(0, ring.userData.elevation, animationProgress)
+          
+          for (let k = 0; k < positions.length; k += 3) {
+            positions[k + 2] = targetElevation
+          }
+          ring.geometry.attributes.position.needsUpdate = true
+        }
+      })
+    }
+    
+    const startCyclingAnimation = () => {
+      // Create a continuous breathing animation
+      gsap.to({ progress: 0 }, {
+        progress: 1,
+        duration: 4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        onUpdate: function() {
+          animationProgress = this.targets()[0].progress
+          updateMountainElevation()
+        }
+      })
+    }
+
+    // Start mountain creation
     createMountainRings()
-  }, [])
 
-  // Move startCyclingAnimation outside useEffect to fix dependency warning  
-  const startCyclingAnimation = () => {
-    const animateCycle = () => {
-      gsap.timeline({ repeat: -1 })
-        .to(animationProgress, {
-          current: 1,
-          duration: 3,
-          ease: "power2.inOut",
-          onUpdate: updateMountainElevation
-        })
-        .to(animationProgress, {
-          current: 1,
-          duration: 5, // Longer hold at mountain peak (2s → 5s)
-          ease: "none"
-        })
-        .to(animationProgress, {
-          current: 0,
-          duration: 3,
-          ease: "power2.inOut", 
-          onUpdate: updateMountainElevation
-        })
-        .to(animationProgress, {
-          current: 0,
-          duration: 3, // Longer pause at flat state (2s → 3s)
-          ease: "none"
-        })
-    }
-    
-    animateCycle()
-  }
-
-
-  // Update mountain elevation based on animation progress - like spencert14 reference
-  const updateMountainElevation = () => {
-    const progress = animationProgress.current
-    
-    ringsRef.current.forEach((ring, i) => {
-      if (ring && ring.geometry.attributes.position) {
-        const positions = ring.geometry.attributes.position.array as Float32Array
-        
-        // Debug: Check if this ring is moving
-        if (i === ringsRef.current.length - 1) {
-          console.log(`🔍 Smallest ring (${i}) elevation: ${ring.userData.elevation}, progress: ${progress}`)
-        }
-        
-        // Simple vertical rise like spencert14 - EXACTLY like working model
-        // Each ring rises to its predetermined elevation * progress
-        const targetElevation = THREE.MathUtils.lerp(0, ring.userData.elevation, progress)
-        
-        for (let k = 0; k < positions.length; k += 3) {
-          positions[k + 2] = targetElevation
-        }
-        ring.geometry.attributes.position.needsUpdate = true
+    // Animation loop
+    const animate = () => {
+      requestAnimationFrame(animate)
+      
+      // Gentle rotation animation
+      if (isReady) {
+        scene.rotation.y += 0.002
       }
-    })
-  }
-
-  // Gentle rotation animation
-  useFrame(() => {
-    if (groupRef.current && isReady) {
-      groupRef.current.rotation.y += 0.005 // Slow continuous rotation
+      
+      renderer.render(scene, camera)
     }
-  })
+    animate()
 
-  return <group ref={groupRef} position={[0, 0, 0]} /> // Center the mountain
-}
+    // Handle window resize with explicit mobile viewport handling
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      renderer.setSize(width, height);
+      
+      // Reapply full viewport positioning on resize
+      const canvas = renderer.domElement;
+      canvas.style.cssText = `
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: -1 !important;
+        display: block !important;
+      `;
+      
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
 
-function CameraSetup() {
-  const { camera } = useThree()
-  
-  useEffect(() => {
-    // Position camera to see the full mountain as it grows upward
-    camera.position.set(0, 0, 400) // Move camera further back
-    camera.lookAt(0, 30, 0) // Look at a higher point to see the mountain peak
-  }, [camera])
-  
-  return null
-}
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+      mount.removeChild(renderer.domElement);
+    };
+  }, []);
 
-interface WireframeMountainProps {
-  mousePosition: { x: number; y: number }
-  className?: string
-}
-
-export default function WireframeMountain({ mousePosition, className = '' }: WireframeMountainProps) {
-  const [isMobile, setIsMobile] = useState(false)
-  
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  return (
-    <div className={className} style={{ 
-      position: isMobile ? 'fixed' : 'relative',
-      top: isMobile ? '25vh' : 'auto', // Lower in middle third - closer to bottom
-      left: isMobile ? '0' : 'auto', 
-      width: isMobile ? '100vw' : '100%',
-      height: isMobile ? '33vh' : '450px', // Animation area height
-      overflow: 'visible',
-      zIndex: -1, // Far behind everything
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center', // Center vertically within the area
-      justifyContent: 'center' // Center horizontally
-    }}>
-      <Canvas
-        camera={{
-          position: [0, 0, 300],
-          fov: isMobile ? 60 : 45, // Moderate FOV on mobile
-          near: 0.1,
-          far: 5000
-        }}
-        gl={{
-          antialias: true,
-          alpha: true
-        }}
-        style={{
-          background: 'transparent',
-          width: isMobile ? '100vw' : '100%',
-          height: isMobile ? '200%' : '100%', // Extend canvas beyond container to prevent clipping
-          position: 'absolute',
-          top: isMobile ? '-50%' : '0', // Center the extended canvas
-          left: '0'
-        }}
-      >
-        <CameraSetup />
-        <WireframeMountainMesh mousePosition={mousePosition} />
-      </Canvas>
-    </div>
-  )
+  return <div ref={mountRef} style={{ 
+    position: 'fixed', 
+    top: 0, 
+    left: 0, 
+    width: '100vw', 
+    height: '100vh', 
+    zIndex: -1, 
+    pointerEvents: 'none' 
+  }} />;
 }

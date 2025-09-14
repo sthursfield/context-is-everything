@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
+import LayoutProvider from '@/components/LayoutProvider'
 import "./globals.css";
 
 const inter = Inter({ 
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
   creator: "Context is Everything",
   publisher: "Context is Everything",
   metadataBase: new URL('https://contextiseverything.ai'),
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
   
   // OpenGraph for social sharing
   openGraph: {
@@ -203,7 +209,10 @@ export default function RootLayout({
           </address>
         </div>
 
-        {children}
+        
+        <LayoutProvider>
+          {children}
+        </LayoutProvider>
       </body>
     </html>
   );

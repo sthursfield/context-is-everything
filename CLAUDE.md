@@ -2,6 +2,43 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Version History
+
+### V4 (Current) - Mobile Perfection + Dark Elegance ✨
+**Key Achievements:**
+- **Background Color**: Sophisticated dark brown (#372528) for elegant, warm aesthetic
+- **Mobile Viewport**: Perfect full-screen animated contours on all devices (resolved viewport constraints with direct JS positioning)
+- **Chat Positioning**: Optimally placed at 22vh for perfect visual balance on mobile and desktop
+- **Cross-Platform Consistency**: Identical experience across all devices and screen sizes
+- **Performance**: Bulletproof canvas positioning with `cssText` and `!important` declarations
+
+**Technical Breakthroughs:**
+- Direct canvas styling bypasses all CSS constraints: `position: fixed !important; width: 100vw !important; height: 100vh !important`
+- Mobile viewport issues completely resolved with JavaScript-first approach
+- Chat interface positioned using viewport height (22vh) for consistent placement
+- Maintains all V3 animation and contour features with enhanced stability
+
+### V3 - Burgundy Mountain Contours
+**Key Achievements:**
+- **Background Color**: Deep burgundy (#611E45) replacing black for warmer brand feel
+- **SVG Contour Mountain**: Successfully restored original flat-top.svg contour lines
+- **Smooth Animation**: Continuous breathing effect using GSAP yoyo (4s cycle, sine.inOut)
+- **Camera Rotation**: 90-degree Z-axis rotation for landscape orientation
+- **Performance**: Optimized with single animation loop, no breaks or restarts
+
+**Technical Details:**
+- WireframeMountain component uses direct SVG path parsing
+- Orange wireframe lines (#FF8800) against burgundy background
+- Elevation animation: 0.5 units per contour ring
+- Camera: FOV 50°, position.z = 5, rotation.z = π/2
+
+### V2 - SVG Foundation
+- Original flat-top.svg integration with geometric contour rings
+- Black background with overlay experiments
+
+### V1 - Initial Concept
+- Basic 3D mountain wireframe prototype
+
 ## Project Overview
 
 "Context is Everything" is a sophisticated Next.js website for an AI consultancy featuring clean geometric 3D branding, contextual theming, and conversational AI interface.

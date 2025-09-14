@@ -122,18 +122,39 @@
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
   }
-  
-  /* Contextual theme variables - dynamically updated by JavaScript */
-  :root {
+}
+
+/* Global resets */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tailwind's h-screen can misbehave on iOS Safari,
+   so we override it with -webkit-fill-available */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Optional: Ensure canvas or WebGL containers scale properly */
+canvas {
+  display: block;         /* removes inline gaps */
+  width: 100% !important; /* fill width */
+  height: 100% !important; /* fill height */
+}
+
+/* Contextual theme variables - dynamically updated by JavaScript */
+:root {
     --context-primary: #EAF6FF;
     --context-secondary: #C7EAFF;
     --context-accent: #0EA5E9;
     --context-gradient: linear-gradient(135deg, var(--context-primary) 0%, var(--context-secondary) 100%);
     --context-text: #071126;
   }
-}
 
 /* Performance optimizations */
 @layer utilities {
@@ -167,22 +188,46 @@
       padding-left: 1rem;
       padding-right: 1rem;
     }
-    
-    /* Reduce 3D complexity on mobile */
+
+    /* Reduce 3D complexity on mobile - removed max-height limit */
     canvas {
-      max-height: 150px;
+      max-height: none !important;
     }
-    
+
     /* Improved mobile typography */
     h1 {
       font-size: 2.5rem !important;
       line-height: 1.1 !important;
     }
-    
+
     /* Touch-friendly buttons */
     button {
       min-height: 44px;
       min-width: 44px;
+    }
+
+    /* Mobile logo optimizations */
+    header img, header picture {
+      width: 60% !important; /* 25% smaller than 80% */
+      max-width: 225px !important; /* 25% smaller than 300px */
+      min-width: 150px !important; /* 25% smaller than 200px */
+      height: auto !important;
+      margin: 0 auto !important; /* Center the logo */
+    }
+
+    header .max-w-4xl {
+      display: flex !important;
+      justify-content: center !important; /* Center container */
+    }
+
+    /* iOS SVG fallback detection */
+    @supports not (object-fit: contain) {
+      header img {
+        display: none !important;
+      }
+      header div {
+        display: block !important;
+      }
     }
   }
   
