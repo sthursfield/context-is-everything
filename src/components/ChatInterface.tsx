@@ -258,9 +258,9 @@ Based on what you're dealing with, which type of challenge resonates most - tech
 **[Contact Us - General Inquiry](javascript:void(0))**
 
 **Direct Team Contact**:
-• **Lindsay** (Technical): **[Contact Lindsay](javascript:void(0))**
-• **Robbie** (Operations): **[Contact Robbie](javascript:void(0))**
-• **Spencer** (Strategy): **[Contact Spencer](javascript:void(0))**
+• **Lindsay** (Technical): **[Contact Lindsay - Technical Architecture](javascript:void(0))**
+• **Robbie** (Operations): **[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
+• **Spencer** (Strategy): **[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
 
 **What specific strategic challenges are you considering external expertise for?**`
     }
@@ -443,7 +443,7 @@ ${emailForm.message}
                   type="text"
                   value={emailForm.name}
                   onChange={(e) => handleEmailFormChange('name', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                   required
                 />
               </div>
@@ -454,7 +454,7 @@ ${emailForm.message}
                   type="email"
                   value={emailForm.email}
                   onChange={(e) => handleEmailFormChange('email', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                   required
                 />
               </div>
@@ -465,7 +465,7 @@ ${emailForm.message}
               <select
                 value={emailForm.teamMember}
                 onChange={(e) => handleEmailFormChange('teamMember', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
               >
                 <option value="General Inquiry">General Inquiry</option>
                 <option value="Lindsay - Technical Architecture">Lindsay - Technical Architecture</option>
@@ -480,7 +480,7 @@ ${emailForm.message}
                 value={emailForm.message}
                 onChange={(e) => handleEmailFormChange('message', e.target.value)}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
                 placeholder="Tell us about your challenge or question..."
                 required
               />
