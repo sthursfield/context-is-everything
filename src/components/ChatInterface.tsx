@@ -88,10 +88,17 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
       if (trimmedLine.startsWith('• ')) {
         const bulletContent = trimmedLine.replace(/^• /, '')
         const formattedContent = bulletContent
-          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+          .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+            return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-bold">${linkText}</button>`
+          })
+          // Handle regular contact links: [Contact Name](javascript:void(0))
           .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
             return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
           })
+          // Handle remaining bold text
+          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          // Handle regular external links
           .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
         return (
           <div key={index} className="ml-4 mb-2 leading-relaxed">
@@ -112,10 +119,17 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
 
       if (trimmedLine.length > 0) {
         const formattedText = trimmedLine
-          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+          .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+            return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-bold">${linkText}</button>`
+          })
+          // Handle regular contact links: [Contact Name](javascript:void(0))
           .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
             return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
           })
+          // Handle remaining bold text
+          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          // Handle regular external links
           .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
         return (
           <div key={index} className="mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedText }} />
@@ -374,7 +388,7 @@ ${emailForm.message}
       {/* Main Input Field */}
       <div className="mb-8 relative">
         <form onSubmit={handleInputSubmit}>
-          <div className="relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl" style={{ borderColor: '#D0E9FE', boxShadow: `0 4px 20px #D0E9FE20` }}>
+          <div className="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl" style={{ boxShadow: `0 4px 20px rgba(0,0,0,0.1)` }}>
             <div className="flex items-center px-6 py-4">
               <div className="mr-4">
                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
