@@ -108,7 +108,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
         )
       }
 
-      if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3) {
+      if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3 && !trimmedLine.includes('[') && !trimmedLine.includes('(')) {
         const boldText = trimmedLine.replace(/^\*\*(.+?)\*\*$/, '$1')
         return (
           <div key={index} className="font-semibold text-gray-900 mt-4 mb-2">
