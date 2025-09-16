@@ -33,7 +33,23 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     message: ''
   })
   const [emailSending, setEmailSending] = useState(false)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Smart scrolling to questions, not bottom
+  const scrollToMessage = (messageIndex: number) => {
+    setTimeout(() => {
+      const messageElements = document.querySelectorAll('[data-message-index]')
+      const targetElement = messageElements[messageIndex] as HTMLElement
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
+      }
+    }, 100)
+  }
 
   // Handle clicks on contact links
   useEffect(() => {
@@ -274,8 +290,13 @@ Based on what you're dealing with, which type of challenge resonates most - tech
 Type "contact" to reach out to our team, or ask me anything!`
   }
 
-  const handleSubmit = async (query: string) => {
+  const handleSubmit = async (query: string, isFromThreeFs = false) => {
     if (!query.trim()) return
+
+    // Mark user as having interacted if this is a manual query
+    if (!isFromThreeFs) {
+      setHasUserInteracted(true)
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -283,25 +304,48 @@ Type "contact" to reach out to our team, or ask me anything!`
       content: query.trim()
     }
 
-    setMessages(prev => [...prev, userMessage])
-    setInputValue('')
-    setIsLoading(true)
-
     const demoResponse = getDemoResponse(query.trim())
 
     if (demoResponse === "SHOW_CONTACT_FORM") {
+      setMessages(prev => [...prev, userMessage])
+      setInputValue('')
       setIsLoading(false)
-    } else {
-      setTimeout(() => {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          type: 'assistant',
-          content: demoResponse
-        }
-        setMessages(prev => [...prev, assistantMessage])
-        setIsLoading(false)
-      }, 1000)
+      return
     }
+
+    // Single F conversation: replace previous F answers if user hasn't interacted
+    if (isFromThreeFs && !hasUserInteracted) {
+      // Replace all messages with this F conversation
+      setMessages([userMessage])
+    } else {
+      // Normal conversation flow
+      setMessages(prev => [...prev, userMessage])
+    }
+
+    setInputValue('')
+    setIsLoading(true)
+
+    setTimeout(() => {
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'assistant',
+        content: demoResponse
+      }
+
+      if (isFromThreeFs && !hasUserInteracted) {
+        // Replace previous assistant response
+        setMessages(prev => [...prev, assistantMessage])
+      } else {
+        // Add to conversation
+        setMessages(prev => [...prev, assistantMessage])
+      }
+
+      setIsLoading(false)
+
+      // Smart scrolling: to user's question, not bottom
+      const messageCount = isFromThreeFs && !hasUserInteracted ? 0 : messages.length
+      scrollToMessage(messageCount)
+    }, 1000)
   }
 
   const handleInputSubmit = (e: React.FormEvent) => {
@@ -364,7 +408,7 @@ ${emailForm.message}
     const query = queries[selectedF as keyof typeof queries]
 
     setInputValue(query)
-    handleSubmit(query)
+    handleSubmit(query, true) // Pass isFromThreeFs flag
   }
 
   return (
@@ -511,9 +555,10 @@ ${emailForm.message}
       {messages.length > 0 && (
         <div className="bg-white rounded-2xl shadow-lg p-6 mt-4">
           <div className="space-y-4">
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div
                 key={message.id}
+                data-message-index={index}
                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
