@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -14,20 +14,251 @@ interface ChatInterfaceProps {
   currentColor: string
 }
 
+interface EmailFormData {
+  name: string
+  email: string
+  teamMember: string
+  message: string
+}
+
 export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
+  const [showEmailForm, setShowEmailForm] = useState(false)
+  const [emailForm, setEmailForm] = useState<EmailFormData>({
+    name: '',
+    email: '',
+    teamMember: 'General Inquiry',
+    message: ''
+  })
+  const [emailSending, setEmailSending] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const suggestions = [
-    "Who should I talk to about AI strategy?",
-    "Show me your best case study",
-    "What makes you different?",
-    "Tell me about your team", 
-    "How can you help my business?"
-  ]
+  // Handle clicks on contact links
+  useEffect(() => {
+    const handleContactLinkClick = (e: Event) => {
+      const target = e.target as HTMLElement
+      if (target.classList.contains('contact-link')) {
+        e.preventDefault()
+        const contactType = target.getAttribute('data-contact-type') || ''
+
+        let teamMember = 'General Inquiry'
+        if (contactType.includes('Lindsay') || contactType.includes('Technical')) {
+          teamMember = 'Lindsay - Technical Architecture'
+        } else if (contactType.includes('Robbie') || contactType.includes('Operations')) {
+          teamMember = 'Robbie - Operations & Crisis Management'
+        } else if (contactType.includes('Spencer') || contactType.includes('Strategy')) {
+          teamMember = 'Spencer - AI Strategy & Positioning'
+        }
+
+        setEmailForm(prev => ({ ...prev, teamMember }))
+        setShowEmailForm(true)
+      }
+    }
+
+    document.addEventListener('click', handleContactLinkClick)
+    return () => document.removeEventListener('click', handleContactLinkClick)
+  }, [])
+
+  const formatResponse = (text: string) => {
+    const lines = text.split('\n').filter(line => line.trim())
+
+    return lines.map((line, index) => {
+      const trimmedLine = line.trim()
+
+      if (trimmedLine.startsWith('## ')) {
+        const headerText = trimmedLine.replace(/^## \*\*(.+?)\*\*$/, '$1').replace(/^## /, '')
+        return (
+          <h2 key={index} className="text-lg font-bold text-gray-900 mt-6 mb-3 first:mt-0">
+            {headerText}
+          </h2>
+        )
+      }
+
+      if (trimmedLine.startsWith('### ')) {
+        const headerText = trimmedLine.replace(/^### \*\*(.+?)\*\*.*$/, '$1').replace(/^### /, '')
+        return (
+          <h3 key={index} className="text-md font-semibold text-gray-900 mt-4 mb-2">
+            {headerText}
+          </h3>
+        )
+      }
+
+      if (trimmedLine.startsWith('• ')) {
+        const bulletContent = trimmedLine.replace(/^• /, '')
+        const formattedContent = bulletContent
+          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+            return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
+          })
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
+        return (
+          <div key={index} className="ml-4 mb-2 leading-relaxed">
+            <span className="inline-block w-2 text-gray-600 mr-2">•</span>
+            <span dangerouslySetInnerHTML={{ __html: formattedContent }} />
+          </div>
+        )
+      }
+
+      if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3) {
+        const boldText = trimmedLine.replace(/^\*\*(.+?)\*\*$/, '$1')
+        return (
+          <div key={index} className="font-semibold text-gray-900 mt-4 mb-2">
+            {boldText}
+          </div>
+        )
+      }
+
+      if (trimmedLine.length > 0) {
+        const formattedText = trimmedLine
+          .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+            return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
+          })
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
+        return (
+          <div key={index} className="mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedText }} />
+        )
+      }
+
+      return null
+    }).filter(Boolean)
+  }
+
+  // Demo content with contact triggers
+  const getDemoResponse = (query: string): string => {
+    const lowerQuery = query.toLowerCase()
+
+    // Contact trigger detection
+    if (lowerQuery.includes('contact') || lowerQuery.includes('reach out') || lowerQuery.includes('get in touch') || lowerQuery.includes('email') || lowerQuery.includes('speak with') || lowerQuery.includes('talk to')) {
+      setShowEmailForm(true)
+      return 'SHOW_CONTACT_FORM'
+    }
+
+    if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
+      return `Our foundation is built on three core team members with complementary expertise, each bringing distinct analytical capabilities:
+
+**Lindsay (CTO, he/him)**
+
+Technical architecture and software company building. He's evolved through every layer of tech leadership and now focuses on whatever it takes to build successful software companies. Lindsay is particularly effective because he's lived through every stage of company growth. He's a recognised leader in the Bubble.io no-code community - verified Bubble Ambassador and sits on their Certification Advisory Committee.
+
+Lindsay takes a pragmatic, customer-focused approach. His philosophy is "whatever it takes to build software companies." Clients appreciate that he's been through the full journey himself and focuses on solutions that actually work for businesses.
+
+**[Contact Lindsay - Technical Architecture](javascript:void(0))**
+
+**Robbie (Operations Director, he/him)**
+
+Crisis management and operational transformation with a focus on connecting people when it really matters. He's a highly experienced operational leader known as a calming leader during crisis situations and expert in incident management and operational recovery. Robbie is exceptionally effective because he's managed everything from critical infrastructure to emergency services communications. He's Co-Founder of 'Is Everyone Safe,' a crisis communication platform.
+
+**[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
+
+**Spencer (Strategy Director, he/him)**
+
+AI strategy and brand positioning with cross-sector pattern recognition. He's a strategist with a design background who sees connections others often miss and helps turn complex challenges into clear solutions. Spencer is particularly effective because of his unique combination of design thinking and technical architecture. He's worked across fashion, media, FMCG, sport, and humanitarian sectors.
+
+Spencer takes a cross-sector approach - fascinated by what fashion taught him about fintech, and how media industry insights can unlock humanitarian sector problems. His philosophy: "the real advantage comes from asking the right questions of your unique data."
+
+**[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
+
+**[Contact Us - General Inquiry](javascript:void(0))**
+
+Based on what you're dealing with, which type of challenge resonates most - technical architecture, operational resilience, or strategic positioning?`
+    }
+
+    if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
+      return `Current business intelligence from our cross-sector analysis reveals several counter-intuitive patterns:
+
+## **AI Implementation Reality Gap**
+
+• **The Pattern**: 78% of organisations report AI initiatives, but only 12% see meaningful productivity gains
+• **The Gap**: It's methodological, not technical - successful organisations treat AI as decision support rather than task automation
+• **The Insight**: Productivity opportunity lies in improved decision quality, not reduced task time
+• **Strategic Implication**: Are you seeing similar patterns in your sector?
+
+## **Remote Work Coordination vs Communication**
+
+• **The Finding**: Communication-focused organisations see marginal improvements; coordination-focused see dramatic gains
+• **The Reality**: Remote teams have mastered communication - the challenge is coordination: who should do what when
+• **The Opportunity**: Better workflows matter significantly more than better video calls
+• **Strategic Question**: How are you approaching workflow coordination?
+
+## **Economic Uncertainty Planning**
+
+• **The Pattern**: Most companies build elaborate forecasting models; thriving ones build operational flexibility
+• **Key Insight**: They ask "How quickly can we change direction?" rather than "What direction should we go?"
+• **The Results**: 2.3x faster adaptation to market changes and better positioning for unexpected opportunities
+
+## **Digital Transformation Effectiveness**
+
+• **Process Digitisation**: 8% efficiency gains
+• **Process Elimination First**: 34% efficiency gains
+• **The Mistake**: Most organisations automate inefficient processes instead of questioning why they exist
+• **The Opportunity**: Elimination, not digitisation
+
+**Which of these patterns aligns with challenges you're observing in your sector?**`
+    }
+
+    if (lowerQuery.includes('future') || lowerQuery.includes('work together')) {
+      return `Our collaboration approach is designed around delivering practical strategic value rather than lengthy consulting engagements:
+
+## **Our Three-Phase Methodology**
+
+### **1. Initial Analysis Phase** *(2-3 weeks)*
+• Comprehensive situation analysis using established frameworks
+• Competitive landscape mapping and technical infrastructure assessment
+• Strategic opportunity identification with specific recommendations
+• **Deliverable**: Detailed analysis report with actionable insights
+
+### **2. Strategic Development** *(3-4 weeks)*
+• Targeted strategy development with clear implementation pathways
+• Stakeholder alignment sessions and detailed planning
+• Key initiative roadmapping and resource allocation guidance
+• **Deliverable**: Strategic implementation framework
+
+### **3. Implementation Support** *(Ongoing)*
+• Strategic guidance and troubleshooting during execution
+• Monthly strategic reviews and ad-hoc consultation
+• Complex decision support and course correction
+• **Deliverable**: Continuous advisory relationship
+
+## **What Makes Our Approach Different**
+
+• **Analysis-First Methodology**: Thorough understanding before recommending solutions
+• **Practical Frameworks**: Tools you can use independently after engagement
+• **Technical Credibility**: Deep expertise in AI, data architecture, and enterprise systems
+• **Strategic Focus**: Business outcomes drive technical decisions, not the reverse
+
+## **Team Member Matching**
+
+**Based on your specific challenges, we connect you with relevant expertise:**
+
+• **Lindsay** → Technical architecture and software scaling
+• **Robbie** → Operational resilience and crisis management
+• **Spencer** → Strategic positioning and AI competitive advantage
+
+**Typical Timeline**: 6-12 weeks for strategic development, with ongoing advisory relationship for implementation support.
+
+## **Ready to Start?**
+
+**[Contact Us - General Inquiry](javascript:void(0))**
+
+**Direct Team Contact**:
+• **Lindsay** (Technical): **[Contact Lindsay](javascript:void(0))**
+• **Robbie** (Operations): **[Contact Robbie](javascript:void(0))**
+• **Spencer** (Strategy): **[Contact Spencer](javascript:void(0))**
+
+**What specific strategic challenges are you considering external expertise for?**`
+    }
+
+    return `Hi! I can help you with:
+
+• **Foundation**: Learn about our team and approach
+• **Findings**: Explore our latest business intelligence
+• **Future**: Discover how we might work together
+
+Type "contact" to reach out to our team, or ask me anything!`
+  }
 
   const handleSubmit = async (query: string) => {
     if (!query.trim()) return
@@ -42,176 +273,229 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     setInputValue('')
     setIsLoading(true)
 
-    // Simulate response for now - replace with actual AI integration
-    setTimeout(() => {
-      const responses: Record<string, string> = {
-        'Who should I talk to about AI strategy?': 'Our CTO Sarah Chen leads AI strategy consultations. With 15+ years in scalable architecture and AI integration, she can help you navigate complex technical decisions and build robust AI systems that scale with your business.',
-        'Show me your best case study': 'We recently helped a Fortune 500 company implement contextual AI that adapts responses based on user context, increasing engagement by 340%. The solution combined natural language processing with real-time personalization.',
-        'What makes you different?': 'We believe context is everything. Unlike traditional consultancies, we build AI solutions that adapt and respond to their environment - creating more natural, effective interactions that feel truly intelligent.',
-        'Tell me about your team': 'Our core team brings together expertise in AI/ML, business operations, and strategic marketing. Sarah (CTO) handles technical architecture, Marcus (COO) manages delivery excellence, and Elena (CMO) ensures solutions align with business goals.',
-        'How can you help my business?': 'We specialize in contextual AI implementation - from conversational interfaces to adaptive content systems. We help businesses create AI solutions that understand context, adapt to users, and scale efficiently.'
-      }
+    const demoResponse = getDemoResponse(query.trim())
 
-      const response = responses[query] || 'That\'s an interesting question. Our team would love to discuss your specific needs in more detail. Each business has unique contexts that require tailored AI solutions.'
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: 'assistant',
-        content: response
-      }
-
-      setMessages(prev => [...prev, assistantMessage])
+    if (demoResponse === "SHOW_CONTACT_FORM") {
       setIsLoading(false)
-    }, 1500)
+    } else {
+      setTimeout(() => {
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: demoResponse
+        }
+        setMessages(prev => [...prev, assistantMessage])
+        setIsLoading(false)
+      }, 1000)
+    }
   }
 
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (inputValue.trim()) {
       handleSubmit(inputValue)
-      setShowSuggestions(false)
     }
   }
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion)
-    setShowSuggestions(false)
-    handleSubmit(suggestion)
+  const handleEmailFormChange = (field: keyof EmailFormData, value: string) => {
+    setEmailForm(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleInputFocus = () => {
-    setIsFocused(true)
-    if (!inputValue.trim() && messages.length === 0) {
-      setShowSuggestions(true)
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setEmailSending(true)
+
+    const contactMessage: Message = {
+      id: Date.now().toString(),
+      type: 'assistant',
+      content: `📧 **Your message is ready to send**
+
+Here's your formatted message. Copy this and send it to spencer@point35.com:
+
+---
+
+**Subject:** ${emailForm.teamMember} - Message from ${emailForm.name}
+
+**Message:**
+Name: ${emailForm.name}
+Email: ${emailForm.email}
+Team Member: ${emailForm.teamMember}
+
+Message:
+${emailForm.message}
+
+---
+
+*Simply copy the text above and paste it into a new email to spencer@point35.com. You should receive a response within 24 hours.*`
     }
+
+    setMessages(prev => [...prev, contactMessage])
+    setEmailForm({ name: '', email: '', teamMember: 'General Inquiry', message: '' })
+    setShowEmailForm(false)
+    setEmailSending(false)
   }
 
-  const handleInputBlur = () => {
-    setIsFocused(false)
-    // Delay hiding suggestions to allow clicking
-    setTimeout(() => setShowSuggestions(false), 150)
-  }
+  const threeFs = [
+    { id: 'foundation', label: 'Foundation', description: 'Our team & approach' },
+    { id: 'findings', label: 'Findings', description: 'Latest business insights' },
+    { id: 'future', label: 'Future', description: 'How we work together' }
+  ]
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    if (e.target.value.trim()) {
-      setShowSuggestions(false)
-    } else if (isFocused && messages.length === 0) {
-      setShowSuggestions(true)
+  const handleThreeFsClick = (selectedF: string) => {
+    const queries = {
+      foundation: "Tell me about your Foundation - your team and approach",
+      findings: "Share your latest Findings and business insights",
+      future: "How might we work together in the Future?"
     }
+    const query = queries[selectedF as keyof typeof queries]
+
+    setInputValue(query)
+    handleSubmit(query)
   }
 
   return (
     <div className="w-full max-w-4xl mx-auto relative" style={{ zIndex: 10 }}>
+      {/* 3 F's Navigation - Above Chat Input */}
+      <div className="mb-4">
+        <div className="flex gap-2 justify-center">
+          {threeFs.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => handleThreeFsClick(f.id)}
+              className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
+            >
+              <span className="font-medium">{f.label}</span>
+              <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Main Input Field */}
       <div className="mb-8 relative">
         <form onSubmit={handleInputSubmit}>
-          <div 
-            className="relative bg-white rounded-full shadow-lg border-2 transition-all duration-300 hover:shadow-xl"
-            style={{ 
-              borderColor: currentColor,
-              boxShadow: `0 4px 20px ${currentColor}20`
-            }}
-          >
+          <div className="relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl" style={{ borderColor: '#D0E9FE', boxShadow: `0 4px 20px #D0E9FE20` }}>
             <div className="flex items-center px-6 py-4">
               <div className="mr-4">
-                <svg 
-                  className="w-6 h-6 text-gray-400" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" 
-                  />
+                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
-              
+
               <Input
                 value={inputValue}
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                placeholder="Ask me anything about Context is Everything..."
-                className="flex-1 border-0 bg-transparent text-lg py-0 px-0 focus:ring-0 focus:outline-none placeholder:text-gray-400"
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Ask about our team..."
+                className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                 disabled={isLoading}
               />
 
-              {inputValue.trim() && (
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200"
-                  style={{ 
-                    background: currentColor,
-                    color: 'white'
-                  }}
-                >
-                  {isLoading ? (
-                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                  ) : (
-                    <svg 
-                      className="w-4 h-4" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" 
-                      />
-                    </svg>
-                  )}
-                </Button>
-              )}
+              <Button
+                type="submit"
+                disabled={isLoading || !inputValue.trim()}
+                className="ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95"
+                style={{
+                  background: inputValue.trim() ? '#BC302C' : '#e5e7eb',
+                  color: inputValue.trim() ? 'white' : '#9ca3af',
+                  opacity: inputValue.trim() ? 1 : 0.6
+                }}
+              >
+                {isLoading ? (
+                  <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                ) : (
+                  <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                )}
+              </Button>
             </div>
           </div>
         </form>
-
-        {/* Google-style Suggestions Dropdown */}
-        {showSuggestions && (
-          <div 
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border z-50 overflow-hidden"
-            style={{ 
-              borderColor: currentColor + '20',
-              boxShadow: `0 8px 32px ${currentColor}15`
-            }}
-          >
-            {suggestions.map((suggestion, index) => (
-              <button
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="w-full px-6 py-3 text-left hover:bg-gray-50 transition-colors duration-150 flex items-center gap-4 border-b border-gray-100 last:border-b-0"
-              >
-                <svg 
-                  className="w-4 h-4 text-gray-400 flex-shrink-0" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                  />
-                </svg>
-                <span className="text-gray-700 text-sm">{suggestion}</span>
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
+      {/* Email Contact Form */}
+      {showEmailForm && (
+        <div className="bg-white rounded-2xl shadow-lg p-6 mt-4 border-2 border-blue-200">
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Contact Our Team</h3>
+            <p className="text-sm text-gray-600">Send us a message and we&apos;ll get back to you within 24 hours.</p>
+          </div>
+
+          <form onSubmit={handleEmailSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                <input
+                  type="text"
+                  value={emailForm.name}
+                  onChange={(e) => handleEmailFormChange('name', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                <input
+                  type="email"
+                  value={emailForm.email}
+                  onChange={(e) => handleEmailFormChange('email', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Who would you like to reach?</label>
+              <select
+                value={emailForm.teamMember}
+                onChange={(e) => handleEmailFormChange('teamMember', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Lindsay - Technical Architecture">Lindsay - Technical Architecture</option>
+                <option value="Robbie - Operations & Crisis Management">Robbie - Operations & Crisis Management</option>
+                <option value="Spencer - AI Strategy & Positioning">Spencer - AI Strategy & Positioning</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea
+                value={emailForm.message}
+                onChange={(e) => handleEmailFormChange('message', e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                placeholder="Tell us about your challenge or question..."
+                required
+              />
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={emailSending}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {emailSending ? 'Preparing...' : 'Prepare Message'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowEmailForm(false)}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Messages */}
       {messages.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 max-h-96 overflow-y-auto">
+        <div className="bg-white rounded-2xl shadow-lg p-6 mt-4">
           <div className="space-y-4">
             {messages.map((message) => (
               <div
@@ -229,38 +513,28 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
                   }}
                 >
                   <div className="text-sm leading-relaxed">
-                    {message.content}
+                    {message.type === 'assistant' ? (
+                      <div>{formatResponse(message.content)}</div>
+                    ) : (
+                      message.content
+                    )}
                   </div>
                 </div>
               </div>
             ))}
-            
+
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 p-4 rounded-2xl">
                   <div className="flex space-x-1">
-                    <div 
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ backgroundColor: currentColor }}
-                    />
-                    <div 
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ 
-                        backgroundColor: currentColor,
-                        animationDelay: '0.2s'
-                      }}
-                    />
-                    <div 
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ 
-                        backgroundColor: currentColor,
-                        animationDelay: '0.4s'
-                      }}
-                    />
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor }} />
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.2s' }} />
+                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.4s' }} />
                   </div>
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
         </div>
       )}

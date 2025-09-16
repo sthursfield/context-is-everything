@@ -4,7 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Version History
 
-### V4 (Current) - Mobile Perfection + Dark Elegance ✨
+### V6 (Current) - Professional Chat Experience + Smart Conversation Flow ✨
+**Key Achievements:**
+- **Single Active F Conversation**: Clicking different F buttons replaces previous F answer until user interaction
+- **Natural Chat Anchoring**: Claude/ChatGPT-style scrolling to questions with natural reading flow
+- **Professional Markdown Rendering**: Proper headers (##/###), bullet points (•), and bold formatting
+- **Perfect Logo Centering**: Cropped PNG eliminates whitespace offset issues
+- **Desktop Background Scroll**: Can scroll back to logo while maintaining chat functionality
+- **Mobile Scroll Freedom**: Manual scrolling works perfectly after answers are given
+
+**Technical Breakthroughs:**
+- Smart conversation state management with `hasUserInteracted` tracking
+- Proper markdown parser in `formatResponse` function handling all formatting elements
+- Logo cropped from 1200x1200px to 923x266px for perfect centering
+- Hybrid layout: fixed mountain background + scrollable content overlay
+- Chat anchor system scrolling to questions (`block: 'start'`) not bottom
+
+**User Experience Excellence:**
+- **Exploration Mode**: Single F conversation until user engages (clean, focused)
+- **Engagement Mode**: Full conversation history preserved after user interaction
+- **Professional Formatting**: Business-grade presentation with proper typography hierarchy
+- **Cross-Platform Consistency**: Identical sophisticated experience on all devices
+
+### V4 - Mobile Perfection + Dark Elegance ✨
 **Key Achievements:**
 - **Background Color**: Sophisticated dark brown (#372528) for elegant, warm aesthetic
 - **Mobile Viewport**: Perfect full-screen animated contours on all devices (resolved viewport constraints with direct JS positioning)
