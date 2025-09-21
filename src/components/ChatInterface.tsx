@@ -156,8 +156,31 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     }).filter(Boolean)
   }
 
-  // Demo content with contact triggers
-  const getDemoResponse = (query: string): string => {
+  // AI API integration with fallback to curated responses
+  const getApiResponse = async (query: string): Promise<string> => {
+    try {
+      const response = await fetch('/api/ai-consultant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query })
+      })
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`)
+      }
+
+      const data = await response.json()
+      return data.answer
+    } catch (error) {
+      console.error('API error, falling back to curated response:', error)
+      return getFallbackResponse(query)
+    }
+  }
+
+  // Fallback responses for common queries when API fails
+  const getFallbackResponse = (query: string): string => {
     const lowerQuery = query.toLowerCase()
 
     // Contact trigger detection
@@ -290,9 +313,9 @@ Our approach focuses on why solutions succeed in one organisation but fail in an
       content: query.trim()
     }
 
-    const demoResponse = getDemoResponse(query.trim())
+    const apiResponse = await getApiResponse(query.trim())
 
-    if (demoResponse === "SHOW_CONTACT_FORM") {
+    if (apiResponse === "SHOW_CONTACT_FORM") {
       setMessages(prev => [...prev, userMessage])
       setInputValue('')
       setIsLoading(false)
@@ -311,27 +334,26 @@ Our approach focuses on why solutions succeed in one organisation but fail in an
     setInputValue('')
     setIsLoading(true)
 
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: 'assistant',
-        content: demoResponse
-      }
+    // Create assistant response immediately since API call is already complete
+    const assistantMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      type: 'assistant',
+      content: apiResponse
+    }
 
-      if (isFromThreeFs && !hasUserInteracted) {
-        // Replace previous assistant response
-        setMessages(prev => [...prev, assistantMessage])
-      } else {
-        // Add to conversation
-        setMessages(prev => [...prev, assistantMessage])
-      }
+    if (isFromThreeFs && !hasUserInteracted) {
+      // Replace previous assistant response
+      setMessages(prev => [...prev, assistantMessage])
+    } else {
+      // Add to conversation
+      setMessages(prev => [...prev, assistantMessage])
+    }
 
-      setIsLoading(false)
+    setIsLoading(false)
 
-      // Smart scrolling: to user's question, not bottom
-      const messageCount = isFromThreeFs && !hasUserInteracted ? 0 : messages.length
-      scrollToMessage(messageCount)
-    }, 1000)
+    // Smart scrolling: to user's question, not bottom
+    const messageCount = isFromThreeFs && !hasUserInteracted ? 0 : messages.length
+    scrollToMessage(messageCount)
   }
 
   const handleInputSubmit = (e: React.FormEvent) => {
