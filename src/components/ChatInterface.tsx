@@ -167,33 +167,19 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     }
 
     if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
-      return `Our foundation is built on three core team members with complementary expertise, each bringing distinct analytical capabilities:
+      return `We're Lindsay, Robbie, and Spencer. Lindsay handles technical complexity that most companies underestimate. Robbie manages operational reality where theory meets practice. Spencer provides strategic positioning based on cross-sector patterns.
 
-**Lindsay (CTO, he/him)**
-
-Technical architecture and software company building. He's evolved through every layer of tech leadership and now focuses on whatever it takes to build successful software companies. Lindsay is particularly effective because he's lived through every stage of company growth. He's a recognised leader in the Bubble.io no-code community - verified Bubble Ambassador and sits on their Certification Advisory Committee.
-
-Lindsay takes a pragmatic, customer-focused approach. His philosophy is "whatever it takes to build software companies." Clients appreciate that he's been through the full journey himself and focuses on solutions that actually work for businesses.
+Our approach focuses on why solutions succeed in one organisation but fail in another - it's rarely about the methodology itself.
 
 **[Contact Lindsay - Technical Architecture](javascript:void(0))**
 
-**Robbie (Operations Director, he/him)**
-
-Crisis management and operational transformation with a focus on connecting people when it really matters. He's a highly experienced operational leader known as a calming leader during crisis situations and expert in incident management and operational recovery. Robbie is exceptionally effective because he's managed everything from critical infrastructure to emergency services communications. He's Co-Founder of 'Is Everyone Safe,' a crisis communication platform.
-
 **[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
-
-**Spencer (Strategy Director, he/him)**
-
-AI strategy and brand positioning with cross-sector pattern recognition. He's a strategist with a design background who sees connections others often miss and helps turn complex challenges into clear solutions. Spencer is particularly effective because of his unique combination of design thinking and technical architecture. He's worked across fashion, media, FMCG, sport, and humanitarian sectors.
-
-Spencer takes a cross-sector approach - fascinated by what fashion taught him about fintech, and how media industry insights can unlock humanitarian sector problems. His philosophy: "the real advantage comes from asking the right questions of your unique data."
 
 **[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
 
 **[Contact Us - General Inquiry](javascript:void(0))**
 
-Based on what you're dealing with, which type of challenge resonates most - technical architecture, operational resilience, or strategic positioning?`
+**What's the specific challenge you're trying to solve?**`
     }
 
     if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
@@ -281,13 +267,13 @@ Based on what you're dealing with, which type of challenge resonates most - tech
 **What specific strategic challenges are you considering external expertise for?**`
     }
 
-    return `Hi! I can help you with:
+    return `Most solutions work brilliantly in one context but fail when context shifts. Implementation success depends more on organisational dynamics than methodology selection.
 
-• **Foundation**: Learn about our team and approach
-• **Findings**: Explore our latest business intelligence
-• **Future**: Discover how we might work together
+**What brings you here today?**
 
-Type "contact" to reach out to our team, or ask me anything!`
+• **Foundation**: Strategic approach & team expertise
+• **Findings**: Cross-sector intelligence & counter-intuitive patterns
+• **Future**: Strategic collaboration framework`
   }
 
   const handleSubmit = async (query: string, isFromThreeFs = false) => {
