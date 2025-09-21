@@ -43,16 +43,31 @@ export default function ContactForm() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
-    
+
     try {
-      // Simulate API call - replace with actual endpoint
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      console.log('Form data:', data)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          teamMember: data.subject,
+          message: data.message,
+          company: data.company
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
       setIsSubmitted(true)
       form.reset()
     } catch (error) {
       console.error('Error submitting form:', error)
+      // Could add error state here if needed
     } finally {
       setIsSubmitting(false)
     }

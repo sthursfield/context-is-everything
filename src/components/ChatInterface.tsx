@@ -34,6 +34,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   })
   const [emailSending, setEmailSending] = useState(false)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
+  const [emailSuccess, setEmailSuccess] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Smart scrolling to questions, not bottom
@@ -310,33 +311,58 @@ Most valuable conversations happen when you're evaluating options that have work
     e.preventDefault()
     setEmailSending(true)
 
-    const contactMessage: Message = {
-      id: Date.now().toString(),
-      type: 'assistant',
-      content: `📧 **Your message is ready to send**
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: emailForm.name,
+          email: emailForm.email,
+          teamMember: emailForm.teamMember,
+          message: emailForm.message
+        })
+      })
 
-Here's your formatted message. Copy this and send it to spencer@point35.com:
+      const result = await response.json()
 
----
+      if (response.ok) {
+        // Show success message below chat input instead of in conversation
+        setEmailSuccess(`✅ **Message sent successfully!**
 
-**Subject:** ${emailForm.teamMember} - Message from ${emailForm.name}
+Thank you ${emailForm.name}, your message has been sent to our team.
 
-**Message:**
-Name: ${emailForm.name}
-Email: ${emailForm.email}
-Team Member: ${emailForm.teamMember}
+**What happens next:**
+• You'll receive a confirmation email shortly
+• We'll respond within 24 hours
+• ${emailForm.teamMember === 'General Inquiry' ? 'Our team will review your inquiry and connect you with the right person' : `${emailForm.teamMember.split(' - ')[0]} will personally respond to your message`}
 
-Message:
-${emailForm.message}
+We appreciate you reaching out and look forward to connecting with you.`)
 
----
+        // Clear conversation and form
+        setMessages([])
+        setEmailForm({ name: '', email: '', teamMember: 'General Inquiry', message: '' })
+        setShowEmailForm(false)
+        setHasUserInteracted(false)
+      } else {
+        throw new Error(result.error || 'Failed to send message')
+      }
+    } catch (error) {
+      console.error('Email sending error:', error)
 
-*Simply copy the text above and paste it into a new email to spencer@point35.com. You should receive a response within 24 hours.*`
+      // Show error message below chat input instead of in conversation
+      setEmailSuccess(`❌ **Unable to send message**
+
+We're experiencing technical difficulties with our contact form. Please try one of these alternatives:
+
+• Email us directly: **spencer@point35.com**
+• Try again in a few minutes
+• Use the subject line: "${emailForm.teamMember} - Message from ${emailForm.name}"
+
+We apologize for the inconvenience and appreciate your patience.`)
     }
 
-    setMessages(prev => [...prev, contactMessage])
-    setEmailForm({ name: '', email: '', teamMember: 'General Inquiry', message: '' })
-    setShowEmailForm(false)
     setEmailSending(false)
   }
 
@@ -418,6 +444,26 @@ ${emailForm.message}
         </form>
       </div>
 
+      {/* Email Success/Error Message */}
+      {emailSuccess && (
+        <div className="mb-4">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4" style={{ borderLeftColor: emailSuccess.includes('✅') ? '#10B981' : '#EF4444' }}>
+            <div className="text-sm leading-relaxed text-gray-800">
+              {formatResponse(emailSuccess)}
+            </div>
+            <button
+              onClick={() => setEmailSuccess(null)}
+              className="mt-4 px-4 py-2 text-sm rounded-lg transition-colors duration-200"
+              style={{ backgroundColor: '#F3F4F6', color: '#6B7280' }}
+              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#E5E7EB'}
+              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F3F4F6'}
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Email Contact Form */}
       {showEmailForm && (
         <div className="bg-white rounded-2xl shadow-lg p-6 mt-4 border-2 border-blue-200">
@@ -481,9 +527,12 @@ ${emailForm.message}
               <button
                 type="submit"
                 disabled={emailSending}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{backgroundColor: '#A62F03'}}
+                onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F28322'}
+                onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#A62F03'}
               >
-                {emailSending ? 'Preparing...' : 'Prepare Message'}
+                {emailSending ? 'Sending...' : 'Send Message'}
               </button>
 
               <button
