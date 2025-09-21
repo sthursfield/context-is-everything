@@ -96,29 +96,38 @@ Foundation Button:
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
-<div style=\"display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; justify-content: center;\">
-  <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <img src=\"/uploads/robbie-macintosh-headshot.jpg\" alt=\"Robbie MacIntosh\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">R</div>
-    <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Robbie MacIntosh</h4>
-    <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Strategic Implementation</p>
-    <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">15+ years scaling technology solutions. Focuses on implementation dynamics that determine success rates.</p>
+<div style=\"display: flex; flex-direction: column; gap: 16px; margin: 20px 0;\">
+  <div style=\"display: flex; align-items: center; padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px; background: white; gap: 16px;\">
+    <img src=\"/uploads/robbie-macintosh-headshot.jpg\" alt=\"Robbie MacIntosh\" style=\"width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid #e0e0e0; flex-shrink: 0;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 80px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; border: 2px solid #e0e0e0; flex-shrink: 0;\">R</div>
+    <div style=\"flex: 1;\">
+      <h4 style=\"margin: 0 0 4px 0; color: #333; font-size: 18px;\">Robbie MacIntosh</h4>
+      <p style=\"margin: 0 0 8px 0; font-weight: bold; color: #666; font-size: 14px;\">Strategic Implementation</p>
+      <p style=\"margin: 0 0 8px 0; font-size: 14px; line-height: 1.4; color: #555;\">15+ years scaling technology solutions. Focuses on implementation dynamics that determine success rates.</p>
+      <p style=\"margin: 0; font-size: 14px;\"><strong><a href=\"javascript:void(0)\" onclick=\"window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Strategic Implementation'}, '*')\" style=\"color: #0066cc; text-decoration: none;\">Contact Robbie →</a></strong></p>
+    </div>
   </div>
 
-  <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <img src=\"/uploads/lindsay-headshot.jpg\" alt=\"Lindsay\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">L</div>
-    <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Lindsay</h4>
-    <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Technical Architecture</p>
-    <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">Expert in system integration and technical feasibility analysis for complex organisational requirements.</p>
+  <div style=\"display: flex; align-items: center; padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px; background: white; gap: 16px;\">
+    <img src=\"/uploads/lindsay-headshot.jpg\" alt=\"Lindsay\" style=\"width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid #e0e0e0; flex-shrink: 0;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 80px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; border: 2px solid #e0e0e0; flex-shrink: 0;\">L</div>
+    <div style=\"flex: 1;\">
+      <h4 style=\"margin: 0 0 4px 0; color: #333; font-size: 18px;\">Lindsay</h4>
+      <p style=\"margin: 0 0 8px 0; font-weight: bold; color: #666; font-size: 14px;\">Technical Architecture</p>
+      <p style=\"margin: 0 0 8px 0; font-size: 14px; line-height: 1.4; color: #555;\">Expert in system integration and technical feasibility analysis for complex organisational requirements.</p>
+      <p style=\"margin: 0; font-size: 14px;\"><strong><a href=\"javascript:void(0)\" onclick=\"window.parent.postMessage({type:'contact', member:'Lindsay - Technical Architecture'}, '*')\" style=\"color: #0066cc; text-decoration: none;\">Contact Lindsay →</a></strong></p>
+    </div>
   </div>
 
-  <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <img src=\"/uploads/spencer-headshot.jpg\" alt=\"Spencer\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">S</div>
-    <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Spencer</h4>
-    <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Business Analysis</p>
-    <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">Specialises in organisational dynamics and strategic business transformation initiatives.</p>
+  <div style=\"display: flex; align-items: center; padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px; background: white; gap: 16px;\">
+    <img src=\"/uploads/spencer-headshot.jpg\" alt=\"Spencer\" style=\"width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 2px solid #e0e0e0; flex-shrink: 0;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 80px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; border: 2px solid #e0e0e0; flex-shrink: 0;\">S</div>
+    <div style=\"flex: 1;\">
+      <h4 style=\"margin: 0 0 4px 0; color: #333; font-size: 18px;\">Spencer</h4>
+      <p style=\"margin: 0 0 8px 0; font-weight: bold; color: #666; font-size: 14px;\">Business Analysis</p>
+      <p style=\"margin: 0 0 8px 0; font-size: 14px; line-height: 1.4; color: #555;\">Specialises in organisational dynamics and strategic business transformation initiatives.</p>
+      <p style=\"margin: 0; font-size: 14px;\"><strong><a href=\"javascript:void(0)\" onclick=\"window.parent.postMessage({type:'contact', member:'Spencer - Business Analysis'}, '*')\" style=\"color: #0066cc; text-decoration: none;\">Contact Spencer →</a></strong></p>
+    </div>
   </div>
 </div>
 
@@ -129,7 +138,6 @@ Our approach centres on three core team members, each bringing distinct expertis
     <li><strong>Proven Track Record:</strong> Collective experience across diverse organisational transformations</li>
     <li><strong>Analytical Approach:</strong> We analyse implementation dynamics before proposing solutions</li>
   </ul>
-  <p style=\"margin: 10px 0 0 0; color: #555;\">The combination ensures you get both strategic direction and practical execution capability.</p>
 </div>
 
 What's the specific challenge you're trying to solve?"
