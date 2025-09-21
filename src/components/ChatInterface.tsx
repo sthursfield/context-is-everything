@@ -127,7 +127,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3 && !trimmedLine.includes('[Contact')) {
         const boldText = trimmedLine.replace(/^\*\*(.+?)\*\*$/, '$1')
         return (
-          <div key={index} className="font-bold text-gray-900 mt-6 mb-4 text-lg border-l-4 border-orange-500 pl-4 bg-orange-50 py-2 rounded-r">
+          <div key={index} className="font-bold text-gray-900 mt-4 mb-2">
             {boldText}
           </div>
         )
