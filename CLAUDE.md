@@ -4,7 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Version History
 
-### V6.6 (Current) - Refined AI Concierge + Professional Conversation Patterns ✨
+### V6.7 (Current) - Enhanced Foundation Response with Team Profile Cards ✨
+**Key Achievements:**
+- **Visual Team Profiles**: Professional team cards in Foundation response with gradient avatars and expertise descriptions
+- **Enhanced Foundation Response**: Complete team expertise showcase with "Why This Foundation Works" section
+- **Consistent Implementation**: Updated both ChatInterface fallback and AI API responses identically
+- **Professional Layout**: Responsive flexbox design with UK spelling and proper typography hierarchy
+- **Ready for Headshots**: Gradient placeholder avatars ready to be replaced with actual professional photos
+
+**Technical Implementation:**
+- Robbie MacIntosh (Strategic Implementation): Purple gradient avatar with 15+ years experience focus
+- Lindsay (Technical Architecture): Pink gradient avatar with system integration expertise
+- Spencer (Business Analysis): Blue gradient avatar specialising in organisational dynamics
+- Enhanced HTML styling with inline CSS for maximum compatibility
+- Proven track record section highlighting collective transformation experience
+
+**Status**: ✅ COMPLETE - Professional team profiles integrated into Foundation response
+
+### V6.6 - Refined AI Concierge + Professional Conversation Patterns ✨
 **Key Achievements:**
 - **Cleaned System Prompt**: Removed uncited statistics and stage directions for truthful, professional responses
 - **Simplified Visitor Questions**: "What's working elsewhere that you're considering for your situation?" for Findings button
