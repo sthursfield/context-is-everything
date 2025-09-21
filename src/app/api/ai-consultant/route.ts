@@ -98,21 +98,24 @@ Our approach centres on three core team members, each bringing distinct expertis
 
 <div style=\"display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; justify-content: center;\">
   <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">R</div>
+    <img src=\"/uploads/robbie-macintosh-headshot.jpg\" alt=\"Robbie MacIntosh\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">R</div>
     <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Robbie MacIntosh</h4>
     <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Strategic Implementation</p>
     <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">15+ years scaling technology solutions. Focuses on implementation dynamics that determine success rates.</p>
   </div>
 
   <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">L</div>
+    <img src=\"/uploads/lindsay-headshot.jpg\" alt=\"Lindsay\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">L</div>
     <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Lindsay</h4>
     <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Technical Architecture</p>
     <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">Expert in system integration and technical feasibility analysis for complex organisational requirements.</p>
   </div>
 
   <div style=\"text-align: center; flex: 1; min-width: 200px; max-width: 250px;\">
-    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">S</div>
+    <img src=\"/uploads/spencer-headshot.jpg\" alt=\"Spencer\" style=\"width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #e0e0e0; display: block;\" onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\" />
+    <div style=\"width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin: 0 auto 10px; display: none; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;\">S</div>
     <h4 style=\"margin: 10px 0 5px 0; color: #333;\">Spencer</h4>
     <p style=\"font-weight: bold; color: #666; margin: 5px 0 10px 0;\">Business Analysis</p>
     <p style=\"font-size: 14px; line-height: 1.4; color: #555;\">Specialises in organisational dynamics and strategic business transformation initiatives.</p>
