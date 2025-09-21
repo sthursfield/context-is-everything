@@ -195,37 +195,21 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
 
 Our approach focuses on why solutions succeed in one organisation but fail in another - it's rarely about the methodology itself.
 
-**[Contact Lindsay - Technical Architecture](javascript:void(0))**
-
-**[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
-
-**[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
-
-**[Contact Us - General Inquiry](javascript:void(0))**
-
 **What's the specific challenge you're trying to solve?**`
     }
 
     if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
-      return `Our analysis shows 67% success rates when solutions account for organisational context vs 23% for generic methodology application. Most failures happen when companies apply best practices without contextual adaptation.
+      return `Most failures happen when companies apply best practices without contextual adaptation. Solutions that work brilliantly elsewhere often create bottlenecks when context shifts.
 
-Cross-sector insights reveal implementation patterns that single-industry experience misses.
+Cross-sector insights reveal implementation approaches that single-industry experience misses.
 
-**Which patterns would be most relevant to your current challenges?**`
+**What's working elsewhere that you're considering for your situation?**`
     }
 
     if (lowerQuery.includes('future') || lowerQuery.includes('work together')) {
       return `Strategic collaboration works when it addresses your specific organisational context rather than applying generic frameworks. We help identify where proven approaches need adaptation for your situation.
 
 Most valuable conversations happen when you're evaluating options that have worked elsewhere but need contextual adjustment for your organisation.
-
-**[Contact Lindsay - Technical Architecture](javascript:void(0))**
-
-**[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
-
-**[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
-
-**[Contact Us - General Inquiry](javascript:void(0))**
 
 **Interested in a strategic discussion about your specific situation?**`
     }
