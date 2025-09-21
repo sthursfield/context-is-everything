@@ -191,9 +191,42 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     }
 
     if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
-      return `We're Lindsay, Robbie, and Spencer. Lindsay handles technical complexity that most companies underestimate. Robbie manages operational reality where theory meets practice. Spencer provides strategic positioning based on cross-sector patterns.
+      return `**Foundation: Strategic Approach & Team Expertise**
 
-Our approach focuses on why solutions succeed in one organisation but fail in another - it's rarely about the methodology itself.
+Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
+
+<div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; justify-content: center;">
+  <div style="text-align: center; flex: 1; min-width: 200px; max-width: 250px;">
+    <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;">R</div>
+    <h4 style="margin: 10px 0 5px 0; color: #333;">Robbie MacIntosh</h4>
+    <p style="font-weight: bold; color: #666; margin: 5px 0 10px 0;">Strategic Implementation</p>
+    <p style="font-size: 14px; line-height: 1.4; color: #555;">15+ years scaling technology solutions. Focuses on implementation dynamics that determine success rates.</p>
+  </div>
+
+  <div style="text-align: center; flex: 1; min-width: 200px; max-width: 250px;">
+    <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;">L</div>
+    <h4 style="margin: 10px 0 5px 0; color: #333;">Lindsay</h4>
+    <p style="font-weight: bold; color: #666; margin: 5px 0 10px 0;">Technical Architecture</p>
+    <p style="font-size: 14px; line-height: 1.4; color: #555;">Expert in system integration and technical feasibility analysis for complex organisational requirements.</p>
+  </div>
+
+  <div style="text-align: center; flex: 1; min-width: 200px; max-width: 250px;">
+    <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold; border: 3px solid #e0e0e0;">S</div>
+    <h4 style="margin: 10px 0 5px 0; color: #333;">Spencer</h4>
+    <p style="font-weight: bold; color: #666; margin: 5px 0 10px 0;">Business Analysis</p>
+    <p style="font-size: 14px; line-height: 1.4; color: #555;">Specialises in organisational dynamics and strategic business transformation initiatives.</p>
+  </div>
+</div>
+
+<div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
+  <p style="margin: 0; font-weight: bold; color: #333;">Why This Foundation Works:</p>
+  <ul style="margin: 10px 0 0 20px; color: #555;">
+    <li><strong>Complementary Expertise:</strong> Technical capability + strategic insight + implementation experience</li>
+    <li><strong>Proven Track Record:</strong> Collective experience across diverse organisational transformations</li>
+    <li><strong>Analytical Approach:</strong> We analyse implementation dynamics before proposing solutions</li>
+  </ul>
+  <p style="margin: 10px 0 0 0; color: #555;">The combination ensures you get both strategic direction and practical execution capability.</p>
+</div>
 
 **What's the specific challenge you're trying to solve?**`
     }
