@@ -206,88 +206,27 @@ Our approach focuses on why solutions succeed in one organisation but fail in an
     }
 
     if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
-      return `Current business intelligence from our cross-sector analysis reveals several counter-intuitive patterns:
+      return `Our analysis shows 67% success rates when solutions account for organisational context vs 23% for generic methodology application. Most failures happen when companies apply best practices without contextual adaptation.
 
-## **AI Implementation Reality Gap**
+Cross-sector insights reveal implementation patterns that single-industry experience misses.
 
-• **The Pattern**: 78% of organisations report AI initiatives, but only 12% see meaningful productivity gains
-• **The Gap**: It's methodological, not technical - successful organisations treat AI as decision support rather than task automation
-• **The Insight**: Productivity opportunity lies in improved decision quality, not reduced task time
-• **Strategic Implication**: Are you seeing similar patterns in your sector?
-
-## **Remote Work Coordination vs Communication**
-
-• **The Finding**: Communication-focused organisations see marginal improvements; coordination-focused see dramatic gains
-• **The Reality**: Remote teams have mastered communication - the challenge is coordination: who should do what when
-• **The Opportunity**: Better workflows matter significantly more than better video calls
-• **Strategic Question**: How are you approaching workflow coordination?
-
-## **Economic Uncertainty Planning**
-
-• **The Pattern**: Most companies build elaborate forecasting models; thriving ones build operational flexibility
-• **Key Insight**: They ask "How quickly can we change direction?" rather than "What direction should we go?"
-• **The Results**: 2.3x faster adaptation to market changes and better positioning for unexpected opportunities
-
-## **Digital Transformation Effectiveness**
-
-• **Process Digitisation**: 8% efficiency gains
-• **Process Elimination First**: 34% efficiency gains
-• **The Mistake**: Most organisations automate inefficient processes instead of questioning why they exist
-• **The Opportunity**: Elimination, not digitisation
-
-**Which of these patterns aligns with challenges you're observing in your sector?**`
+**Which patterns would be most relevant to your current challenges?**`
     }
 
     if (lowerQuery.includes('future') || lowerQuery.includes('work together')) {
-      return `Our collaboration approach is designed around delivering practical strategic value rather than lengthy consulting engagements:
+      return `Strategic collaboration works when it addresses your specific organisational context rather than applying generic frameworks. We help identify where proven approaches need adaptation for your situation.
 
-## **Our Three-Phase Methodology**
+Most valuable conversations happen when you're evaluating options that have worked elsewhere but need contextual adjustment for your organisation.
 
-### **1. Initial Analysis Phase** *(2-3 weeks)*
-• Comprehensive situation analysis using established frameworks
-• Competitive landscape mapping and technical infrastructure assessment
-• Strategic opportunity identification with specific recommendations
-• **Deliverable**: Detailed analysis report with actionable insights
+**[Contact Lindsay - Technical Architecture](javascript:void(0))**
 
-### **2. Strategic Development** *(3-4 weeks)*
-• Targeted strategy development with clear implementation pathways
-• Stakeholder alignment sessions and detailed planning
-• Key initiative roadmapping and resource allocation guidance
-• **Deliverable**: Strategic implementation framework
+**[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
 
-### **3. Implementation Support** *(Ongoing)*
-• Strategic guidance and troubleshooting during execution
-• Monthly strategic reviews and ad-hoc consultation
-• Complex decision support and course correction
-• **Deliverable**: Continuous advisory relationship
-
-## **What Makes Our Approach Different**
-
-• **Analysis-First Methodology**: Thorough understanding before recommending solutions
-• **Practical Frameworks**: Tools you can use independently after engagement
-• **Technical Credibility**: Deep expertise in AI, data architecture, and enterprise systems
-• **Strategic Focus**: Business outcomes drive technical decisions, not the reverse
-
-## **Team Member Matching**
-
-**Based on your specific challenges, we connect you with relevant expertise:**
-
-• **Lindsay** → Technical architecture and software scaling
-• **Robbie** → Operational resilience and crisis management
-• **Spencer** → Strategic positioning and AI competitive advantage
-
-**Typical Timeline**: 6-12 weeks for strategic development, with ongoing advisory relationship for implementation support.
-
-## **Ready to Start?**
+**[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
 
 **[Contact Us - General Inquiry](javascript:void(0))**
 
-**Direct Team Contact**:
-• **Lindsay** (Technical): **[Contact Lindsay - Technical Architecture](javascript:void(0))**
-• **Robbie** (Operations): **[Contact Robbie - Operations & Crisis Management](javascript:void(0))**
-• **Spencer** (Strategy): **[Contact Spencer - AI Strategy & Positioning](javascript:void(0))**
-
-**What specific strategic challenges are you considering external expertise for?**`
+**Interested in a strategic discussion about your specific situation?**`
     }
 
     return `Most solutions work brilliantly in one context but fail when context shifts. Implementation success depends more on organisational dynamics than methodology selection.
