@@ -265,6 +265,27 @@ Want me to dig deeper on any of this?
 
         setEmailForm(prev => ({ ...prev, teamMember }))
         setShowEmailForm(true)
+
+        // Scroll to reveal the contact form after a brief delay
+        setTimeout(() => {
+          const messagesArea = document.querySelector('.messages-area')
+          if (messagesArea) {
+            // Scroll to bottom of messages area to reveal the email form
+            messagesArea.scrollTo({
+              top: messagesArea.scrollHeight,
+              behavior: 'smooth'
+            })
+          } else {
+            // If no messages area, scroll the window to the form location
+            const emailForm = document.querySelector('[class*="border-blue-200"]')
+            if (emailForm) {
+              emailForm.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+              })
+            }
+          }
+        }, 100)
       }
     }
 
