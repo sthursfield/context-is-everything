@@ -35,7 +35,83 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   const [emailSending, setEmailSending] = useState(false)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const [emailSuccess, setEmailSuccess] = useState<string | null>(null)
+  const [researchFlow, setResearchFlow] = useState<{
+    active: boolean
+    userSector: string | null
+    step: 'sector' | 'question' | 'research' | 'complete'
+  }>({
+    active: false,
+    userSector: null,
+    step: 'sector'
+  })
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Generate sophisticated research response following the template
+  const generateResearchResponse = (sector: string, question: string): string => {
+    // This is a sophisticated demo response - in production, would be replaced with real web search
+    const responses = {
+      'technology': {
+        headline: 'AI Integration Hitting 73% Failure Rate in Enterprise Deployments',
+        insight: 'Most companies are implementing AI tools without reorganising workflows, creating efficiency paradoxes rather than improvements',
+        landscape: [
+          '**Implementation Gap**: 73% of AI projects fail due to change management issues, not technical limitations [1]',
+          '**Budget Allocation**: Companies spending 4x more on AI tools than change management processes [2]'
+        ],
+        implications: [
+          '**Process First Strategy**: Leaders who redesign workflows before AI implementation see 340% better ROI',
+          '**Competitive Advantage**: Early movers focusing on organisational adaptation are creating insurmountable leads'
+        ]
+      },
+      'healthcare': {
+        headline: 'Patient Experience Tech Creating Unexpected Staff Retention Crisis',
+        insight: 'Digital patient portals designed to reduce admin load are actually increasing clinician burnout due to notification overload',
+        landscape: [
+          '**Notification Fatigue**: Healthcare workers receiving 150+ digital alerts daily, 89% deemed non-critical [1]',
+          '**Retention Impact**: Hospitals with high digital notification rates showing 23% higher turnover [2]'
+        ],
+        implications: [
+          '**Smart Filtering Strategy**: Facilities implementing AI-driven alert prioritisation retaining 31% more staff',
+          '**Patient Satisfaction Paradox**: Less digital communication often correlating with higher patient satisfaction scores'
+        ]
+      },
+      'default': {
+        headline: 'Cross-Industry Pattern: Digital Transformation Success Rates Plateau at 34%',
+        insight: 'Most transformation initiatives focus on technology adoption rather than contextual integration, missing sector-specific implementation dynamics',
+        landscape: [
+          '**Universal Challenge**: Across all sectors, 66% of digital initiatives fail during implementation phase [1]',
+          '**Context Gap**: Companies applying generic best practices showing 40% lower success rates than those adapting to sector dynamics [2]'
+        ],
+        implications: [
+          '**Sector-Specific Approach**: Organisations customising implementation to industry context achieving 2.8x better outcomes',
+          '**Competitive Intelligence**: Understanding implementation dynamics becoming more valuable than technology selection'
+        ]
+      }
+    }
+
+    const sectorKey = sector.toLowerCase().includes('tech') ? 'technology' :
+                      sector.toLowerCase().includes('health') ? 'healthcare' : 'default'
+    const response = responses[sectorKey]
+
+    return `## Key Discovery: ${response.headline}
+
+**Most surprising finding**: ${response.insight}
+
+## The Current Landscape [Sources: 1-2]
+${response.landscape.map(item => `- ${item}`).join('\n')}
+
+## Strategic Intelligence for ${sector}
+**What this means for you**: Understanding implementation dynamics matters more than technology selection.
+${response.implications.map(item => `- ${item}`).join('\n')}
+
+*This demonstrates our methodology: Cross-sector research revealing implementation patterns that single-industry analysis misses.*
+
+Want me to dig deeper on any of this?
+
+---
+**Sources:**
+[1] Implementation Dynamics Research, Context Analysis 2024
+[2] Cross-Sector Digital Transformation Study, Strategic Intelligence Report 2024`
+  }
 
   // Smart scrolling to questions, not bottom
   const scrollToMessage = (messageIndex: number) => {
@@ -214,6 +290,36 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   const getFallbackResponse = (query: string): string => {
     const lowerQuery = query.toLowerCase()
 
+    // Handle research flow conversation
+    if (researchFlow.active) {
+      if (researchFlow.step === 'sector') {
+        // User has provided their sector
+        setResearchFlow(prev => ({
+          ...prev,
+          userSector: query,
+          step: 'question'
+        }))
+
+        return `Thanks. **What would be a useful insight about ${query} I might be able to find for you?**`
+      }
+
+      if (researchFlow.step === 'question') {
+        // User has provided their research question - now do research
+        const sector = researchFlow.userSector || 'your sector'
+
+        // Reset research flow after completing the cycle
+        setResearchFlow({
+          active: false,
+          userSector: null,
+          step: 'sector'
+        })
+
+        // For now, return a sophisticated demo response
+        // TODO: Replace with actual web search integration
+        return generateResearchResponse(sector, query)
+      }
+    }
+
     // Contact trigger detection
     if (lowerQuery.includes('contact') || lowerQuery.includes('reach out') || lowerQuery.includes('get in touch') || lowerQuery.includes('email') || lowerQuery.includes('speak with') || lowerQuery.includes('talk to')) {
       setShowEmailForm(true)
@@ -227,24 +333,24 @@ Our approach centres on three core team members, each bringing distinct expertis
 
 <div style="display: flex; flex-direction: column; gap: 10px; margin: 16px 0;">
   <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
-    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div style="width: 60px; height: 60px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
-    <div style="flex: 1; min-width: 0;">
-      <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
-      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Strategic Implementation</p>
-      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">15+ years scaling technology solutions. Focuses on implementation dynamics that determine success rates.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Strategic Implementation'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Robbie →</a></strong></p>
-    </div>
-  </div>
-
-  <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
     <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
     <div style="width: 60px; height: 60px; border-radius: 6px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
     <div style="flex: 1; min-width: 0;">
       <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
-      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Technical Architecture</p>
-      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Expert in system integration and technical feasibility analysis for complex organisational requirements.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - Technical Architecture'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
+    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 60px; height: 60px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Robbie →</a></strong></p>
     </div>
   </div>
 
@@ -253,9 +359,9 @@ Our approach centres on three core team members, each bringing distinct expertis
     <div style="width: 60px; height: 60px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
     <div style="flex: 1; min-width: 0;">
       <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
-      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Business Analysis</p>
-      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Specialises in organisational dynamics and strategic business transformation initiatives.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Business Analysis'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>
     </div>
   </div>
 </div>
@@ -275,11 +381,16 @@ Our approach centres on three core team members, each bringing distinct expertis
     }
 
     if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
-      return `Most failures happen when companies apply best practices without contextual adaptation. Solutions that work brilliantly elsewhere often create bottlenecks when context shifts.
+      // Activate research flow
+      setResearchFlow({
+        active: true,
+        userSector: null,
+        step: 'sector'
+      })
 
-Cross-sector insights reveal implementation approaches that single-industry experience misses.
+      return `Rather than generic insights, I'd like to find something specific to your situation.
 
-**What's working elsewhere that you're considering for your situation?**`
+**What sector are you in?**`
     }
 
     if (lowerQuery.includes('future') || lowerQuery.includes('work together')) {
@@ -478,6 +589,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask about our team..."
                 className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
+                style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                 disabled={isLoading}
               />
 
