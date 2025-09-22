@@ -38,7 +38,7 @@ Sent from Context is Everything contact form
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'contact@context-is-everything.com', // This would need to be verified domain
+          from: 'onboarding@resend.dev', // Use Resend's default verified domain
           to: ['spencer@point35.com'],
           subject: subject,
           text: emailBody,
