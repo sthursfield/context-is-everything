@@ -667,9 +667,9 @@ We apologize for the inconvenience and appreciate your patience.`)
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
               >
                 <option value="General Inquiry">General Inquiry</option>
-                <option value="Lindsay - Technical Architecture">Lindsay - Technical Architecture</option>
-                <option value="Robbie - Operations & Crisis Management">Robbie - Operations & Crisis Management</option>
-                <option value="Spencer - AI Strategy & Positioning">Spencer - AI Strategy & Positioning</option>
+                <option value="Lindsay - CTO">Lindsay - CTO</option>
+                <option value="Robbie MacIntosh - Operations Director">Robbie MacIntosh - Operations Director</option>
+                <option value="Spencer - Brand Strategy Director">Spencer - Brand Strategy Director</option>
               </select>
             </div>
 
