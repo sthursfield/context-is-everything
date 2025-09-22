@@ -128,30 +128,20 @@ Want me to dig deeper on any of this?
     }, 100)
   }
 
-  // Handle clicks on contact links
+  // Handle postMessage events from contact links
   useEffect(() => {
-    const handleContactLinkClick = (e: Event) => {
-      const target = e.target as HTMLElement
-      if (target.classList.contains('contact-link')) {
-        e.preventDefault()
-        const contactType = target.getAttribute('data-contact-type') || ''
-
-        let teamMember = 'General Inquiry'
-        if (contactType.includes('Lindsay') || contactType.includes('Technical')) {
-          teamMember = 'Lindsay - Technical Architecture'
-        } else if (contactType.includes('Robbie') || contactType.includes('Operations')) {
-          teamMember = 'Robbie - Operations & Crisis Management'
-        } else if (contactType.includes('Spencer') || contactType.includes('Strategy')) {
-          teamMember = 'Spencer - AI Strategy & Positioning'
-        }
+    const handlePostMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'contact' && event.data.member) {
+        // Extract team member from the postMessage data
+        const teamMember = event.data.member
 
         setEmailForm(prev => ({ ...prev, teamMember }))
         setShowEmailForm(true)
       }
     }
 
-    document.addEventListener('click', handleContactLinkClick)
-    return () => document.removeEventListener('click', handleContactLinkClick)
+    window.addEventListener('message', handlePostMessage)
+    return () => window.removeEventListener('message', handlePostMessage)
   }, [])
 
   const formatResponse = (text: string) => {
