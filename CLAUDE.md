@@ -186,6 +186,77 @@ npm start
 npm run lint
 ```
 
+## 🚀 **CRITICAL: Proper Development-to-Deployment Workflow**
+
+**PROBLEM IDENTIFIED**: Changes made in development were not appearing in production because commits weren't being made to git before deployment.
+
+### ✅ **CORRECT WORKFLOW (Always Follow This Process)**
+
+1. **Make Code Changes** (Edit/Write/MultiEdit tools)
+   ```bash
+   # Make your changes to files
+   ```
+
+2. **Test Locally** (Optional but recommended)
+   ```bash
+   npm run dev
+   # Test changes on localhost:3000
+   ```
+
+3. **🔥 CRITICAL STEP: Commit Changes to Git**
+   ```bash
+   git add -A
+   git commit -m "Clear descriptive message"
+   git push origin main
+   ```
+
+4. **Deploy to Production**
+   ```bash
+   npm run build    # Build for production
+   vercel --prod    # Deploy to Vercel
+   ```
+
+### ❌ **WRONG WORKFLOW (What We Were Doing)**
+
+1. Make code changes ✅
+2. Skip git commit ❌
+3. Deploy with `vercel --prod` ❌
+4. Wonder why changes aren't live ❌
+
+### 🎯 **WHY THIS MATTERS**
+
+- **Vercel deploys from git repository**, not local files
+- **Local changes must be committed** to be included in deployment
+- **`vercel --prod` without git commit** deploys the last committed version
+- **No git commit = no deployment** of your changes
+
+### 📋 **Quick Reference Commands**
+
+```bash
+# The 4-Step Deployment Process
+git add -A && git commit -m "Description" && git push origin main && vercel --prod
+
+# Or broken down:
+git add -A                           # Stage all changes
+git commit -m "Feature description"  # Commit with clear message
+git push origin main                 # Push to GitHub
+vercel --prod                       # Deploy to production
+```
+
+### 🔍 **Verification Steps**
+
+1. **Check Git Status**: `git status` (should show "nothing to commit, working tree clean")
+2. **Check Recent Commits**: `git log --oneline -3` (your commit should be latest)
+3. **Test Deployment**: Visit the new Vercel URL and verify changes are live
+
+### 💡 **Pro Tips**
+
+- **Always check `git status`** before deploying
+- **Use descriptive commit messages** for easier tracking
+- **Test critical changes locally first** with `npm run dev`
+- **Add debug markers** for complex changes to verify deployment
+- **Clear browser cache** when testing (Cmd+Shift+R / Ctrl+Shift+R)
+
 ## Deployment
 
 ### Vercel
