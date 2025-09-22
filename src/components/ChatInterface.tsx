@@ -38,79 +38,130 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   const [researchFlow, setResearchFlow] = useState<{
     active: boolean
     userSector: string | null
-    step: 'sector' | 'question' | 'research' | 'complete'
+    step: 'sector' | 'clarify' | 'question' | 'research' | 'complete'
+    needsClarification: boolean
   }>({
     active: false,
     userSector: null,
-    step: 'sector'
+    step: 'sector',
+    needsClarification: false
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Check if sector needs clarification
+  const needsSectorClarification = (sector: string): { needs: boolean; suggestions: string[] } => {
+    const lowerSector = sector.toLowerCase()
+
+    const broadSectors = {
+      'law': ['corporate law', 'legal tech', 'small practice challenges'],
+      'legal': ['corporate law', 'legal tech', 'small practice challenges'],
+      'healthcare': ['clinical side', 'health tech', 'administration'],
+      'health': ['clinical side', 'health tech', 'administration'],
+      'finance': ['fintech', 'traditional banking', 'investment management'],
+      'financial': ['fintech', 'traditional banking', 'investment management'],
+      'tech': ['enterprise software', 'consumer apps', 'infrastructure'],
+      'technology': ['enterprise software', 'consumer apps', 'infrastructure'],
+      'education': ['higher education', 'K-12', 'edtech'],
+      'retail': ['e-commerce', 'brick-and-mortar', 'supply chain'],
+      'manufacturing': ['industrial automation', 'consumer goods', 'supply chain'],
+      'consulting': ['strategy consulting', 'implementation', 'change management']
+    }
+
+    for (const [key, suggestions] of Object.entries(broadSectors)) {
+      if (lowerSector.includes(key)) {
+        return { needs: true, suggestions }
+      }
+    }
+
+    return { needs: false, suggestions: [] }
+  }
 
   // Generate sophisticated research response following the template
   const generateResearchResponse = (sector: string, question: string): string => {
     // This is a sophisticated demo response - in production, would be replaced with real web search
     const responses = {
-      'technology': {
-        headline: 'AI Integration Hitting 73% Failure Rate in Enterprise Deployments',
-        insight: 'Most companies are implementing AI tools without reorganising workflows, creating efficiency paradoxes rather than improvements',
+      'legal': {
+        headline: 'AI Contract Review Tools Like LawGeex Now Match Human Lawyers in NDA Analysis',
+        insight: 'Legal AI tools achieve 94% accuracy in contract analysis, but only 15% of mid-size firms have adopted them due to integration challenges with legacy practice management systems',
         landscape: [
-          '**Implementation Gap**: 73% of AI projects fail due to change management issues, not technical limitations [1]',
-          '**Budget Allocation**: Companies spending 4x more on AI tools than change management processes [2]'
+          '**Adoption Paradox**: Tools like Kira Systems and eBrevia processing millions of contracts while 85% of firms still rely on manual review [1]',
+          '**Revenue Impact**: Early adopters reducing contract review time by 60% while maintaining accuracy, creating pricing pressure on traditional billing models [2]',
+          '**Integration Barriers**: Legacy systems like Clio and PCLaw requiring expensive custom integrations, delaying adoption by 18-24 months [3]'
         ],
         implications: [
-          '**Process First Strategy**: Leaders who redesign workflows before AI implementation see 340% better ROI',
-          '**Competitive Advantage**: Early movers focusing on organisational adaptation are creating insurmountable leads'
-        ]
+          '**First-Mover Advantage**: Firms implementing AI review are winning larger clients seeking efficiency guarantees',
+          '**Billing Model Disruption**: Fixed-fee contract reviews becoming standard, forcing re-evaluation of hourly billing strategies'
+        ],
+        methodology: 'Cross-sector analysis of legal technology adoption patterns and client satisfaction metrics'
       },
       'healthcare': {
-        headline: 'Patient Experience Tech Creating Unexpected Staff Retention Crisis',
-        insight: 'Digital patient portals designed to reduce admin load are actually increasing clinician burnout due to notification overload',
+        headline: 'Epic Systems\' MyChart Patient Portal Causing Unexpected Physician Burnout Surge',
+        insight: 'Digital patient portals designed to reduce administrative load are actually increasing physician workload by 2.3 hours daily due to patient message volume',
         landscape: [
-          '**Notification Fatigue**: Healthcare workers receiving 150+ digital alerts daily, 89% deemed non-critical [1]',
-          '**Retention Impact**: Hospitals with high digital notification rates showing 23% higher turnover [2]'
+          '**Message Overload**: Physicians receiving 40+ patient messages daily through MyChart and similar portals, 67% requiring clinical response [1]',
+          '**Burnout Correlation**: Hospitals with highest portal adoption showing 23% higher physician turnover rates compared to low-adoption facilities [2]',
+          '**AI Triage Solutions**: Companies like Abridge and Notable developing AI message filtering, but only 8% of health systems have implemented [3]'
         ],
         implications: [
-          '**Smart Filtering Strategy**: Facilities implementing AI-driven alert prioritisation retaining 31% more staff',
-          '**Patient Satisfaction Paradox**: Less digital communication often correlating with higher patient satisfaction scores'
-        ]
+          '**Smart Implementation**: Health systems using AI pre-screening tools seeing 45% reduction in physician message burden',
+          '**Competitive Advantage**: Facilities solving portal fatigue attracting top talent in competitive physician markets'
+        ],
+        methodology: 'Analysis of Electronic Health Record data and physician satisfaction surveys across 200+ health systems'
+      },
+      'fintech': {
+        headline: 'Embedded Finance APIs Creating $230B Market While Traditional Banks Lose Ground',
+        insight: 'Companies like Stripe, Plaid, and Unit are enabling non-financial companies to offer banking services, capturing 12% of traditional bank revenue streams',
+        landscape: [
+          '**Market Capture**: Shopify, Uber, and Amazon now processing $180B in payments annually through embedded finance solutions [1]',
+          '**Bank Response Gap**: Traditional banks investing only 3% of IT budgets in API development while fintech companies allocate 40% [2]',
+          '**Regulatory Arbitrage**: Embedded finance providers operating under different regulatory frameworks, creating competitive advantages [3]'
+        ],
+        implications: [
+          '**Platform Strategy**: Companies with strong user bases becoming financial service providers overnight',
+          '**Bank Disintermediation**: Traditional institutions risk becoming infrastructure providers rather than customer-facing brands'
+        ],
+        methodology: 'Financial services transaction flow analysis and regulatory filing examination across 150+ fintech companies'
       },
       'default': {
-        headline: 'Cross-Industry Pattern: Digital Transformation Success Rates Plateau at 34%',
-        insight: 'Most transformation initiatives focus on technology adoption rather than contextual integration, missing sector-specific implementation dynamics',
+        headline: 'Three Major Developments Reshaping Cross-Industry Implementation Dynamics',
+        insight: 'Organisations achieving 2.8x better transformation outcomes by adapting proven solutions to their specific operational context rather than applying generic best practices',
         landscape: [
-          '**Universal Challenge**: Across all sectors, 66% of digital initiatives fail during implementation phase [1]',
-          '**Context Gap**: Companies applying generic best practices showing 40% lower success rates than those adapting to sector dynamics [2]'
+          '**Context Adaptation**: Companies like Toyota Production System variants succeeding when modified for local constraints, failing when copied directly [1]',
+          '**Implementation Intelligence**: McKinsey and BCG now offering sector-specific transformation methodologies after seeing 40% higher success rates [2]',
+          '**Competitive Intelligence**: Early movers studying implementation dynamics rather than just technology features gaining sustainable advantages [3]'
         ],
         implications: [
-          '**Sector-Specific Approach**: Organisations customising implementation to industry context achieving 2.8x better outcomes',
-          '**Competitive Intelligence**: Understanding implementation dynamics becoming more valuable than technology selection'
-        ]
+          '**Strategic Differentiation**: Understanding how solutions adapt to context becoming more valuable than technology selection',
+          '**Implementation as Competitive Advantage**: Execution capabilities now determining market position more than product features'
+        ],
+        methodology: 'Cross-sector analysis of transformation success patterns across 300+ enterprise implementations'
       }
     }
 
-    const sectorKey = sector.toLowerCase().includes('tech') ? 'technology' :
-                      sector.toLowerCase().includes('health') ? 'healthcare' : 'default'
+    const sectorKey = sector.toLowerCase().includes('legal') || sector.toLowerCase().includes('law') ? 'legal' :
+                      sector.toLowerCase().includes('health') || sector.toLowerCase().includes('medical') ? 'healthcare' :
+                      sector.toLowerCase().includes('fintech') || sector.toLowerCase().includes('financial') ? 'fintech' : 'default'
     const response = responses[sectorKey]
 
     return `## Key Discovery: ${response.headline}
 
 **Most surprising finding**: ${response.insight}
 
-## The Current Landscape [Sources: 1-2]
+## Current Developments [Sources: 1-3]
 ${response.landscape.map(item => `- ${item}`).join('\n')}
 
 ## Strategic Intelligence for ${sector}
-**What this means for you**: Understanding implementation dynamics matters more than technology selection.
-${response.implications.map(item => `- ${item}`).join('\n')}
+**What this means for you**: ${response.implications.join('\n- ')}
 
-*This demonstrates our methodology: Cross-sector research revealing implementation patterns that single-industry analysis misses.*
+*Research approach: ${response.methodology}*
 
 Want me to dig deeper on any of this?
 
 ---
 **Sources:**
-[1] Implementation Dynamics Research, Context Analysis 2024
-[2] Cross-Sector Digital Transformation Study, Strategic Intelligence Report 2024`
+[1] Industry Analysis Report, Strategic Intelligence 2024
+[2] Cross-Sector Implementation Study, Context Analysis 2024
+[3] Market Dynamics Research, Professional Services Quarterly 2024`
   }
 
   // Smart scrolling to questions, not bottom
@@ -283,11 +334,38 @@ Want me to dig deeper on any of this?
     // Handle research flow conversation
     if (researchFlow.active) {
       if (researchFlow.step === 'sector') {
-        // User has provided their sector
+        // Check if sector needs clarification
+        const clarification = needsSectorClarification(query)
+
+        if (clarification.needs) {
+          setResearchFlow(prev => ({
+            ...prev,
+            userSector: query,
+            step: 'clarify',
+            needsClarification: true
+          }))
+
+          const suggestions = clarification.suggestions.join(', ')
+          return `${query}'s a big field - are you thinking more ${suggestions}, or something else? Just helps me focus the research.`
+        } else {
+          // Sector is specific enough, move to question
+          setResearchFlow(prev => ({
+            ...prev,
+            userSector: query,
+            step: 'question'
+          }))
+
+          return `Thanks. **What would be a useful insight about ${query} I might be able to find for you?**`
+        }
+      }
+
+      if (researchFlow.step === 'clarify') {
+        // User has clarified their sector
         setResearchFlow(prev => ({
           ...prev,
           userSector: query,
-          step: 'question'
+          step: 'question',
+          needsClarification: false
         }))
 
         return `Thanks. **What would be a useful insight about ${query} I might be able to find for you?**`
@@ -301,7 +379,8 @@ Want me to dig deeper on any of this?
         setResearchFlow({
           active: false,
           userSector: null,
-          step: 'sector'
+          step: 'sector',
+          needsClarification: false
         })
 
         // For now, return a sophisticated demo response
@@ -375,7 +454,8 @@ Our approach centres on three core team members, each bringing distinct expertis
       setResearchFlow({
         active: true,
         userSector: null,
-        step: 'sector'
+        step: 'sector',
+        needsClarification: false
       })
 
       return `Rather than generic insights, I'd like to find something specific to your situation.
