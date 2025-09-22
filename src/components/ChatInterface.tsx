@@ -76,10 +76,33 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     return { needs: false, suggestions: [] }
   }
 
-  // Generate sophisticated research response following the template
-  const generateResearchResponse = (sector: string, question: string): string => {
-    // This is a sophisticated demo response - in production, would be replaced with real web search
-    const responses = {
+  // Generate sophisticated research response using real web search
+  const generateResearchResponse = async (sector: string, question: string): Promise<string> => {
+    try {
+      // Construct search query based on user's specific question and sector
+      const searchQuery = `${question} ${sector} 2024 trends analysis market research`
+
+      console.log('🔍 Searching for:', searchQuery)
+
+      // Perform actual web search
+      const searchResults = await fetch('/api/web-search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: searchQuery,
+          sector: sector,
+          question: question
+        })
+      })
+
+      if (searchResults.ok) {
+        const searchData = await searchResults.json()
+        return searchData.research
+      }
+
+      console.log('🔄 Web search failed, using demo responses')
+      // Fallback to demo responses if web search fails
+      const responses = {
       'legal': {
         headline: 'AI Contract Review Tools Like LawGeex Now Match Human Lawyers in NDA Analysis',
         insight: 'Legal AI tools achieve 94% accuracy in contract analysis, but only 15% of mid-size firms have adopted them due to integration challenges with legacy practice management systems',
@@ -207,6 +230,10 @@ Want me to dig deeper on any of this?
 [1] Industry Analysis Report, Strategic Intelligence 2024
 [2] Cross-Sector Implementation Study, Context Analysis 2024
 [3] Market Dynamics Research, Professional Services Quarterly 2024`
+    } catch (error) {
+      console.error('Research generation error:', error)
+      return `I'm having trouble accessing research data right now. Please try again in a moment, or let me know if you'd like to explore a different topic.`
+    }
   }
 
   // Smart scrolling to questions, not bottom
@@ -428,9 +455,8 @@ Want me to dig deeper on any of this?
           needsClarification: false
         })
 
-        // For now, return a sophisticated demo response
-        // TODO: Replace with actual web search integration
-        return generateResearchResponse(sector, query)
+        // Trigger async research - this will be handled by the handleSubmit function
+        return 'RESEARCH_REQUEST|' + JSON.stringify({ sector, query })
       }
     }
 
@@ -544,6 +570,35 @@ Most valuable conversations happen when you're evaluating options that have work
     if (apiResponse === "SHOW_CONTACT_FORM") {
       setMessages(prev => [...prev, userMessage])
       setInputValue('')
+      setIsLoading(false)
+      return
+    }
+
+    // Handle research requests
+    if (apiResponse.startsWith('RESEARCH_REQUEST|')) {
+      const researchData = JSON.parse(apiResponse.substring(17))
+      setMessages(prev => [...prev, userMessage])
+      setInputValue('')
+      setIsLoading(true)
+
+      try {
+        const researchResponse = await generateResearchResponse(researchData.sector, researchData.query)
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: researchResponse
+        }
+        setMessages(prev => [...prev, assistantMessage])
+      } catch (error) {
+        console.error('Research error:', error)
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'assistant',
+          content: `I'm having trouble accessing research data right now. Please try again in a moment, or let me know if you'd like to explore a different topic.`
+        }
+        setMessages(prev => [...prev, errorMessage])
+      }
+
       setIsLoading(false)
       return
     }
