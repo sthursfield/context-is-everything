@@ -242,11 +242,16 @@ Want me to dig deeper on any of this?
       const messageElements = document.querySelectorAll('[data-message-index]')
       const targetElement = messageElements[messageIndex] as HTMLElement
       if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        })
+        // Scroll the messages area container
+        const messagesArea = document.querySelector('.messages-area')
+        if (messagesArea) {
+          const messagesContainer = messagesArea as HTMLElement
+          const elementTop = targetElement.offsetTop
+          messagesContainer.scrollTo({
+            top: elementTop - 20, // Add some padding
+            behavior: 'smooth'
+          })
+        }
       }
     }, 100)
   }
@@ -727,214 +732,241 @@ We apologize for the inconvenience and appreciate your patience.`)
 
   return (
     <div className="w-full max-w-4xl mx-auto relative" style={{ zIndex: 10 }}>
-      {/* 3 F's Navigation - Above Chat Input */}
-      <div className="mb-4">
-        <div className="flex gap-2 justify-center">
-          {threeFs.map((f) => (
-            <button
-              key={f.id}
-              onClick={() => handleThreeFsClick(f.id)}
-              className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
-            >
-              <span className="font-medium">{f.label}</span>
-              <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Messages Area - Scrollable (only when messages exist) */}
+      {(messages.length > 0 || showEmailForm || emailSuccess) && (
+        <div className="messages-area overflow-y-auto pb-8 mb-4" style={{
+          maxHeight: '60vh',
+          borderRadius: '16px',
+          marginBottom: '200px' // Extra space for fixed input
+        }}>
+        {/* Email Success/Error Message */}
+        {emailSuccess && (
+          <div className="mb-4">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4" style={{ borderLeftColor: emailSuccess.includes('✅') ? '#10B981' : '#EF4444' }}>
+              <div className="text-sm leading-relaxed text-gray-800">
+                {formatResponse(emailSuccess)}
+              </div>
+              <button
+                onClick={() => setEmailSuccess(null)}
+                className="mt-4 px-4 py-2 text-sm rounded-lg transition-colors duration-200"
+                style={{ backgroundColor: '#F3F4F6', color: '#6B7280' }}
+                onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#E5E7EB'}
+                onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F3F4F6'}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
 
-      {/* Main Input Field */}
-      <div className="mb-8 relative">
-        <form onSubmit={handleInputSubmit}>
-          <div className="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl" style={{ boxShadow: `0 4px 20px rgba(0,0,0,0.1)` }}>
-            <div className="flex items-center px-6 py-4">
-              <div className="mr-4">
-                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
+        {/* Email Contact Form */}
+        {showEmailForm && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-4 border-2 border-blue-200">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Contact Our Team</h3>
+              <p className="text-sm text-gray-600">Send us a message and we&apos;ll get back to you within 24 hours.</p>
+            </div>
+
+            <form onSubmit={handleEmailSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    value={emailForm.name}
+                    onChange={(e) => handleEmailFormChange('name', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                  <input
+                    type="email"
+                    value={emailForm.email}
+                    onChange={(e) => handleEmailFormChange('email', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+                    required
+                  />
+                </div>
               </div>
 
-              <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about our team..."
-                className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
-                style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
-                disabled={isLoading}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Who would you like to reach?</label>
+                <select
+                  value={emailForm.teamMember}
+                  onChange={(e) => handleEmailFormChange('teamMember', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+                >
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Lindsay - CTO">Lindsay - CTO</option>
+                  <option value="Robbie MacIntosh - Operations Director">Robbie MacIntosh - Operations Director</option>
+                  <option value="Spencer - Brand Strategy Director">Spencer - Brand Strategy Director</option>
+                </select>
+              </div>
 
-              <Button
-                type="submit"
-                disabled={isLoading || !inputValue.trim()}
-                className="ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95"
-                style={{
-                  background: inputValue.trim() ? '#BC302C' : '#e5e7eb',
-                  color: inputValue.trim() ? 'white' : '#9ca3af',
-                  opacity: inputValue.trim() ? 1 : 0.6
-                }}
-              >
-                {isLoading ? (
-                  <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
-                ) : (
-                  <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                )}
-              </Button>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea
+                  value={emailForm.message}
+                  onChange={(e) => handleEmailFormChange('message', e.target.value)}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
+                  placeholder="Tell us about your challenge or question..."
+                  required
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="submit"
+                  disabled={emailSending}
+                  className="flex-1 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{backgroundColor: '#A62F03'}}
+                  onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F28322'}
+                  onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#A62F03'}
+                >
+                  {emailSending ? 'Sending...' : 'Send Message'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowEmailForm(false)}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* Messages */}
+        {messages.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-4">
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={message.id}
+                  data-message-index={index}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`p-4 rounded-2xl ${
+                      message.type === 'user'
+                        ? 'text-white text-right max-w-xs'
+                        : 'bg-gray-100 text-gray-800 max-w-md'
+                    }`}
+                    style={{
+                      backgroundColor: message.type === 'user' ? currentColor : undefined
+                    }}
+                  >
+                    <div className="text-sm leading-relaxed">
+                      {message.type === 'assistant' ? (
+                        <div>{formatResponse(message.content)}</div>
+                      ) : (
+                        message.content
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 p-4 rounded-2xl">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor }} />
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.2s' }} />
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.4s' }} />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
           </div>
-        </form>
-      </div>
-
-      {/* Email Success/Error Message */}
-      {emailSuccess && (
-        <div className="mb-4">
-          <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4" style={{ borderLeftColor: emailSuccess.includes('✅') ? '#10B981' : '#EF4444' }}>
-            <div className="text-sm leading-relaxed text-gray-800">
-              {formatResponse(emailSuccess)}
-            </div>
-            <button
-              onClick={() => setEmailSuccess(null)}
-              className="mt-4 px-4 py-2 text-sm rounded-lg transition-colors duration-200"
-              style={{ backgroundColor: '#F3F4F6', color: '#6B7280' }}
-              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#E5E7EB'}
-              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F3F4F6'}
-            >
-              Dismiss
-            </button>
-          </div>
+        )}
         </div>
       )}
 
-      {/* Email Contact Form */}
-      {showEmailForm && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 mt-4 border-2 border-blue-200">
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Contact Our Team</h3>
-            <p className="text-sm text-gray-600">Send us a message and we&apos;ll get back to you within 24 hours.</p>
+      {/* Input Section - Fixed when messages exist, normal when empty */}
+      <div
+        className={`${
+          (messages.length > 0 || showEmailForm || emailSuccess)
+            ? 'fixed bottom-0 left-0 right-0 z-50 pt-6 pb-6'
+            : 'relative'
+        }`}
+        style={(messages.length > 0 || showEmailForm || emailSuccess)
+          ? {
+              background: 'linear-gradient(to top, rgba(55, 37, 40, 0.95) 0%, rgba(55, 37, 40, 0.8) 70%, transparent 100%)',
+              backdropFilter: 'blur(8px)'
+            }
+          : undefined
+        }
+      >
+        <div className="max-w-4xl mx-auto px-6">
+        {/* 3 F's Navigation - Above Chat Input */}
+        <div className="mb-4">
+          <div className="flex gap-2 justify-center">
+            {threeFs.map((f) => (
+              <button
+                key={f.id}
+                onClick={() => handleThreeFsClick(f.id)}
+                className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
+              >
+                <span className="font-medium">{f.label}</span>
+                <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
+              </button>
+            ))}
           </div>
+        </div>
 
-          <form onSubmit={handleEmailSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                <input
-                  type="text"
-                  value={emailForm.name}
-                  onChange={(e) => handleEmailFormChange('name', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
-                  required
+        {/* Main Input Field */}
+        <div className="mb-8 relative">
+          <form onSubmit={handleInputSubmit}>
+            <div className="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl" style={{ boxShadow: `0 4px 20px rgba(0,0,0,0.1)` }}>
+              <div className="flex items-center px-6 py-4">
+                <div className="mr-4">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder="Ask about our team..."
+                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
+                  style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
+                  disabled={isLoading}
                 />
+
+                <Button
+                  type="submit"
+                  disabled={isLoading || !inputValue.trim()}
+                  className="ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95"
+                  style={{
+                    background: inputValue.trim() ? '#BC302C' : '#e5e7eb',
+                    color: inputValue.trim() ? 'white' : '#9ca3af',
+                    opacity: inputValue.trim() ? 1 : 0.6
+                  }}
+                >
+                  {isLoading ? (
+                    <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                  ) : (
+                    <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  )}
+                </Button>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
-                <input
-                  type="email"
-                  value={emailForm.email}
-                  onChange={(e) => handleEmailFormChange('email', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Who would you like to reach?</label>
-              <select
-                value={emailForm.teamMember}
-                onChange={(e) => handleEmailFormChange('teamMember', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
-              >
-                <option value="General Inquiry">General Inquiry</option>
-                <option value="Lindsay - CTO">Lindsay - CTO</option>
-                <option value="Robbie MacIntosh - Operations Director">Robbie MacIntosh - Operations Director</option>
-                <option value="Spencer - Brand Strategy Director">Spencer - Brand Strategy Director</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-              <textarea
-                value={emailForm.message}
-                onChange={(e) => handleEmailFormChange('message', e.target.value)}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
-                placeholder="Tell us about your challenge or question..."
-                required
-              />
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <button
-                type="submit"
-                disabled={emailSending}
-                className="flex-1 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{backgroundColor: '#A62F03'}}
-                onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#F28322'}
-                onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#A62F03'}
-              >
-                {emailSending ? 'Sending...' : 'Send Message'}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setShowEmailForm(false)}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
-              >
-                Cancel
-              </button>
             </div>
           </form>
         </div>
-      )}
-
-      {/* Messages */}
-      {messages.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 mt-4">
-          <div className="space-y-4">
-            {messages.map((message, index) => (
-              <div
-                key={message.id}
-                data-message-index={index}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] p-4 rounded-2xl ${
-                    message.type === 'user'
-                      ? 'text-white text-right'
-                      : 'bg-gray-100 text-gray-800'
-                  }`}
-                  style={{
-                    backgroundColor: message.type === 'user' ? currentColor : undefined
-                  }}
-                >
-                  <div className="text-sm leading-relaxed">
-                    {message.type === 'assistant' ? (
-                      <div>{formatResponse(message.content)}</div>
-                    ) : (
-                      message.content
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 p-4 rounded-2xl">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor }} />
-                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.2s' }} />
-                    <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.4s' }} />
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
