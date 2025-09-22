@@ -122,25 +122,70 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
         ],
         methodology: 'Financial services transaction flow analysis and regulatory filing examination across 150+ fintech companies'
       },
-      'default': {
-        headline: 'Three Major Developments Reshaping Cross-Industry Implementation Dynamics',
-        insight: 'Organisations achieving 2.8x better transformation outcomes by adapting proven solutions to their specific operational context rather than applying generic best practices',
+      'technology': {
+        headline: 'Enterprise AI Adoption Creating $2.8T Economic Impact by 2025',
+        insight: 'Companies implementing AI-first strategies are seeing 25% revenue growth while traditional approaches lag behind, but 67% of implementations fail due to data infrastructure gaps',
         landscape: [
-          '**Context Adaptation**: Companies like Toyota Production System variants succeeding when modified for local constraints, failing when copied directly [1]',
-          '**Implementation Intelligence**: McKinsey and BCG now offering sector-specific transformation methodologies after seeing 40% higher success rates [2]',
-          '**Competitive Intelligence**: Early movers studying implementation dynamics rather than just technology features gaining sustainable advantages [3]'
+          '**Implementation Reality**: OpenAI Enterprise customers reporting 40% productivity gains while 73% of companies struggle with basic data quality [1]',
+          '**Infrastructure Gap**: Cloud spend on AI workloads growing 150% annually, but only 12% of enterprises have production-ready ML pipelines [2]',
+          '**Talent Competition**: AI engineers commanding $350K+ salaries while traditional developers reskill or risk displacement [3]'
         ],
         implications: [
-          '**Strategic Differentiation**: Understanding how solutions adapt to context becoming more valuable than technology selection',
-          '**Implementation as Competitive Advantage**: Execution capabilities now determining market position more than product features'
+          '**First-Mover Advantage**: Companies with working AI implementations gaining insurmountable competitive leads',
+          '**Infrastructure Investment**: Data quality and ML infrastructure becoming more critical than algorithm selection'
         ],
-        methodology: 'Cross-sector analysis of transformation success patterns across 300+ enterprise implementations'
+        methodology: 'Analysis of enterprise AI deployment patterns across Fortune 500 technology implementations'
+      },
+      'consulting': {
+        headline: 'AI-Assisted Consulting Services Disrupting Traditional Billable Hour Model',
+        insight: 'Consulting firms using AI tools completing projects 60% faster while charging premium rates, forcing industry-wide pricing restructure',
+        landscape: [
+          '**Service Acceleration**: McKinsey and BCG deploying GPT-powered research tools reducing analysis time from weeks to days [1]',
+          '**Value Pricing Shift**: Top firms moving to outcome-based pricing as AI eliminates time-intensive work [2]',
+          '**Capability Gaps**: Mid-tier firms without AI integration losing clients to AI-enhanced competitors [3]'
+        ],
+        implications: [
+          '**Business Model Evolution**: Fixed-fee outcomes replacing hourly billing as AI changes cost structures',
+          '**Competitive Differentiation**: AI capabilities becoming minimum viable service standard'
+        ],
+        methodology: 'Professional services industry transformation analysis and client satisfaction metrics'
+      },
+      'retail': {
+        headline: 'Amazon One-Day Delivery Standard Forcing $400B Supply Chain Overhaul',
+        insight: 'Retailers investing heavily in micro-fulfillment centers and automation to match Amazon delivery expectations, with 85% unable to keep pace profitably',
+        landscape: [
+          '**Infrastructure Arms Race**: Walmart, Target spending $15B+ annually on fulfillment automation to compete with Amazon Prime [1]',
+          '**Last-Mile Economics**: Same-day delivery costs averaging $8.50 per order while customers expect it free [2]',
+          '**Automation Imperative**: Companies like Ocado and AutoStore providing robotic solutions seeing 300% demand increase [3]'
+        ],
+        implications: [
+          '**Survival Strategy**: Retailers must invest in automation or exit direct-to-consumer markets',
+          '**Partnership Models**: Regional retailers forming fulfillment cooperatives to share infrastructure costs'
+        ],
+        methodology: 'Supply chain economics analysis across retail technology transformation initiatives'
+      },
+      'default': {
+        headline: 'Cross-Sector Implementation Success Patterns Reveal Context-Specific Adaptation Requirements',
+        insight: 'Organizations achieving breakthrough results by adapting proven methodologies to their unique operational constraints rather than copying solutions directly',
+        landscape: [
+          '**Contextual Implementation**: Companies modifying successful frameworks for local constraints seeing 2.8x better outcomes than direct copying [1]',
+          '**Sector Intelligence**: Cross-industry analysis revealing implementation approaches that single-sector experience misses [2]',
+          '**Execution Advantage**: Implementation capability now determining competitive position more than technology selection [3]'
+        ],
+        implications: [
+          '**Strategic Differentiation**: Understanding adaptation dynamics becoming more valuable than best practice adoption',
+          '**Implementation as Competitive Advantage**: Execution expertise now determining market leadership'
+        ],
+        methodology: 'Cross-sector analysis of transformation success patterns across diverse industry implementations'
       }
     }
 
     const sectorKey = sector.toLowerCase().includes('legal') || sector.toLowerCase().includes('law') ? 'legal' :
                       sector.toLowerCase().includes('health') || sector.toLowerCase().includes('medical') ? 'healthcare' :
-                      sector.toLowerCase().includes('fintech') || sector.toLowerCase().includes('financial') ? 'fintech' : 'default'
+                      sector.toLowerCase().includes('fintech') || sector.toLowerCase().includes('financial') ? 'fintech' :
+                      sector.toLowerCase().includes('tech') || sector.toLowerCase().includes('software') || sector.toLowerCase().includes('ai') ? 'technology' :
+                      sector.toLowerCase().includes('consulting') || sector.toLowerCase().includes('advisory') ? 'consulting' :
+                      sector.toLowerCase().includes('retail') || sector.toLowerCase().includes('ecommerce') || sector.toLowerCase().includes('commerce') ? 'retail' : 'default'
     const response = responses[sectorKey]
 
     return `## Key Discovery: ${response.headline}
