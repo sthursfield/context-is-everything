@@ -79,6 +79,30 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
   }, [])
 
   const formatResponse = (text: string) => {
+    // Special handling for Foundation responses with HTML structure
+    if (text.includes('V7.3-HORIZONTAL-LAYOUT') && text.includes('<div style="display: flex;')) {
+      console.log('🎯 Using HTML rendering for Foundation response')
+
+      // Process markdown formatting before rendering as HTML
+      const processedText = text
+        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-bold">${linkText}</button>`
+        })
+        // Handle regular contact links: [Contact Name](javascript:void(0))
+        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
+        })
+        // Handle remaining bold text
+        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+        // Handle regular external links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
+
+      return [
+        <div key="foundation-html" className="mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: processedText }} />
+      ]
+    }
+
     const lines = text.split('\n').filter(line => line.trim())
 
     return lines.map((line, index) => {
@@ -197,7 +221,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     }
 
     if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
-      return `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
+      const response = `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
@@ -246,6 +270,8 @@ Our approach centres on three core team members, each bringing distinct expertis
 </div>
 
 **What's the specific challenge you're trying to solve?**`
+      console.log('🔍 Foundation response generated:', response)
+      return response
     }
 
     if (lowerQuery.includes('findings') || lowerQuery.includes('insights')) {
