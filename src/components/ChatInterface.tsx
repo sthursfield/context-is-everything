@@ -159,6 +159,11 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
 
   // AI API integration with fallback to curated responses
   const getApiResponse = async (query: string): Promise<string> => {
+    // TEMPORARY: Force fallback responses to ensure horizontal layout works
+    // TODO: Re-enable AI API once horizontal layout is confirmed working
+    return getFallbackResponse(query)
+
+    /* DISABLED TEMPORARILY
     try {
       const response = await fetch('/api/ai-consultant', {
         method: 'POST',
@@ -178,6 +183,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
       console.error('API error, falling back to curated response:', error)
       return getFallbackResponse(query)
     }
+    */
   }
 
   // Fallback responses for common queries when API fails
