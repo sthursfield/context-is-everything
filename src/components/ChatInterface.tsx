@@ -191,7 +191,7 @@ export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
     }
 
     if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
-      return `**Foundation: Strategic Approach & Team Expertise**
+      return `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 

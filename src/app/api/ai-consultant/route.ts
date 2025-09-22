@@ -92,7 +92,7 @@ Opening:
 What brings you here today?"
 
 Foundation Button:
-"**Foundation: Strategic Approach & Team Expertise**
+"**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
