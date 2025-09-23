@@ -30,18 +30,17 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     camera.lookAt(0, 0, 0);
     console.log('📷 Camera position:', camera.position, 'rotation:', camera.rotation);
 
-    // Renderer with explicit mobile viewport handling
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    // Renderer with transparent background
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     
     // Force full viewport dimensions
     const width = window.innerWidth;
     const height = window.innerHeight;
     
     renderer.setSize(width, height);
-    // Dynamic background based on theme - use white for light theme
-    const bgColor = currentTheme === 'dark' ? 0x372528 : 0xffffff;
-    renderer.setClearColor(bgColor, 1);
-    console.log('🎨 Mountain theme:', currentTheme, 'bgColor:', bgColor.toString(16));
+    // Transparent background - let page background show through
+    renderer.setClearColor(0x000000, 0); // Black with 0 alpha = transparent
+    console.log('🎨 Mountain theme:', currentTheme, 'transparent background');
     
     // Force full viewport positioning - bypass any CSS constraints
     const canvas = renderer.domElement;
@@ -171,11 +170,11 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             
             if (points.length > 0) {
               const geometry = new THREE.BufferGeometry().setFromPoints(points)
-              // High contrast colors for visibility testing
-              const contourColor = currentTheme === 'dark' ? 0xff0000 : 0x000000; // Red on dark, black on light
+              // Soft, elegant colors
+              const contourColor = currentTheme === 'dark' ? 0xff8800 : 0x6B8E74; // Gentle orange on dark, muted green on light
               const material = new THREE.LineBasicMaterial({
                 color: contourColor,
-                linewidth: 4,
+                linewidth: 2,
                 transparent: false,
                 opacity: 1
               })
@@ -223,23 +222,6 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
         
         console.log(`✅ Created ${filteredRings.length} organic mountain rings`)
 
-        // Add a simple test ring to verify rendering works
-        const testPoints = [
-          new THREE.Vector3(-2, -2, 0),
-          new THREE.Vector3(2, -2, 0),
-          new THREE.Vector3(2, 2, 0),
-          new THREE.Vector3(-2, 2, 0),
-          new THREE.Vector3(-2, -2, 0) // Close the loop
-        ]
-        const testGeometry = new THREE.BufferGeometry().setFromPoints(testPoints)
-        const testMaterial = new THREE.LineBasicMaterial({
-          color: 0x00ff00, // Bright green
-          linewidth: 8
-        })
-        const testLine = new THREE.LineLoop(testGeometry, testMaterial)
-        testLine.position.z = 0 // Right in front of camera
-        scene.add(testLine)
-        console.log('🟢 Added test square at center of screen')
         
         // Start animation after delay
         setTimeout(() => {
