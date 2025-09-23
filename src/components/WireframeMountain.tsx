@@ -39,7 +39,9 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     const height = window.innerHeight;
     
     renderer.setSize(width, height);
-    renderer.setClearColor(0x372528, 1); // #372528 background
+    // Dynamic background based on theme
+    const bgColor = currentTheme === 'dark' ? 0x372528 : 0xf8f9fa;
+    renderer.setClearColor(bgColor, 1);
     
     // Force full viewport positioning - bypass any CSS constraints
     const canvas = renderer.domElement;
@@ -289,7 +291,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
       renderer.dispose();
       mount.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [currentTheme]);
 
   return <div ref={mountRef} style={{ 
     position: 'fixed', 

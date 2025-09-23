@@ -334,7 +334,7 @@ Want me to dig deeper on any of this?
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
 <div style="display: flex; flex-direction: column; gap: 16px; margin: 16px 0;">
-  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; ">
     <div style="flex-shrink: 0;">
       <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
@@ -347,7 +347,7 @@ Our approach centres on three core team members, each bringing distinct expertis
     </div>
   </div>
 
-  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; ">
     <div style="flex-shrink: 0;">
       <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
@@ -360,7 +360,7 @@ Our approach centres on three core team members, each bringing distinct expertis
     </div>
   </div>
 
-  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; ">
     <div style="flex-shrink: 0;">
       <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
@@ -536,11 +536,6 @@ What else would you like to know?`
 
   // AI API integration with fallback to curated responses
   const getApiResponse = async (query: string): Promise<string> => {
-    // TEMPORARY: Force fallback responses to ensure horizontal layout works
-    // TODO: Re-enable AI API once horizontal layout is confirmed working
-    return getFallbackResponse(query)
-
-    /* DISABLED TEMPORARILY
     try {
       const response = await fetch('/api/ai-consultant', {
         method: 'POST',
@@ -560,7 +555,6 @@ What else would you like to know?`
       console.error('API error, falling back to curated response:', error)
       return getFallbackResponse(query)
     }
-    */
   }
 
   // Fallback responses for common queries when API fails
@@ -1109,7 +1103,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask about our team..."
+                  placeholder="What's working elsewhere that you're considering for your situation?"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading}
