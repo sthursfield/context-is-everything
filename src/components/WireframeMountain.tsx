@@ -26,10 +26,9 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
       0.1,
       5000
     );
-    camera.position.z = isMobile ? 3 : 5;  // Closer on mobile to fill screen
+    camera.position.set(0, 0, 10);  // Much further back to see the mountain
     camera.lookAt(0, 0, 0);
-    // Rotate camera 90 degrees around Z axis
-    camera.rotation.z = Math.PI / 2;
+    console.log('📷 Camera position:', camera.position, 'rotation:', camera.rotation);
 
     // Renderer with explicit mobile viewport handling
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -102,7 +101,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            const scale = window.innerWidth < 768 ? 0.025 : 0.01  // Much larger on mobile
+            const scale = window.innerWidth < 768 ? 0.1 : 0.05  // MUCH larger scale for visibility
             
             commands.forEach(cmd => {
               switch (cmd.code) {
@@ -192,7 +191,10 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
                 points: points.length,
                 elevation: line.userData.elevation,
                 color: contourColor.toString(16),
-                theme: currentTheme
+                theme: currentTheme,
+                firstPoint: points[0],
+                lastPoint: points[points.length - 1],
+                scale: scale
               })
 
               rings.push(line)
