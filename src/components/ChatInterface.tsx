@@ -268,24 +268,24 @@ Want me to dig deeper on any of this?
 
         // Scroll to reveal the contact form after a brief delay
         setTimeout(() => {
-          const messagesArea = document.querySelector('.messages-area')
-          if (messagesArea) {
-            // Scroll to bottom of messages area to reveal the email form
-            messagesArea.scrollTo({
-              top: messagesArea.scrollHeight,
-              behavior: 'smooth'
+          // Always try to find and scroll to the email form directly
+          const emailForm = document.querySelector('[class*="border-blue-200"]')
+          if (emailForm) {
+            emailForm.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
             })
           } else {
-            // If no messages area, scroll the window to the form location
-            const emailForm = document.querySelector('[class*="border-blue-200"]')
-            if (emailForm) {
-              emailForm.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
+            // Fallback: scroll the messages area to show bottom where form will appear
+            const messagesArea = document.querySelector('.messages-area')
+            if (messagesArea) {
+              messagesArea.scrollTo({
+                top: messagesArea.scrollHeight,
+                behavior: 'smooth'
               })
             }
           }
-        }, 100)
+        }, 150)
       }
     }
 
