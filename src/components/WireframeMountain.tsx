@@ -108,20 +108,17 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
                 case 'M':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(
-                    (currentX - 165) * scale,
-                    -(currentY - 143) * scale, 
-                    0
-                  ))
+                  const x = (currentX - 165) * scale
+                  const y = -(currentY - 143) * scale
+                  points.push(new THREE.Vector3(x, y, 0))
+                  if (points.length === 1) console.log(`First point raw: (${currentX}, ${currentY}) -> scaled: (${x.toFixed(3)}, ${y.toFixed(3)})`)
                   break
                 case 'L':
                   currentX = cmd.x
                   currentY = cmd.y
-                  points.push(new THREE.Vector3(
-                    (currentX - 165) * scale,
-                    -(currentY - 143) * scale,
-                    0
-                  ))
+                  const lx = (currentX - 165) * scale
+                  const ly = -(currentY - 143) * scale
+                  points.push(new THREE.Vector3(lx, ly, 0))
                   break
                 case 'C':
                   // Approximate bezier with line segments
@@ -225,6 +222,24 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
         isReady = true
         
         console.log(`✅ Created ${filteredRings.length} organic mountain rings`)
+
+        // Add a simple test ring to verify rendering works
+        const testPoints = [
+          new THREE.Vector3(-2, -2, 0),
+          new THREE.Vector3(2, -2, 0),
+          new THREE.Vector3(2, 2, 0),
+          new THREE.Vector3(-2, 2, 0),
+          new THREE.Vector3(-2, -2, 0) // Close the loop
+        ]
+        const testGeometry = new THREE.BufferGeometry().setFromPoints(testPoints)
+        const testMaterial = new THREE.LineBasicMaterial({
+          color: 0x00ff00, // Bright green
+          linewidth: 8
+        })
+        const testLine = new THREE.LineLoop(testGeometry, testMaterial)
+        testLine.position.z = 0 // Right in front of camera
+        scene.add(testLine)
+        console.log('🟢 Added test square at center of screen')
         
         // Start animation after delay
         setTimeout(() => {
