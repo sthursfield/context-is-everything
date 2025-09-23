@@ -184,8 +184,8 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
               })
               const line = new THREE.LineLoop(geometry, material)
 
-              // Set elevation data
-              line.userData.elevation = (sortedPaths.length - i) * 0.5
+              // Set elevation data - much larger elevation differences and start at -5
+              line.userData.elevation = -5 + (sortedPaths.length - i) * 2;
 
               console.log(`🏔️ Created contour ring ${i}:`, {
                 points: points.length,
@@ -196,6 +196,13 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
                 lastPoint: points[points.length - 1],
                 scale: scale
               })
+
+              // Set initial position immediately (don't wait for animation)
+              const positions = line.geometry.attributes.position.array as Float32Array
+              for (let k = 0; k < positions.length; k += 3) {
+                positions[k + 2] = line.userData.elevation; // Set z-coordinate
+              }
+              line.geometry.attributes.position.needsUpdate = true;
 
               rings.push(line)
               scene.add(line)
