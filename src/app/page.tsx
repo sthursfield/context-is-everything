@@ -13,10 +13,11 @@ export default function HomePage() {
   const triggerConversationMode = () => {
     if (currentTheme === 'dark') {
       setIsTransitioning(true)
+      // Start transition immediately, no delay
+      setCurrentTheme('light')
       setTimeout(() => {
-        setCurrentTheme('light')
         setIsTransitioning(false)
-      }, 4000) // Extended to 4 seconds for smooth melting
+      }, 4000) // 4 seconds for smooth transition completion
     }
   }
 
@@ -31,11 +32,11 @@ export default function HomePage() {
     >
       {/* Mountain background - fixed positioning with theme awareness */}
       <div
-        className={`fixed inset-0 w-full h-full transition-all duration-[4000ms] ease-in-out ${
+        className={`fixed inset-0 w-full h-full transition-all duration-[4000ms] ease-in-out overflow-hidden ${
           currentTheme === 'light' ? 'mountain-conversation-mode' : ''
         }`}
         style={{
-          transform: currentTheme === 'light' ? 'scale(0.75) translateY(-30%)' : 'scale(1) translateY(0)',
+          transform: currentTheme === 'light' ? 'scale(0.5) translateY(-40%)' : 'scale(1) translateY(0)',
           opacity: currentTheme === 'light' ? 1 : 1,
           zIndex: 1, // Above background, below UI
           transition: 'transform 4s cubic-bezier(0.23, 1, 0.32, 1), opacity 4s cubic-bezier(0.23, 1, 0.32, 1)',
