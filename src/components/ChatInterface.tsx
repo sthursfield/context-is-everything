@@ -561,11 +561,19 @@ Our approach centres on three core team members, each bringing distinct expertis
     }
 
     if (lowerQuery.includes('future') || lowerQuery.includes('work together')) {
-      return `Strategic collaboration works when it addresses your specific organisational context rather than applying generic frameworks. We help identify where proven approaches need adaptation for your situation.
+      return `**Stop renting generic AI that gives you the same insights as your competitors.**
 
-Most valuable conversations happen when you're evaluating options that have worked elsewhere but need contextual adjustment for your organisation.
+Your business data is unique. Your intelligence should be too.
 
-**Interested in a strategic discussion about your specific situation?**`
+**Plot twist: Every AI tool you "rent" gets smarter from your data... then sells that intelligence back to your competitors.**
+
+We've built something different: AI that learns YOUR patterns, reveals YOUR opportunities, creates YOUR competitive advantages.
+
+This isn't about faster analysis. It's about smarter strategy.
+
+**Want to see the difference proprietary intelligence makes?**
+
+**[Contact Our Team](javascript:void(0))**`
     }
 
     return `Most solutions work brilliantly in one context but fail when context shifts. Implementation success depends more on organisational dynamics than methodology selection.
