@@ -573,7 +573,7 @@ This isn't about faster analysis. It's about smarter strategy.
 
 **Want to see the difference proprietary intelligence makes?**
 
-**[Contact Our Team](javascript:void(0))**`
+**<a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'General Inquiry'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Our Team →</a>**`
     }
 
     return `Most solutions work brilliantly in one context but fail when context shifts. Implementation success depends more on organisational dynamics than methodology selection.
