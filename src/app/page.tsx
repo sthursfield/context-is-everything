@@ -36,7 +36,7 @@ export default function HomePage() {
           currentTheme === 'light' ? 'mountain-conversation-mode' : ''
         }`}
         style={{
-          transform: currentTheme === 'light' ? 'scale(0.5) translateY(-40%)' : 'scale(1) translateY(0)',
+          transform: currentTheme === 'light' ? 'scale(0.7) translateY(-30%)' : 'scale(1) translateY(0)',
           opacity: currentTheme === 'light' ? 1 : 1,
           zIndex: 1, // Above background, below UI
           transition: 'transform 4s cubic-bezier(0.23, 1, 0.32, 1), opacity 4s cubic-bezier(0.23, 1, 0.32, 1)',

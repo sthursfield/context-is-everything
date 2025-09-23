@@ -1017,7 +1017,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                     className={`p-4 rounded-2xl ${
                       message.type === 'user'
                         ? 'text-white text-right max-w-xs'
-                        : 'bg-gray-100 text-gray-800 max-w-md'
+                        : 'text-gray-800 max-w-md backdrop-blur-md bg-white/20 border border-white/30 shadow-lg'
                     }`}
                     style={{
                       backgroundColor: message.type === 'user' ? currentColor : undefined
