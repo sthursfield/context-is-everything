@@ -52,8 +52,9 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
       left: 0 !important;
       width: 100vw !important;
       height: 100vh !important;
-      z-index: -1 !important;
+      z-index: 1 !important;
       display: block !important;
+      pointer-events: none !important;
     `;
     
     mount.appendChild(renderer.domElement);
@@ -174,17 +175,26 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             
             if (points.length > 0) {
               const geometry = new THREE.BufferGeometry().setFromPoints(points)
-              // Theme-aware contour color: orange on dark, dark blue on light
-              const contourColor = currentTheme === 'dark' ? 0xff8800 : 0x1a365d;
+              // High contrast colors for visibility testing
+              const contourColor = currentTheme === 'dark' ? 0xff0000 : 0x000000; // Red on dark, black on light
               const material = new THREE.LineBasicMaterial({
                 color: contourColor,
-                linewidth: 2
+                linewidth: 4,
+                transparent: false,
+                opacity: 1
               })
               const line = new THREE.LineLoop(geometry, material)
-              
+
               // Set elevation data
               line.userData.elevation = (sortedPaths.length - i) * 0.5
-              
+
+              console.log(`🏔️ Created contour ring ${i}:`, {
+                points: points.length,
+                elevation: line.userData.elevation,
+                color: contourColor.toString(16),
+                theme: currentTheme
+              })
+
               rings.push(line)
               scene.add(line)
             }
@@ -278,8 +288,9 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        z-index: -1 !important;
+        z-index: 1 !important;
         display: block !important;
+        pointer-events: none !important;
       `;
       
       camera.aspect = width / height;
