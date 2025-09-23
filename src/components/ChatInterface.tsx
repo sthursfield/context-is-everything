@@ -811,28 +811,14 @@ We apologize for the inconvenience and appreciate your patience.`)
     setEmailSending(false)
   }
 
-  const threeFs = [
-    { id: 'foundation', label: 'Foundation', description: 'Our team & approach' },
-    { id: 'findings', label: 'Findings', description: 'Latest business insights' },
-    { id: 'future', label: 'Future', description: 'How we work together' }
-  ]
-
-  const handleThreeFsClick = (selectedF: string) => {
-    const queries = {
-      foundation: "Tell me about your Foundation - your team and approach",
-      findings: "Share your latest Findings and business insights",
-      future: "How might we work together in the Future?"
-    }
-    const query = queries[selectedF as keyof typeof queries]
-
-    setInputValue(query)
-    handleSubmit(query, true) // Pass isFromThreeFs flag
-  }
 
   return (
     <div
-      className={`w-full max-w-4xl mx-auto relative transition-all duration-[2500ms] ${currentTheme === 'light' ? 'chat-light-mode' : ''}`}
-      style={{ zIndex: 10 }}
+      className={`w-full max-w-4xl mx-auto relative transition-all duration-[4000ms] ${currentTheme === 'light' ? 'chat-light-mode' : ''}`}
+      style={{
+        zIndex: 10,
+        transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
+      }}
     >
       {/* Messages Area - Scrollable (only when messages exist) */}
       {(messages.length > 0 || showEmailForm || emailSuccess) && (
@@ -1010,39 +996,25 @@ We apologize for the inconvenience and appreciate your patience.`)
           (messages.length > 0 || showEmailForm || emailSuccess)
             ? 'fixed bottom-0 left-0 right-0 z-50 pt-6 pb-6'
             : 'relative'
-        } transition-all duration-[2500ms]`}
+        } transition-all duration-[4000ms]`}
         style={(messages.length > 0 || showEmailForm || emailSuccess)
           ? currentTheme === 'light'
             ? {
                 background: 'linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 70%, transparent 100%)',
                 backdropFilter: 'blur(20px) saturate(180%)',
-                borderTop: '1px solid rgba(0, 0, 0, 0.1)'
+                transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
               }
             : {
                 background: 'linear-gradient(to top, rgba(55, 37, 40, 0.95) 0%, rgba(55, 37, 40, 0.8) 70%, transparent 100%)',
-                backdropFilter: 'blur(8px)'
+                backdropFilter: 'blur(8px)',
+                transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
               }
-          : undefined
+          : {
+              transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
+            }
         }
       >
         <div className="max-w-4xl mx-auto px-6">
-        {/* Legacy 3 F's Navigation - Hidden when header buttons are active */}
-        {currentTheme === 'dark' && !hasUserInteracted && (
-          <div className="mb-4">
-            <div className="flex gap-2 justify-center">
-              {threeFs.map((f) => (
-                <button
-                  key={f.id}
-                  onClick={() => handleThreeFsClick(f.id)}
-                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
-                >
-                  <span className="font-medium">{f.label}</span>
-                  <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mb-8 relative">

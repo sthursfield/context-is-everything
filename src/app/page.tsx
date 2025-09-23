@@ -16,27 +16,29 @@ export default function HomePage() {
       setTimeout(() => {
         setCurrentTheme('light')
         setIsTransitioning(false)
-      }, 2500)
+      }, 4000) // Extended to 4 seconds for smooth melting
     }
   }
 
   return (
     <div
-      className={`min-h-screen relative overflow-x-hidden transition-all duration-[2500ms] ease-out ${isTransitioning ? 'transitioning' : ''}`}
+      className={`min-h-screen relative overflow-x-hidden transition-all duration-[4000ms] ease-in-out ${isTransitioning ? 'transitioning' : ''}`}
       data-theme={currentTheme}
       style={{
-        backgroundColor: currentTheme === 'dark' ? '#372528' : '#ffffff'
+        backgroundColor: currentTheme === 'dark' ? '#372528' : '#ffffff',
+        transition: 'background-color 4s cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
       {/* Mountain background - fixed positioning with theme awareness */}
       <div
-        className={`fixed inset-0 w-full h-full transition-all duration-[2500ms] ease-out ${
+        className={`fixed inset-0 w-full h-full transition-all duration-[4000ms] ease-in-out ${
           currentTheme === 'light' ? 'mountain-conversation-mode' : ''
         }`}
         style={{
-          transform: currentTheme === 'light' ? 'scale(0.6) translateY(-40%)' : 'scale(1) translateY(0)',
-          opacity: currentTheme === 'light' ? 0.8 : 1,
-          zIndex: currentTheme === 'light' ? -1 : 1
+          transform: currentTheme === 'light' ? 'scale(0.7) translateY(-35%)' : 'scale(1) translateY(0)',
+          opacity: currentTheme === 'light' ? 0.9 : 1,
+          zIndex: currentTheme === 'light' ? -1 : 1,
+          transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
         }}
       >
         <WireframeMountain currentTheme={currentTheme} />
@@ -44,9 +46,12 @@ export default function HomePage() {
 
       {/* Page content - scrollable over the animation with theme-aware text */}
       <div
-        className={`relative z-10 pointer-events-none min-h-screen transition-colors duration-[2500ms] ${
+        className={`relative z-10 pointer-events-none min-h-screen transition-colors duration-[4000ms] ${
           currentTheme === 'light' ? 'text-gray-900' : 'text-white'
         }`}
+        style={{
+          transition: 'color 4s cubic-bezier(0.23, 1, 0.32, 1)'
+        }}
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
@@ -73,9 +78,9 @@ export default function HomePage() {
             />
 
             {/* New Header Buttons - Team and What we do */}
-            <div className="header-buttons flex justify-center gap-8 mt-6 mb-4">
+            <div className="header-buttons flex justify-center gap-2 mt-6 mb-4">
               <button
-                className={`header-btn team-btn px-6 py-3 backdrop-blur-sm border rounded-full hover:scale-105 active:scale-95 transition-all duration-300 font-medium tracking-wide ${
+                className={`header-btn team-btn px-4 py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm font-medium ${
                   currentTheme === 'light'
                     ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
                     : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
@@ -92,7 +97,7 @@ export default function HomePage() {
                 Team
               </button>
               <button
-                className={`header-btn whatwedo-btn px-6 py-3 backdrop-blur-sm border rounded-full hover:scale-105 active:scale-95 transition-all duration-300 font-medium tracking-wide ${
+                className={`header-btn whatwedo-btn px-4 py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm font-medium ${
                   currentTheme === 'light'
                     ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
                     : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
