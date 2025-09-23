@@ -39,9 +39,10 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     const height = window.innerHeight;
     
     renderer.setSize(width, height);
-    // Dynamic background based on theme
-    const bgColor = currentTheme === 'dark' ? 0x372528 : 0xf8f9fa;
+    // Dynamic background based on theme - use white for light theme
+    const bgColor = currentTheme === 'dark' ? 0x372528 : 0xffffff;
     renderer.setClearColor(bgColor, 1);
+    console.log('🎨 Mountain theme:', currentTheme, 'bgColor:', bgColor.toString(16));
     
     // Force full viewport positioning - bypass any CSS constraints
     const canvas = renderer.domElement;
@@ -173,8 +174,10 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             
             if (points.length > 0) {
               const geometry = new THREE.BufferGeometry().setFromPoints(points)
-              const material = new THREE.LineBasicMaterial({ 
-                color: 0xff8800, // bright orange
+              // Theme-aware contour color: orange on dark, dark blue on light
+              const contourColor = currentTheme === 'dark' ? 0xff8800 : 0x1a365d;
+              const material = new THREE.LineBasicMaterial({
+                color: contourColor,
                 linewidth: 2
               })
               const line = new THREE.LineLoop(geometry, material)
