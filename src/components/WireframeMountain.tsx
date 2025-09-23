@@ -51,7 +51,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
       left: 0 !important;
       width: 100vw !important;
       height: 100vh !important;
-      z-index: 1 !important;
+      z-index: 50 !important;
       display: block !important;
       pointer-events: none !important;
     `;
@@ -312,7 +312,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        z-index: 1 !important;
+        z-index: 50 !important;
         display: block !important;
         pointer-events: none !important;
       `;

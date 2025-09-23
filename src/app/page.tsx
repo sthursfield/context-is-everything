@@ -37,7 +37,7 @@ export default function HomePage() {
         style={{
           transform: currentTheme === 'light' ? 'scale(0.75) translateY(-30%)' : 'scale(1) translateY(0)',
           opacity: currentTheme === 'light' ? 1 : 1,
-          zIndex: currentTheme === 'light' ? -1 : 1,
+          zIndex: 45, // Always above page content
           transition: 'transform 4s cubic-bezier(0.23, 1, 0.32, 1), opacity 4s cubic-bezier(0.23, 1, 0.32, 1)',
           transformOrigin: 'center center'
         }}
