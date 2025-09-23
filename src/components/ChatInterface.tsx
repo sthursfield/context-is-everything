@@ -329,7 +329,7 @@ Want me to dig deeper on any of this?
 
       if (action === 'team') {
         // Trigger Foundation/Team content directly without user message bubble
-        const teamContent = `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
+        const teamContent = `**Foundation: Strategic Approach & Team Expertise**
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
@@ -401,15 +401,15 @@ Our approach centres on three core team members, each bringing distinct expertis
         setTimeout(() => scrollToMessage(0), 100)
       } else if (action === 'whatwedo') {
         // Trigger What we do content
-        const whatWeDoContent = `While competitors use generic ChatGPT, Sasha gives you an AI that actually knows YOUR business.
+        const whatWeDoContent = `**While competitors use generic ChatGPT, our Knowledge Catalyst (Sasha) gives you an AI that actually knows YOUR business.**
 
 It transforms decades of trapped institutional knowledge into an instantly accessible private AI brain, pulling together data silos to make sense of information across your entire organisation. Your data never leaves your infrastructure, ensuring complete sovereignty and compliance (HIPAA/GDPR/SOX).
 
 Sasha knows your client history, proprietary methodologies, team expertise, and what's worked (or failed) across every project. New employees become productive in days, not months. Critical information retrieval drops from hours to seconds.
 
-This isn't about having AI - everyone has AI.
-It's about having YOUR AI that no competitor can replicate.
-A Knowledge Catalyst.
+**This isn't about having AI - everyone has AI.**
+**It's about having YOUR AI that no competitor can replicate.**
+**A Knowledge Catalyst.**
 
 What else would you like to know?`
 
@@ -625,7 +625,7 @@ What else would you like to know?`
     }
 
     if (lowerQuery.includes('foundation') || lowerQuery.includes('team')) {
-      const response = `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
+      const response = `**Foundation: Strategic Approach & Team Expertise**
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
@@ -1103,7 +1103,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="What's working elsewhere that you're considering for your situation?"
+                  placeholder="Tell us about your challenge or question..."
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading}
