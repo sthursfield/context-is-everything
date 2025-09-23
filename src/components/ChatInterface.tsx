@@ -293,6 +293,33 @@ Want me to dig deeper on any of this?
     return () => window.removeEventListener('message', handlePostMessage)
   }, [])
 
+  // Handle contact-link button clicks
+  useEffect(() => {
+    const handleContactLinkClick = (event: Event) => {
+      const target = event.target as HTMLElement
+      if (target && target.classList.contains('contact-link')) {
+        const contactType = target.getAttribute('data-contact-type')
+        if (contactType) {
+          setEmailForm(prev => ({ ...prev, teamMember: contactType }))
+          setShowEmailForm(true)
+          // Scroll to reveal the contact form
+          setTimeout(() => {
+            const emailForm = document.querySelector('[class*="border-blue-200"]')
+            if (emailForm) {
+              emailForm.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              })
+            }
+          }, 150)
+        }
+      }
+    }
+
+    document.addEventListener('click', handleContactLinkClick)
+    return () => document.removeEventListener('click', handleContactLinkClick)
+  }, [])
+
   const formatResponse = (text: string) => {
     // Special handling for Foundation responses with HTML structure
     if (text.includes('V7.3-HORIZONTAL-LAYOUT') && text.includes('<div style="display: flex;')) {
