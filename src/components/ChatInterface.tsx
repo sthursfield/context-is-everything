@@ -12,6 +12,8 @@ interface Message {
 
 interface ChatInterfaceProps {
   currentColor: string
+  currentTheme: 'dark' | 'light'
+  isTransitioning: boolean
 }
 
 interface EmailFormData {
@@ -21,7 +23,7 @@ interface EmailFormData {
   message: string
 }
 
-export default function ChatInterface({ currentColor }: ChatInterfaceProps) {
+export default function ChatInterface({ currentColor, currentTheme, isTransitioning }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -318,6 +320,47 @@ Want me to dig deeper on any of this?
 
     document.addEventListener('click', handleContactLinkClick)
     return () => document.removeEventListener('click', handleContactLinkClick)
+  }, [])
+
+  // Handle header button clicks from page.tsx
+  useEffect(() => {
+    const handleHeaderButtonClick = (event: CustomEvent) => {
+      const { action } = event.detail
+
+      if (action === 'team') {
+        // Trigger Foundation/Team content (existing functionality)
+        const teamQuery = "Tell me about your Foundation - your team and approach"
+        handleSubmit(teamQuery, true)
+      } else if (action === 'whatwedo') {
+        // Trigger What we do content
+        const whatWeDoContent = `While competitors use generic ChatGPT, Sasha gives you an AI that actually knows YOUR business.
+
+It transforms decades of trapped institutional knowledge into an instantly accessible private AI brain, pulling together data silos to make sense of information across your entire organisation. Your data never leaves your infrastructure, ensuring complete sovereignty and compliance (HIPAA/GDPR/SOX).
+
+Sasha knows your client history, proprietary methodologies, team expertise, and what's worked (or failed) across every project. New employees become productive in days, not months. Critical information retrieval drops from hours to seconds.
+
+This isn't about having AI - everyone has AI.
+It's about having YOUR AI that no competitor can replicate.
+A Knowledge Catalyst.
+
+What else would you like to know?`
+
+        // Add the what we do message directly
+        const newMessage: Message = {
+          id: Date.now().toString(),
+          type: 'assistant',
+          content: whatWeDoContent
+        }
+        setMessages([newMessage])
+        setHasUserInteracted(true)
+
+        // Scroll to the message
+        setTimeout(() => scrollToMessage(0), 100)
+      }
+    }
+
+    window.addEventListener('headerButtonClick', handleHeaderButtonClick as EventListener)
+    return () => window.removeEventListener('headerButtonClick', handleHeaderButtonClick as EventListener)
   }, [])
 
   const formatResponse = (text: string) => {
@@ -787,7 +830,10 @@ We apologize for the inconvenience and appreciate your patience.`)
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto relative" style={{ zIndex: 10 }}>
+    <div
+      className={`w-full max-w-4xl mx-auto relative transition-all duration-[2500ms] ${currentTheme === 'light' ? 'chat-light-mode' : ''}`}
+      style={{ zIndex: 10 }}
+    >
       {/* Messages Area - Scrollable (only when messages exist) */}
       {(messages.length > 0 || showEmailForm || emailSuccess) && (
         <div className="messages-area overflow-y-auto pb-8 mb-4" style={{
@@ -898,9 +944,20 @@ We apologize for the inconvenience and appreciate your patience.`)
           </div>
         )}
 
-        {/* Messages */}
+        {/* Messages - Theme Aware */}
         {messages.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-4">
+          <div
+            className={`rounded-2xl shadow-lg p-6 mb-4 ${
+              currentTheme === 'light'
+                ? 'bg-white/90 backdrop-blur-xl border border-white/20'
+                : 'bg-white'
+            }`}
+            style={{
+              boxShadow: currentTheme === 'light'
+                ? `0 8px 32px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.5) inset`
+                : '0 4px 20px rgba(0,0,0,0.1)'
+            }}
+          >
             <div className="space-y-4">
               {messages.map((message, index) => (
                 <div
@@ -947,42 +1004,61 @@ We apologize for the inconvenience and appreciate your patience.`)
         </div>
       )}
 
-      {/* Input Section - Fixed when messages exist, normal when empty */}
+      {/* Input Section - Modern Chat Layout with Theme Awareness */}
       <div
         className={`${
           (messages.length > 0 || showEmailForm || emailSuccess)
             ? 'fixed bottom-0 left-0 right-0 z-50 pt-6 pb-6'
             : 'relative'
-        }`}
+        } transition-all duration-[2500ms]`}
         style={(messages.length > 0 || showEmailForm || emailSuccess)
-          ? {
-              background: 'linear-gradient(to top, rgba(55, 37, 40, 0.95) 0%, rgba(55, 37, 40, 0.8) 70%, transparent 100%)',
-              backdropFilter: 'blur(8px)'
-            }
+          ? currentTheme === 'light'
+            ? {
+                background: 'linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 70%, transparent 100%)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                borderTop: '1px solid rgba(0, 0, 0, 0.1)'
+              }
+            : {
+                background: 'linear-gradient(to top, rgba(55, 37, 40, 0.95) 0%, rgba(55, 37, 40, 0.8) 70%, transparent 100%)',
+                backdropFilter: 'blur(8px)'
+              }
           : undefined
         }
       >
         <div className="max-w-4xl mx-auto px-6">
-        {/* 3 F's Navigation - Above Chat Input */}
-        <div className="mb-4">
-          <div className="flex gap-2 justify-center">
-            {threeFs.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => handleThreeFsClick(f.id)}
-                className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
-              >
-                <span className="font-medium">{f.label}</span>
-                <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
-              </button>
-            ))}
+        {/* Legacy 3 F's Navigation - Hidden when header buttons are active */}
+        {currentTheme === 'dark' && !hasUserInteracted && (
+          <div className="mb-4">
+            <div className="flex gap-2 justify-center">
+              {threeFs.map((f) => (
+                <button
+                  key={f.id}
+                  onClick={() => handleThreeFsClick(f.id)}
+                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-200 flex items-center gap-2 text-sm"
+                >
+                  <span className="font-medium">{f.label}</span>
+                  <span className="text-xs opacity-75 hidden sm:inline">{f.description}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Main Input Field */}
+        {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mb-8 relative">
           <form onSubmit={handleInputSubmit}>
-            <div className="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl" style={{ boxShadow: `0 4px 20px rgba(0,0,0,0.1)` }}>
+            <div
+              className={`relative rounded-2xl transition-all duration-300 hover:shadow-xl ${
+                currentTheme === 'light'
+                  ? 'bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg'
+                  : 'bg-white shadow-lg'
+              }`}
+              style={{
+                boxShadow: currentTheme === 'light'
+                  ? `0 8px 32px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.5) inset`
+                  : `0 4px 20px rgba(0,0,0,0.1)`
+              }}
+            >
               <div className="flex items-center px-6 py-4">
                 <div className="mr-4">
                   <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

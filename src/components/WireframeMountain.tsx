@@ -5,7 +5,11 @@ import * as THREE from "three";
 import gsap from 'gsap'
 import * as parseSVGPath from 'svg-path-parser'
 
-export default function WireframeMountain() {
+interface WireframeMountainProps {
+  currentTheme?: 'dark' | 'light'
+}
+
+export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMountainProps) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
