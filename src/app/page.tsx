@@ -25,7 +25,7 @@ export default function HomePage() {
       className={`min-h-screen relative overflow-x-hidden transition-all duration-[4000ms] ease-in-out ${isTransitioning ? 'transitioning' : ''}`}
       data-theme={currentTheme}
       style={{
-        backgroundColor: currentTheme === 'dark' ? '#372528' : '#ffffff',
+        backgroundColor: currentTheme === 'dark' ? '#372528' : '#f8f9fa',
         transition: 'background-color 4s cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
@@ -35,10 +35,11 @@ export default function HomePage() {
           currentTheme === 'light' ? 'mountain-conversation-mode' : ''
         }`}
         style={{
-          transform: currentTheme === 'light' ? 'scale(0.7) translateY(-35%)' : 'scale(1) translateY(0)',
-          opacity: currentTheme === 'light' ? 0.9 : 1,
+          transform: currentTheme === 'light' ? 'scale(0.75) translateY(-30%)' : 'scale(1) translateY(0)',
+          opacity: currentTheme === 'light' ? 1 : 1,
           zIndex: currentTheme === 'light' ? -1 : 1,
-          transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
+          transition: 'transform 4s cubic-bezier(0.23, 1, 0.32, 1), opacity 4s cubic-bezier(0.23, 1, 0.32, 1)',
+          transformOrigin: 'center center'
         }}
       >
         <WireframeMountain currentTheme={currentTheme} />

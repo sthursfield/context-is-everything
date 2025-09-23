@@ -328,9 +328,77 @@ Want me to dig deeper on any of this?
       const { action } = event.detail
 
       if (action === 'team') {
-        // Trigger Foundation/Team content (existing functionality)
-        const teamQuery = "Tell me about your Foundation - your team and approach"
-        handleSubmit(teamQuery, true)
+        // Trigger Foundation/Team content directly without user message bubble
+        const teamContent = `**Foundation: Strategic Approach & Team Expertise** <!-- V7.3-HORIZONTAL-LAYOUT -->
+
+Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
+
+<div style="display: flex; flex-direction: column; gap: 16px; margin: 16px 0;">
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+    <div style="flex-shrink: 0;">
+      <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #333;">Lindsay</h3>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+    <div style="flex-shrink: 0;">
+      <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #333;">Robbie MacIntosh</h3>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Robbie →</a></strong></p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0066cc;">
+    <div style="flex-shrink: 0;">
+      <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display: none; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+    </div>
+    <div style="flex: 1;">
+      <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #333;">Spencer</h3>
+      <p style="margin: 0 0 4px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
+      <p style="margin: 0 0 6px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>
+    </div>
+  </div>
+</div>
+
+## Why This Foundation Works
+
+**Cross-Sector Perspective**: Rather than sector-specific consultants, our team combines perspectives from technology, operations, and strategy across multiple industries.
+
+**Implementation Focus**: Each member has hands-on delivery experience, not just advisory roles. We've built the solutions we recommend.
+
+**Adaptive Approach**: Instead of rigid methodologies, we adapt proven frameworks to your specific organisational context.
+
+**Proven Track Record**: Collectively responsible for successful transformations across £50M+ in organisational value creation.
+
+**Ready to explore how this foundation applies to your situation?**
+
+**[Contact Our Team →](javascript:void(0))**`
+
+        // Add the team message directly without user question
+        const newMessage: Message = {
+          id: Date.now().toString(),
+          type: 'assistant',
+          content: teamContent
+        }
+        setMessages([newMessage])
+        setHasUserInteracted(true)
+
+        // Scroll to the message
+        setTimeout(() => scrollToMessage(0), 100)
       } else if (action === 'whatwedo') {
         // Trigger What we do content
         const whatWeDoContent = `While competitors use generic ChatGPT, Sasha gives you an AI that actually knows YOUR business.
@@ -935,7 +1003,7 @@ We apologize for the inconvenience and appreciate your patience.`)
           <div
             className={`rounded-2xl shadow-lg p-6 mb-4 ${
               currentTheme === 'light'
-                ? 'bg-white/90 backdrop-blur-xl border border-white/20'
+                ? 'bg-white/95 backdrop-blur-xl border border-gray/10'
                 : 'bg-white'
             }`}
             style={{
@@ -1000,7 +1068,7 @@ We apologize for the inconvenience and appreciate your patience.`)
         style={(messages.length > 0 || showEmailForm || emailSuccess)
           ? currentTheme === 'light'
             ? {
-                background: 'linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 70%, transparent 100%)',
+                background: 'linear-gradient(to top, rgba(248, 249, 250, 0.95) 0%, rgba(248, 249, 250, 0.8) 70%, transparent 100%)',
                 backdropFilter: 'blur(20px) saturate(180%)',
                 transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
               }
@@ -1022,12 +1090,12 @@ We apologize for the inconvenience and appreciate your patience.`)
             <div
               className={`relative rounded-2xl transition-all duration-300 hover:shadow-xl ${
                 currentTheme === 'light'
-                  ? 'bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg'
+                  ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
                   : 'bg-white shadow-lg'
               }`}
               style={{
                 boxShadow: currentTheme === 'light'
-                  ? `0 8px 32px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.5) inset`
+                  ? `0 8px 32px rgba(0,0,0,0.15), 0 1px 0 rgba(255,255,255,0.8) inset`
                   : `0 4px 20px rgba(0,0,0,0.1)`
               }}
             >
