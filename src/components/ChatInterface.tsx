@@ -804,23 +804,29 @@ This isn't about faster analysis. It's about smarter strategy.
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (inputValue.trim() && !isLoading && !isAnimating) {
-      // Start animation sequence
-      setAnimatingMessage(inputValue)
-      setIsAnimating(true)
-
-      // Clear input immediately for responsive feel
       const messageToSubmit = inputValue
-      setInputValue('')
 
-      // Trigger conversation mode
-      onTriggerConversationMode?.()
+      // Check if we're in theme transition - if so, skip animation
+      if (isTransitioning || currentTheme === 'dark') {
+        // Simple submission without animation during theme transition
+        setInputValue('')
+        onTriggerConversationMode?.()
+        setTimeout(() => {
+          handleSubmit(messageToSubmit)
+        }, 100) // Short delay to let theme transition start
+      } else {
+        // Normal animation sequence for light theme
+        setAnimatingMessage(inputValue)
+        setIsAnimating(true)
+        setInputValue('')
 
-      // After animation duration, actually submit the message
-      setTimeout(() => {
-        setIsAnimating(false)
-        setAnimatingMessage('')
-        handleSubmit(messageToSubmit)
-      }, 500) // 500ms animation duration
+        // After animation duration, actually submit the message
+        setTimeout(() => {
+          setIsAnimating(false)
+          setAnimatingMessage('')
+          handleSubmit(messageToSubmit)
+        }, 500) // 500ms animation duration
+      }
     }
   }
 
