@@ -806,21 +806,22 @@ This isn't about faster analysis. It's about smarter strategy.
     if (inputValue.trim() && !isLoading && !isAnimating) {
       const messageToSubmit = inputValue
 
-      // Check if we're in theme transition - if so, skip animation
-      if (isTransitioning || currentTheme === 'dark') {
-        // Simple submission without animation during theme transition
+      // ALWAYS skip animation in dark mode or during transitions
+      if (currentTheme === 'dark' || isTransitioning) {
+        // Direct submission with no animation in dark mode
         setInputValue('')
         onTriggerConversationMode?.()
         setTimeout(() => {
           handleSubmit(messageToSubmit)
-        }, 100) // Short delay to let theme transition start
+        }, 100)
       } else {
-        // Normal animation sequence for light theme
+        // Light theme only: Claude-style animation with solidification effect
         setAnimatingMessage(inputValue)
         setIsAnimating(true)
         setInputValue('')
+        onTriggerConversationMode?.()
 
-        // After animation duration, actually submit the message
+        // After animation duration, submit the message
         setTimeout(() => {
           setIsAnimating(false)
           setAnimatingMessage('')
@@ -1031,12 +1032,12 @@ We apologize for the inconvenience and appreciate your patience.`)
                 <div
                   key={message.id}
                   data-message-index={index}
-                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${message.type === 'user' ? 'justify-start' : 'justify-start'}`}
                 >
                   <div
                     className={`p-4 rounded-2xl ${
                       message.type === 'user'
-                        ? 'text-white text-right max-w-xs'
+                        ? 'text-white text-left max-w-xs'
                         : 'text-gray-800 w-full backdrop-blur-sm bg-white/[0.05] border border-white/20 shadow-2xl'
                     }`}
                     style={message.type === 'user' ? {
@@ -1107,11 +1108,14 @@ We apologize for the inconvenience and appreciate your patience.`)
             }}
           >
             <div
-              className={`relative rounded-2xl mx-6 px-6 py-4 ${
+              className={`relative rounded-2xl mx-6 px-6 py-4 transition-all duration-300 ${
                 currentTheme === 'light'
-                  ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
+                  ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg animate-[solidify_0.5s_ease-out_forwards]'
                   : 'bg-white shadow-lg'
               }`}
+              style={{
+                animation: currentTheme === 'light' ? 'solidify 0.5s ease-out forwards' : 'none'
+              }}
             >
               <div className="flex items-center">
                 <div className="mr-4">
