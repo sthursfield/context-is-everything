@@ -985,7 +985,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   onChange={(e) => handleEmailFormChange('message', e.target.value)}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
-                  placeholder="What brings you here today?"
+                  placeholder="How can we help?"
                   required
                 />
               </div>
@@ -1158,7 +1158,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => onTriggerConversationMode?.()}
-                  placeholder="What brings you here today?"
+                  placeholder="How can we help?"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}

@@ -61,8 +61,8 @@ export default function HomePage() {
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '90%', // Mobile-first responsive sizing
-                maxWidth: '280px', // Smaller max width for mobile
+                width: '85%', // Even smaller for mobile
+                maxWidth: '250px', // Much smaller max width
                 height: 'auto'
               }}
               loading="eager"
