@@ -32,15 +32,11 @@ export default function HomePage() {
     >
       {/* Mountain background - fixed positioning with theme awareness */}
       <div
-        className={`fixed inset-0 w-full h-full transition-all duration-[4000ms] ease-in-out overflow-hidden ${
+        className={`fixed inset-0 w-full h-full transition-all duration-[4000ms] ease-in-out ${
           currentTheme === 'light' ? 'mountain-conversation-mode' : ''
         }`}
         style={{
-          transform: currentTheme === 'light' ? 'scale(0.7) translateY(-30%)' : 'scale(1) translateY(0)',
-          opacity: currentTheme === 'light' ? 1 : 1,
-          zIndex: 1, // Above background, below UI
-          transition: 'transform 4s cubic-bezier(0.23, 1, 0.32, 1), opacity 4s cubic-bezier(0.23, 1, 0.32, 1)',
-          transformOrigin: 'center center'
+          zIndex: 1 // Above background, below UI
         }}
       >
         <WireframeMountain currentTheme={currentTheme} />
@@ -59,13 +55,13 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto w-full">
             {/* PNG for both desktop and mobile - no font fallback risks */}
             <img
-              src="/assets/CIE_stacked_cropped.png"
+              src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
               className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default"
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '25%',
+                width: 'clamp(30%, 25%, 300px)', // More responsive logo sizing
                 maxWidth: '300px',
                 height: 'auto'
               }}
@@ -80,7 +76,7 @@ export default function HomePage() {
             />
 
             {/* New Header Buttons - Team and What we do */}
-            <div className="header-buttons flex justify-center gap-2 mt-6 mb-4">
+            <div className="header-buttons flex justify-center gap-3 md:gap-2 mt-4 md:mt-6 mb-3 md:mb-4">
               <button
                 className={`header-btn team-btn px-4 py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm font-medium ${
                   currentTheme === 'light'
@@ -119,8 +115,8 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Chat positioned at 22vh for perfect visual balance */}
-        <main className="absolute left-0 right-0 p-6 pointer-events-auto" style={{ top: '22vh' }}>
+        {/* Chat positioned responsively for optimal mobile and desktop experience */}
+        <main className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto" style={{ top: 'clamp(15vh, 22vh, 25vh)' }}>
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
               currentColor={colors.accent}

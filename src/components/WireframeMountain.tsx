@@ -21,12 +21,13 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     const scene = new THREE.Scene();
     const isMobile = window.innerWidth < 768;
     const camera = new THREE.PerspectiveCamera(
-      isMobile ? 75 : 50,  // Wider FOV on mobile
+      isMobile ? 60 : 50,  // Slightly wider FOV on mobile for better framing
       window.innerWidth / window.innerHeight,
       0.1,
       5000
     );
-    camera.position.set(0, 0, 10);  // Much further back to see the mountain
+    // Adjust camera position based on device
+    camera.position.set(0, 0, isMobile ? 8 : 10);
     camera.lookAt(0, 0, 0);
     console.log('📷 Camera position:', camera.position, 'rotation:', camera.rotation);
 
@@ -100,7 +101,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            const scale = window.innerWidth < 768 ? 0.025 : 0.01  // Back to original size
+            const scale = window.innerWidth < 768 ? 0.015 : 0.01  // Optimized mobile scale
             
             commands.forEach(cmd => {
               switch (cmd.code) {
@@ -170,8 +171,8 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             
             if (points.length > 0) {
               const geometry = new THREE.BufferGeometry().setFromPoints(points)
-              // Soft, elegant colors
-              const contourColor = currentTheme === 'dark' ? 0xff8800 : 0x6B8E74; // Gentle orange on dark, muted green on light
+              // Logo-inspired colors for light theme
+              const contourColor = currentTheme === 'dark' ? 0xff8800 : 0x4C6577; // Gentle orange on dark, CONTEXT IS blue-grey on light
               const material = new THREE.LineBasicMaterial({
                 color: contourColor,
                 linewidth: 2,
@@ -193,10 +194,10 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
                 scale: scale
               })
 
-              // Set initial position immediately (don't wait for animation)
+              // Set initial position at z=0 (flat) - animation will bring them to elevation
               const positions = line.geometry.attributes.position.array as Float32Array
               for (let k = 0; k < positions.length; k += 3) {
-                positions[k + 2] = line.userData.elevation; // Set z-coordinate
+                positions[k + 2] = 0; // Start flat
               }
               line.geometry.attributes.position.needsUpdate = true;
 
@@ -208,7 +209,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
           }
         })
         
-        // Remove second smallest ring for better profile
+        // Remove the second smallest ring (irregular shape) but keep the smallest
         const filteredRings = rings.filter((ring, index) => {
           if (index === rings.length - 2 && rings.length > 2) {
             scene.remove(ring)
@@ -216,17 +217,17 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
           }
           return true
         })
-        
+
         ringsRef.push(...filteredRings)
         isReady = true
-        
-        console.log(`✅ Created ${filteredRings.length} organic mountain rings`)
+
+        console.log(`✅ Created ${filteredRings.length} organic mountain rings - PROPER FILTERING ✨`)
 
         
-        // Start animation after delay
+        // Start animation after all rings are fully initialized
         setTimeout(() => {
           startCyclingAnimation()
-        }, 2000)
+        }, 1000) // Shorter delay for quicker startup
         
       } catch (error) {
         console.error('❌ Failed to load organic mountain contours:', error)
@@ -249,15 +250,16 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     }
     
     const startCyclingAnimation = () => {
-      // Create a continuous breathing animation
+      // Create ultra-smooth breathing animation using sine wave
       gsap.to({ progress: 0 }, {
-        progress: 1,
-        duration: 4,
-        ease: "sine.inOut",
-        yoyo: true,
+        progress: Math.PI * 2, // Full sine wave cycle
+        duration: 8, // Slower for ultra-smooth movement
+        ease: "none", // Linear progression for consistent sine wave
         repeat: -1,
         onUpdate: function() {
-          animationProgress = this.targets()[0].progress
+          // Use sine wave for perfectly smooth breathing
+          const sineProgress = (Math.sin(this.targets()[0].progress - Math.PI/2) + 1) / 2
+          animationProgress = sineProgress
           updateMountainElevation()
         }
       })
