@@ -14,6 +14,7 @@ interface ChatInterfaceProps {
   currentColor: string
   currentTheme: 'dark' | 'light'
   isTransitioning: boolean
+  onTriggerConversationMode?: () => void
 }
 
 interface EmailFormData {
@@ -23,7 +24,7 @@ interface EmailFormData {
   message: string
 }
 
-export default function ChatInterface({ currentColor, currentTheme, isTransitioning }: ChatInterfaceProps) {
+export default function ChatInterface({ currentColor, currentTheme, isTransitioning, onTriggerConversationMode }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -1098,6 +1099,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
+                  onFocus={() => onTriggerConversationMode?.()}
                   placeholder="Tell us about your challenge or question..."
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}

@@ -122,6 +122,7 @@ export default function HomePage() {
               currentColor={colors.accent}
               currentTheme={currentTheme}
               isTransitioning={isTransitioning}
+              onTriggerConversationMode={triggerConversationMode}
             />
           </div>
         </main>
