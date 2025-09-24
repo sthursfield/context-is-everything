@@ -985,7 +985,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   onChange={(e) => handleEmailFormChange('message', e.target.value)}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
-                  placeholder="Tell us about your challenge or question..."
+                  placeholder="What brings you here today?"
                   required
                 />
               </div>
@@ -1147,7 +1147,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   : `0 4px 20px rgba(0,0,0,0.1)`
               }}
             >
-              <div className="flex items-center px-6 py-4">
+              <div className="flex items-center px-4 md:px-6 py-3 md:py-4">
                 <div className="mr-4">
                   <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -1158,7 +1158,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => onTriggerConversationMode?.()}
-                  placeholder="Tell us about your challenge or question..."
+                  placeholder="What brings you here today?"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
