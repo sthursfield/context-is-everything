@@ -706,7 +706,7 @@ This isn't about faster analysis. It's about smarter strategy.
 **[Contact Our Team →](javascript:void(0))**`
     }
 
-    return `Most solutions work brilliantly in one context but fail when context shifts. Implementation success depends more on organisational dynamics than methodology selection.
+    return `Hello! I'm Sasha, research analyst for Context is Everything.
 
 **What brings you here today?**
 
