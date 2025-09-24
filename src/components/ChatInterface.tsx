@@ -808,12 +808,13 @@ This isn't about faster analysis. It's about smarter strategy.
 
       // ALWAYS skip animation in dark mode or during transitions
       if (currentTheme === 'dark' || isTransitioning) {
-        // Direct submission with no animation in dark mode
+        // Instant submission with no delays in dark mode
         setInputValue('')
-        onTriggerConversationMode?.()
+        handleSubmit(messageToSubmit)
+        // Trigger conversation mode after submission to avoid blocking
         setTimeout(() => {
-          handleSubmit(messageToSubmit)
-        }, 100)
+          onTriggerConversationMode?.()
+        }, 50)
       } else {
         // Light theme only: Claude-style animation with solidification effect
         setAnimatingMessage(inputValue)
