@@ -53,7 +53,7 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* PNG for both desktop and mobile - no font fallback risks */}
+            {/* PNG for both desktop and mobile - MOBILE FIX DEPLOYED v7.5.1 */}
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"

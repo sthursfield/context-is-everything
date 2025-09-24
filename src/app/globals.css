@@ -251,11 +251,11 @@ canvas {
 
   /* Tablet and desktop - continue existing mobile optimizations */
   @media (max-width: 768px) {
-    /* Mobile logo optimizations */
+    /* Mobile logo optimizations - AGGRESSIVE FIX */
     header img, header picture {
-      width: 75% !important; /* Much smaller for mobile */
-      max-width: 200px !important; /* Smaller max width to prevent cutoff */
-      min-width: 180px !important; /* Reasonable minimum */
+      width: 70% !important; /* Even smaller for mobile */
+      max-width: 180px !important; /* Much smaller to prevent any cutoff */
+      min-width: 150px !important; /* Smaller minimum */
       height: auto !important;
       margin: 0 auto !important; /* Center the logo */
     }
