@@ -28,6 +28,8 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [animatingMessage, setAnimatingMessage] = useState('')
   const [showEmailForm, setShowEmailForm] = useState(false)
   const [emailForm, setEmailForm] = useState<EmailFormData>({
     name: '',
@@ -801,8 +803,24 @@ This isn't about faster analysis. It's about smarter strategy.
 
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (inputValue.trim()) {
-      handleSubmit(inputValue)
+    if (inputValue.trim() && !isLoading && !isAnimating) {
+      // Start animation sequence
+      setAnimatingMessage(inputValue)
+      setIsAnimating(true)
+
+      // Clear input immediately for responsive feel
+      const messageToSubmit = inputValue
+      setInputValue('')
+
+      // Trigger conversation mode
+      onTriggerConversationMode?.()
+
+      // After animation duration, actually submit the message
+      setTimeout(() => {
+        setIsAnimating(false)
+        setAnimatingMessage('')
+        handleSubmit(messageToSubmit)
+      }, 500) // 500ms animation duration
     }
   }
 
@@ -1074,6 +1092,35 @@ We apologize for the inconvenience and appreciate your patience.`)
       >
         <div className="max-w-4xl mx-auto px-6">
 
+        {/* Animated Message Overlay */}
+        {isAnimating && (
+          <div
+            className="absolute inset-x-0 bottom-full mb-4 transition-all duration-500 ease-out transform animate-[slideUpFade_0.5s_ease-out_forwards]"
+            style={{
+              animation: 'slideUpFade 0.5s ease-out forwards'
+            }}
+          >
+            <div
+              className={`relative rounded-2xl mx-6 px-6 py-4 ${
+                currentTheme === 'light'
+                  ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
+                  : 'bg-white shadow-lg'
+              }`}
+            >
+              <div className="flex items-center">
+                <div className="mr-4">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div className="flex-1 text-lg text-gray-900">
+                  {animatingMessage}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mb-8 relative">
           <form onSubmit={handleInputSubmit}>
@@ -1103,21 +1150,27 @@ We apologize for the inconvenience and appreciate your patience.`)
                   placeholder="Tell us about your challenge or question..."
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
-                  disabled={isLoading}
+                  disabled={isLoading || isAnimating}
                 />
 
                 <Button
                   type="submit"
-                  disabled={isLoading || !inputValue.trim()}
-                  className="ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95"
+                  disabled={isLoading || isAnimating || !inputValue.trim()}
+                  className={`ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    isAnimating ? 'animate-button-press' : ''
+                  }`}
                   style={{
-                    background: inputValue.trim() ? '#BC302C' : '#e5e7eb',
-                    color: inputValue.trim() ? 'white' : '#9ca3af',
-                    opacity: inputValue.trim() ? 1 : 0.6
+                    background: (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
+                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af',
+                    opacity: (inputValue.trim() || isAnimating) ? 1 : 0.6
                   }}
                 >
                   {isLoading ? (
                     <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                  ) : isAnimating ? (
+                    <svg className="w-4 h-4 transition-transform duration-200 animate-pulse" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
                   ) : (
                     <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

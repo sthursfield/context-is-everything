@@ -331,4 +331,33 @@ canvas {
     transition-duration: 300ms;
     transition-timing-function: ease-in-out;
   }
+
+  /* Chat animation keyframes */
+  @keyframes slideUpFade {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-80px);
+      opacity: 0;
+    }
+  }
+
+  /* Claude-style send button animation */
+  @keyframes buttonPress {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-button-press {
+    animation: buttonPress 0.2s ease-out;
+  }
 }
