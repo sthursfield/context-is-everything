@@ -399,7 +399,7 @@ Our approach centres on three core team members, each bringing distinct expertis
 
 <p style="margin-bottom: 16px;">It transforms decades of trapped institutional knowledge into an instantly accessible private AI brain. We pull together data silos to make sense of information across your entire organisation. Your data never leaves your infrastructure, ensuring complete sovereignty and compliance (HIPAA/GDPR/SOX).</p>
 
-<p style="margin-bottom: 16px;">Sasha knows your client history, proprietary methodologies, and team expertise. She understands what's worked (or failed) across every project. New employees become productive in days, not months. Critical information retrieval drops from hours to seconds.</p>
+<p style="margin-bottom: 16px;">Sasha knows your client history, proprietary methodologies, and team expertise. The system understands what's worked (or failed) across every project. New employees become productive in days, not months. Critical information retrieval drops from hours to seconds.</p>
 
 <p style="margin-bottom: 20px;"><strong>This isn't about having AI - everyone has AI.</strong><br>
 <strong>It's about having YOUR AI that no competitor can replicate.</strong><br>
