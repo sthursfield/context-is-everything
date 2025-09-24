@@ -13,7 +13,7 @@ function isRateLimited(ip: string): boolean {
     return false
   }
   
-  if (userLimit.count >= 10) { // Max 10 requests per hour
+  if (userLimit.count >= 1000) { // TESTING PHASE: 1000 requests per hour
     return true
   }
   
