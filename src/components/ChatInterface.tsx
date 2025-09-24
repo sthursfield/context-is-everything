@@ -706,9 +706,9 @@ This isn't about faster analysis. It's about smarter strategy.
 **[Contact Our Team →](javascript:void(0))**`
     }
 
-    return `Hi there!
+    return `Hi, how can I help today?
 
-**What brings you here today?**
+**Explore our expertise:**
 
 • **Foundation**: Strategic approach & team expertise
 • **Findings**: Cross-sector intelligence & counter-intuitive patterns

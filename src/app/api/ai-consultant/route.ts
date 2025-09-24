@@ -152,9 +152,7 @@ ABSOLUTE REQUIREMENTS:
 STANDARD RESPONSES:
 
 Opening:
-"Hi there!
-
-What brings you here today?"
+"Hi, how can I help today?"
 
 Findings Button:
 "Most failures happen when companies apply best practices without contextual adaptation. Solutions that work brilliantly elsewhere often create bottlenecks when context shifts.
