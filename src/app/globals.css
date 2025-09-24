@@ -206,6 +206,51 @@ canvas {
       min-width: 44px;
     }
 
+    /* Mobile team cards - make everything smaller and more compact */
+    [style*="width: 75px; height: 75px"] {
+      width: 60px !important;
+      height: 60px !important;
+    }
+
+    [style*="font-size: 18px"] {
+      font-size: 16px !important;
+    }
+
+    [style*="font-size: 15px"] {
+      font-size: 13px !important;
+    }
+
+    [style*="font-size: 20px"] {
+      font-size: 16px !important;
+    }
+
+    /* Make team card containers more compact on mobile */
+    [style*="gap: 16px"] {
+      gap: 12px !important;
+    }
+
+    [style*="padding: 8px"] {
+      padding: 6px !important;
+    }
+
+  }
+
+  /* Very small mobile screens - stack team cards vertically */
+  @media (max-width: 480px) {
+    [style*="display: flex"][style*="align-items: flex-start"] {
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+    }
+
+    [style*="flex: 1; min-width: 0"] {
+      text-align: left !important;
+      margin-top: 8px !important;
+    }
+  }
+
+  /* Tablet and desktop - continue existing mobile optimizations */
+  @media (max-width: 768px) {
     /* Mobile logo optimizations */
     header img, header picture {
       width: 60% !important; /* 25% smaller than 80% */
