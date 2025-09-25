@@ -53,11 +53,11 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* ✅ FINAL SPACING v9.0.0 - mb-32 spacing without banner interference */}
+            {/* ✅ ULTRA SPACING v10.0.0 - mb-64 for massive separation (16rem = 256px) */}
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
-              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-32"
+              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-64"
               style={{
                 display: 'block',
                 minHeight: '20px',
