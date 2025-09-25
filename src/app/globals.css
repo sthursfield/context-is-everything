@@ -252,9 +252,9 @@ canvas {
   /* Mobile logo optimizations - ULTRA AGGRESSIVE */
   @media (max-width: 768px) {
     header img, header picture {
-      width: 45% !important; /* Very small for mobile */
-      max-width: 130px !important; /* Ultra conservative sizing */
-      min-width: 120px !important; /* Small minimum */
+      width: 56% !important; /* 25% bigger: 45% * 1.25 = 56.25% ≈ 56% */
+      max-width: 162px !important; /* 25% bigger: 130px * 1.25 = 162.5px ≈ 162px */
+      min-width: 150px !important; /* 25% bigger: 120px * 1.25 = 150px */
       height: auto !important;
       margin: 0 auto !important; /* Center the logo */
     }

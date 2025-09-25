@@ -57,12 +57,12 @@ export default function HomePage() {
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
-              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-8"
+              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-12"
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '75%', // Default desktop size
-                maxWidth: '280px', // Default desktop max
+                width: '94%', // 25% bigger: 75% * 1.25 = 93.75% ≈ 94%
+                maxWidth: '350px', // 25% bigger: 280px * 1.25 = 350px
                 height: 'auto'
               }}
               loading="eager"
@@ -78,7 +78,7 @@ export default function HomePage() {
             {/* Header Buttons - Moved below logo for better layout */}
             <div className="header-buttons flex justify-center gap-4 md:gap-3 mb-6">
               <button
-                className={`header-btn team-btn px-5 py-3 md:px-4 md:py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm md:text-sm font-medium ${
+                className={`header-btn team-btn px-4 py-2 md:px-3 md:py-1.5 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-xs md:text-xs font-medium ${
                   currentTheme === 'light'
                     ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
                     : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
@@ -95,7 +95,7 @@ export default function HomePage() {
                 Team
               </button>
               <button
-                className={`header-btn whatwedo-btn px-5 py-3 md:px-4 md:py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm md:text-sm font-medium ${
+                className={`header-btn whatwedo-btn px-4 py-2 md:px-3 md:py-1.5 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-xs md:text-xs font-medium ${
                   currentTheme === 'light'
                     ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
                     : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
