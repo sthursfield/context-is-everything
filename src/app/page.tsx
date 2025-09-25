@@ -53,10 +53,7 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* 🚨 NUCLEAR TEST v8.3.0 - VERY VISIBLE DEPLOYMENT TEST 🚨 */}
-            <div style={{ background: 'red', color: 'white', padding: '10px', textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
-              🚨 DEPLOYMENT TEST v8.3.0 - IF YOU SEE THIS, DEPLOYMENTS ARE WORKING! 🚨
-            </div>
+            {/* ✅ DEPLOYMENT PIPELINE CONFIRMED WORKING v8.4.0 */}
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
@@ -64,8 +61,8 @@ export default function HomePage() {
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '75%', // Give logo more breathing room
-                maxWidth: '280px', // Increased max width for better proportions
+                width: window.innerWidth < 768 ? '50%' : '75%', // Much smaller on mobile
+                maxWidth: window.innerWidth < 768 ? '140px' : '280px', // Very conservative mobile sizing
                 height: 'auto'
               }}
               loading="eager"
