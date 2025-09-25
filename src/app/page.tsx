@@ -53,10 +53,7 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* 🚨 SPACING TEST v8.8.0 - BUTTONS SHOULD BE MUCH LOWER NOW! 🚨 */}
-            <div style={{ background: 'blue', color: 'white', padding: '5px', textAlign: 'center', fontSize: '14px', marginBottom: '10px' }}>
-              🚨 v8.9.0 - MASSIVE mb-32 spacing - BUTTONS SHOULD BE MUCH LOWER NOW! 🚨
-            </div>
+            {/* ✅ FINAL SPACING v9.0.0 - mb-32 spacing without banner interference */}
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
