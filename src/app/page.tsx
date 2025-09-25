@@ -53,16 +53,16 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* DEPLOYMENT FIX SUCCESSFUL v8.0.0 - Domain aliases updated ✨ */}
+            {/* LOGO LAYOUT IMPROVEMENT v8.2.0 - Buttons moved below for better proportions ✨ */}
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
-              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default"
+              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-8"
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: window.innerWidth < 768 ? '60%' : '85%', // Much smaller for mobile
-                maxWidth: window.innerWidth < 768 ? '160px' : '250px', // Aggressive mobile reduction
+                width: '75%', // Give logo more breathing room
+                maxWidth: '280px', // Increased max width for better proportions
                 height: 'auto'
               }}
               loading="eager"
@@ -75,8 +75,8 @@ export default function HomePage() {
               }}
             />
 
-            {/* New Header Buttons - Team and What we do */}
-            <div className="header-buttons flex justify-center gap-4 md:gap-3 mt-6 md:mt-6 mb-4 md:mb-4">
+            {/* Header Buttons - Moved below logo for better layout */}
+            <div className="header-buttons flex justify-center gap-4 md:gap-3 mb-6">
               <button
                 className={`header-btn team-btn px-5 py-3 md:px-4 md:py-2 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-sm md:text-sm font-medium ${
                   currentTheme === 'light'
