@@ -55,12 +55,12 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto w-full">
             {/* 🚨 SPACING TEST v8.8.0 - BUTTONS SHOULD BE MUCH LOWER NOW! 🚨 */}
             <div style={{ background: 'blue', color: 'white', padding: '5px', textAlign: 'center', fontSize: '14px', marginBottom: '10px' }}>
-              🚨 v8.8.0 - mb-20 spacing test - IF YOU SEE THIS, LATEST DEPLOYMENT IS LIVE! 🚨
+              🚨 v8.9.0 - MASSIVE mb-32 spacing - BUTTONS SHOULD BE MUCH LOWER NOW! 🚨
             </div>
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
-              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-20"
+              className="h-auto block mx-auto cursor-pointer hover:opacity-90 transition-opacity duration-200 md:cursor-pointer cursor-default mb-32"
               style={{
                 display: 'block',
                 minHeight: '20px',
