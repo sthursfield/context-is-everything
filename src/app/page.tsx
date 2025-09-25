@@ -61,8 +61,8 @@ export default function HomePage() {
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '85%', // Even smaller for mobile
-                maxWidth: '250px', // Much smaller max width
+                width: window.innerWidth < 768 ? '60%' : '85%', // Much smaller for mobile
+                maxWidth: window.innerWidth < 768 ? '160px' : '250px', // Aggressive mobile reduction
                 height: 'auto'
               }}
               loading="eager"
