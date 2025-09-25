@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import WireframeMountain from '@/components/WireframeMountain'
 import ChatInterface from '@/components/ChatInterface'
 import { useContextualTheme } from '@/hooks/useContextualTheme'
@@ -9,6 +9,18 @@ export default function HomePage() {
   const { colors } = useContextualTheme()
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark')
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
 
   const triggerConversationMode = () => {
     if (currentTheme === 'dark') {
@@ -115,8 +127,11 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Chat positioned lower to avoid overlap with header buttons */}
-        <main className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto" style={{ top: 'clamp(25vh, 35vh, 40vh)' }}>
+        {/* Chat positioned responsively: higher on mobile (30vh), much lower on desktop (45vh) */}
+        <main
+          className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto"
+          style={{ top: isMobile ? '30vh' : '45vh' }}
+        >
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
               currentColor={colors.accent}
