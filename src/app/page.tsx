@@ -53,7 +53,10 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* LOGO LAYOUT IMPROVEMENT v8.2.0 - Buttons moved below for better proportions ✨ */}
+            {/* 🚨 NUCLEAR TEST v8.3.0 - VERY VISIBLE DEPLOYMENT TEST 🚨 */}
+            <div style={{ background: 'red', color: 'white', padding: '10px', textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+              🚨 DEPLOYMENT TEST v8.3.0 - IF YOU SEE THIS, DEPLOYMENTS ARE WORKING! 🚨
+            </div>
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
