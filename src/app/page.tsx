@@ -53,7 +53,10 @@ export default function HomePage() {
       >
         <header className="px-6 pb-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
-            {/* ✅ DEPLOYMENT PIPELINE CONFIRMED WORKING v8.4.0 */}
+            {/* 🚨 SPACING TEST v8.8.0 - BUTTONS SHOULD BE MUCH LOWER NOW! 🚨 */}
+            <div style={{ background: 'blue', color: 'white', padding: '5px', textAlign: 'center', fontSize: '14px', marginBottom: '10px' }}>
+              🚨 v8.8.0 - mb-20 spacing test - IF YOU SEE THIS, LATEST DEPLOYMENT IS LIVE! 🚨
+            </div>
             <img
               src={currentTheme === 'dark' ? "/assets/CIE_stacked_cropped.png" : "/assets/CIE_stacked_mobile_autumn.png"}
               alt="Context is Everything"
