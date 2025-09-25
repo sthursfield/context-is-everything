@@ -115,8 +115,8 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Chat positioned responsively for optimal mobile and desktop experience */}
-        <main className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto" style={{ top: 'clamp(15vh, 22vh, 25vh)' }}>
+        {/* Chat positioned lower to avoid overlap with header buttons */}
+        <main className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto" style={{ top: 'clamp(25vh, 35vh, 40vh)' }}>
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
               currentColor={colors.accent}
