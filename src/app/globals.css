@@ -249,20 +249,20 @@ canvas {
     }
   }
 
-  /* Tablet and desktop - continue existing mobile optimizations */
+  /* Mobile logo optimizations - ULTRA AGGRESSIVE */
   @media (max-width: 768px) {
-    /* Mobile logo optimizations - AGGRESSIVE FIX */
     header img, header picture {
-      width: 70% !important; /* Even smaller for mobile */
-      max-width: 180px !important; /* Much smaller to prevent any cutoff */
-      min-width: 150px !important; /* Smaller minimum */
+      width: 45% !important; /* Very small for mobile */
+      max-width: 130px !important; /* Ultra conservative sizing */
+      min-width: 120px !important; /* Small minimum */
       height: auto !important;
       margin: 0 auto !important; /* Center the logo */
     }
 
     header .max-w-4xl {
       display: flex !important;
-      justify-content: center !important; /* Center container */
+      flex-direction: column !important; /* Stack items vertically */
+      align-items: center !important; /* Center items horizontally */
     }
 
     /* iOS SVG fallback detection */

@@ -61,15 +61,15 @@ export default function HomePage() {
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: window.innerWidth < 768 ? '50%' : '75%', // Much smaller on mobile
-                maxWidth: window.innerWidth < 768 ? '140px' : '280px', // Very conservative mobile sizing
+                width: '75%', // Default desktop size
+                maxWidth: '280px', // Default desktop max
                 height: 'auto'
               }}
               loading="eager"
               decoding="sync"
               onClick={() => {
                 // Only refresh on desktop (md and up)
-                if (window.innerWidth >= 768) {
+                if (typeof window !== 'undefined' && window.innerWidth >= 768) {
                   window.location.reload()
                 }
               }}
