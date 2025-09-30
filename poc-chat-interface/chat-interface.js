@@ -12,7 +12,8 @@ class ChatInterfacePOC {
             borderRadius: 24,
             backdropBlur: 20,
             animationType: 'none',
-            buttonState: 'inactive'
+            buttonState: 'inactive',
+            integrationStyle: 'none'
         };
 
         this.init();
@@ -75,6 +76,13 @@ class ChatInterfacePOC {
             this.params.buttonState = e.target.value;
             this.updateButtonState();
         });
+
+        // Integration Style
+        const integrationSelect = document.getElementById('integrationStyle');
+        integrationSelect.addEventListener('change', (e) => {
+            this.params.integrationStyle = e.target.value;
+            this.updateIntegrationStyle();
+        });
     }
 
     setupInputHandlers() {
@@ -115,6 +123,45 @@ class ChatInterfacePOC {
         this.chatInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && this.chatInput.value.trim()) {
                 this.handleSend();
+            }
+        });
+
+        // Dropdown functionality
+        const dropdownTrigger = document.getElementById('dropdownTrigger');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        dropdownTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('active');
+        });
+
+        // Handle quick start button clicks
+        document.addEventListener('click', (e) => {
+            if (e.target.dataset.action) {
+                this.handleQuickStartAction(e.target.dataset.action);
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Expand on focus functionality
+        this.chatInput.addEventListener('focus', () => {
+            if (this.params.integrationStyle === 'expand-on-focus') {
+                this.chatWrapper.classList.add('expanded');
+                document.getElementById('expandQuickStart').classList.add('active');
+            }
+        });
+
+        this.chatInput.addEventListener('blur', () => {
+            if (this.params.integrationStyle === 'expand-on-focus') {
+                setTimeout(() => {
+                    this.chatWrapper.classList.remove('expanded');
+                    document.getElementById('expandQuickStart').classList.remove('active');
+                }, 200);
             }
         });
     }
@@ -263,6 +310,80 @@ class ChatInterfacePOC {
         this.typingAnimation.classList.remove('active');
     }
 
+    updateIntegrationStyle() {
+        // Hide all integration elements
+        const elements = [
+            'inlinePills',
+            'floatingQuickStart',
+            'sidebarQuickStart',
+            'expandQuickStart',
+            'dropdownContainer',
+            'tabQuickStart'
+        ];
+
+        elements.forEach(id => {
+            document.getElementById(id).classList.remove('active');
+        });
+
+        // Remove wrapper classes
+        this.chatWrapper.classList.remove('tab-style-wrapper', 'expandable-container');
+
+        // Show selected integration
+        switch (this.params.integrationStyle) {
+            case 'inline-pills':
+                document.getElementById('inlinePills').classList.add('active');
+                break;
+
+            case 'floating-above':
+                document.getElementById('floatingQuickStart').classList.add('active');
+                break;
+
+            case 'sidebar-left':
+                document.getElementById('sidebarQuickStart').classList.add('active');
+                break;
+
+            case 'expand-on-focus':
+                this.chatWrapper.classList.add('expandable-container');
+                // Will be activated on focus
+                break;
+
+            case 'dropdown-menu':
+                document.getElementById('dropdownContainer').classList.add('active');
+                break;
+
+            case 'tab-style':
+                document.getElementById('tabQuickStart').classList.add('active');
+                this.chatWrapper.classList.add('tab-style-wrapper');
+                break;
+
+            case 'none':
+            default:
+                // All hidden by default
+                break;
+        }
+
+        console.log('🎨 Integration style updated:', this.params.integrationStyle);
+    }
+
+    handleQuickStartAction(action) {
+        console.log('🚀 Quick start action:', action);
+
+        // Simulate the action with visual feedback
+        const messages = {
+            'team': 'Foundation: Strategic Approach & Team Expertise',
+            'whatwedo': 'While competitors use generic ChatGPT, we give you something different...'
+        };
+
+        // Set input value and trigger send
+        this.chatInput.value = messages[action] || `Quick start: ${action}`;
+        this.chatInput.dispatchEvent(new Event('input'));
+
+        // Auto-send after a brief delay
+        setTimeout(() => {
+            this.handleSend();
+        }, 500);
+    }
+
     // Demo functions for testing
     simulateTyping() {
         const messages = [
@@ -298,7 +419,8 @@ class ChatInterfacePOC {
             borderRadius: 24,
             backdropBlur: 20,
             animationType: 'none',
-            buttonState: 'inactive'
+            buttonState: 'inactive',
+            integrationStyle: 'none'
         };
 
         // Reset UI
@@ -312,11 +434,13 @@ class ChatInterfacePOC {
         document.getElementById('backdropValue').textContent = '20';
         document.getElementById('animationType').value = 'none';
         document.getElementById('buttonState').value = 'inactive';
+        document.getElementById('integrationStyle').value = 'none';
 
         this.chatInput.value = '';
         this.updateStyles();
         this.updateAnimations();
         this.updateButtonState();
+        this.updateIntegrationStyle();
 
         console.log('🔄 Interface reset to defaults');
     }
