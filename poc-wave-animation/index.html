@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Animation POC - Mountain Contours</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #372528;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            min-width: 300px;
+        }
+
+        #controls h3 {
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #ff8800;
+            padding-bottom: 10px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .control-group span {
+            display: inline-block;
+            background: #ff8800;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        button {
+            background: #ff8800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #ff6600;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <div id="controls">
+        <h3>Wave Animation Controls</h3>
+
+        <div class="control-group">
+            <label for="waveSpeed">Wave Speed: <span id="waveSpeedValue">6</span>s</label>
+            <input type="range" id="waveSpeed" min="1" max="20" value="6" step="0.5">
+        </div>
+
+        <div class="control-group">
+            <label for="phaseOffset">Phase Offset: <span id="phaseOffsetValue">0.3</span></label>
+            <input type="range" id="phaseOffset" min="0" max="2" value="0.3" step="0.05">
+        </div>
+
+        <div class="control-group">
+            <label for="elevationSpacing">Elevation Spacing: <span id="elevationSpacingValue">0.5</span></label>
+            <input type="range" id="elevationSpacing" min="0.1" max="3" value="0.5" step="0.1">
+        </div>
+
+        <div class="control-group">
+            <label for="waveAmplitude">Wave Amplitude: <span id="waveAmplitudeValue">1.0</span></label>
+            <input type="range" id="waveAmplitude" min="0.1" max="2" value="1.0" step="0.1">
+        </div>
+
+        <div class="control-group">
+            <label for="offScreenDistance">Off-Screen Distance: <span id="offScreenDistanceValue">5</span></label>
+            <input type="range" id="offScreenDistance" min="0" max="20" value="5" step="0.5">
+        </div>
+
+        <div class="control-group">
+            <label for="cameraZ">Camera Distance: <span id="cameraZValue">10</span></label>
+            <input type="range" id="cameraZ" min="5" max="50" value="10" step="1">
+        </div>
+
+        <div class="control-group">
+            <label for="rotationSpeed">Rotation Speed: <span id="rotationSpeedValue">1.0</span></label>
+            <input type="range" id="rotationSpeed" min="0" max="3" value="1.0" step="0.1">
+        </div>
+
+        <div class="control-group">
+            <label for="rotationAxis">Rotation Axis:</label>
+            <select id="rotationAxis">
+                <option value="x">X-Axis (Mountain/Funnel)</option>
+                <option value="y">Y-Axis (Spin)</option>
+                <option value="z">Z-Axis (Roll)</option>
+                <option value="xy">X+Y Combined</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="waveDirection">Wave Direction:</label>
+            <select id="waveDirection">
+                <option value="outward">Center → Outward</option>
+                <option value="inward">Outward → Center</option>
+                <option value="forward">Bottom → Top</option>
+                <option value="backward">Top → Bottom</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="waveFunction">Wave Function:</label>
+            <select id="waveFunction">
+                <option value="sine">Sine Wave</option>
+                <option value="cosine">Cosine Wave</option>
+                <option value="sawtooth">Sawtooth</option>
+                <option value="triangle">Triangle</option>
+                <option value="square">Square</option>
+            </select>
+        </div>
+
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+
+    <div id="info">
+        FPS: <span id="fps">0</span> | Rings: <span id="ringCount">0</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="wave-animation.js"></script>
+</body>
+</html>
