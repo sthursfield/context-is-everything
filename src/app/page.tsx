@@ -97,10 +97,10 @@ export default function HomePage() {
           style={{
             top: isMobile
               ? (currentTheme === 'light'
-                  ? 'calc(3rem + 4rem + 10px)'  // Mobile light: 10px from logo baseline
+                  ? 'calc(3rem + 4rem + 25px)'  // Mobile light: 25px from logo baseline
                   : 'calc(3rem + 4rem + 50px)')  // Mobile dark: 50px from logo baseline
               : (currentTheme === 'light'
-                  ? 'calc(3rem + 2rem + 10px)'   // Desktop light: 10px from logo baseline
+                  ? 'calc(3rem + 2rem + 25px)'   // Desktop light: 25px from logo baseline
                   : 'calc(3rem + 2rem + 50px)')  // Desktop dark: 50px from logo baseline
           }}
         >

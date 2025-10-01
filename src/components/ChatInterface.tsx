@@ -1169,7 +1169,7 @@ We apologize for the inconvenience and appreciate your patience.`)
         )}
 
         {/* Main Input Field - Theme Aware with Liquid Glass */}
-        <div className="mb-8 relative">
+        <div className="mb-4 relative">
 
           <form onSubmit={handleInputSubmit}>
             <div

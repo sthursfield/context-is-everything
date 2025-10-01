@@ -26,8 +26,8 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
       0.1,
       5000
     );
-    // Adjust camera position based on device
-    camera.position.set(0, 0, isMobile ? 8 : 10);
+    // Adjust camera position based on device (set to 10 to match POC setting)
+    camera.position.set(0, 0, isMobile ? 10 : 10);
     camera.lookAt(0, 0, 0);
     console.log('📷 Camera position:', camera.position, 'rotation:', camera.rotation);
 
@@ -60,8 +60,20 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
 
     // Mountain creation - restore original contour rings
     const ringsRef: THREE.LineLoop[] = []
-    let animationProgress = 0
+    const animationProgress = 0
     let isReady = false
+
+    // Enhanced wave animation parameters (from POC settings)
+    const waveParams = {
+      waveSpeed: 15, // 15 seconds (from POC setting)
+      phaseOffset: 0, // Phase offset 0 (from POC setting)
+      elevationSpacing: 1, // Elevation spacing 1 (from POC setting)
+      waveAmplitude: 1.5, // Wave amplitude 1.5 (from POC setting)
+      waveDirection: 'inward', // Outward → Center (from POC setting)
+      waveFunction: 'cosine', // Cosine wave (from POC setting)
+      offScreenDistance: 2.5, // Off-screen distance 2.5 (from POC setting)
+      rotationSpeed: 0.3 // Rotation speed 0.3 (from POC setting)
+    }
 
     const createMountainRings = async () => {
       try {
@@ -235,32 +247,66 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     }
     
     // Animation functions
-    const updateMountainElevation = () => {
-      ringsRef.forEach((ring) => {
+
+    // Enhanced animation with POC wave features
+    const updateEnhancedMountainAnimation = (waveTime: number) => {
+      ringsRef.forEach((ring, index) => {
         if (ring && ring.geometry.attributes.position) {
-          const positions = ring.geometry.attributes.position.array as Float32Array
-          const targetElevation = THREE.MathUtils.lerp(0, ring.userData.elevation, animationProgress)
-          
-          for (let k = 0; k < positions.length; k += 3) {
-            positions[k + 2] = targetElevation
+          // Calculate phase offset based on direction (POC feature)
+          let phaseOffset = 0
+          switch(waveParams.waveDirection) {
+            case 'outward':
+              phaseOffset = index * waveParams.phaseOffset
+              break
+            case 'inward':
+              phaseOffset = (ringsRef.length - index - 1) * waveParams.phaseOffset
+              break
           }
+
+          // Calculate wave value with phase offset
+          const t = waveTime + phaseOffset
+          let waveValue
+
+          switch(waveParams.waveFunction) {
+            case 'sine':
+              waveValue = Math.sin(t)
+              break
+            case 'cosine':
+              waveValue = Math.cos(t)
+              break
+            default:
+              waveValue = Math.sin(t)
+          }
+
+          // Normalize to 0-1 range and apply amplitude
+          const normalizedWave = (waveValue + 1) / 2 * waveParams.waveAmplitude
+
+          // Apply to ring elevation with enhanced spacing (POC method - move entire ring)
+          const baseElevation = -2 + index * waveParams.elevationSpacing
+          const targetElevation = baseElevation * normalizedWave
+
+          // POC method: Move entire ring position (creates mountain, not funnel)
+          ring.position.z = targetElevation
+
+          // Add off-screen movement (additional Z-axis depth) - POC method
+          const offScreenOffset = Math.sin(waveTime + phaseOffset) * waveParams.offScreenDistance
+          ring.position.z += offScreenOffset
+
           ring.geometry.attributes.position.needsUpdate = true
         }
       })
     }
     
     const startCyclingAnimation = () => {
-      // Create ultra-smooth breathing animation using sine wave
-      gsap.to({ progress: 0 }, {
-        progress: Math.PI * 2, // Full sine wave cycle
-        duration: 8, // Slower for ultra-smooth movement
-        ease: "none", // Linear progression for consistent sine wave
+      // Enhanced wave animation with POC features - start truly flat
+      gsap.to({ progress: Math.PI }, { // Start at π for cosine to begin at -1 (minimum)
+        progress: Math.PI + Math.PI * 2, // Full wave cycle from minimum
+        duration: waveParams.waveSpeed, // Configurable speed
+        ease: "none", // Linear for consistent wave
         repeat: -1,
         onUpdate: function() {
-          // Use sine wave for perfectly smooth breathing
-          const sineProgress = (Math.sin(this.targets()[0].progress - Math.PI/2) + 1) / 2
-          animationProgress = sineProgress
-          updateMountainElevation()
+          const waveTime = this.targets()[0].progress
+          updateEnhancedMountainAnimation(waveTime)
         }
       })
     }
@@ -272,9 +318,11 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     const animate = () => {
       requestAnimationFrame(animate)
       
-      // Gentle rotation animation
+      // Enhanced rotation with POC logic - X-axis oscillating rotation
       if (isReady) {
-        scene.rotation.y += 0.002
+        const currentTime = Date.now()
+        const rotationTime = currentTime / 1000 * waveParams.rotationSpeed * 0.1 // Much slower like POC
+        scene.rotation.x = Math.sin(rotationTime) * Math.PI * 0.8 // ±144° range like POC
       }
       
       renderer.render(scene, camera)
