@@ -21,7 +21,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
     const scene = new THREE.Scene();
     const isMobile = window.innerWidth < 768;
     const camera = new THREE.PerspectiveCamera(
-      isMobile ? 60 : 50,  // Slightly wider FOV on mobile for better framing
+      50,  // Consistent FOV like POC for proper mountain proportions
       window.innerWidth / window.innerHeight,
       0.1,
       5000
@@ -113,7 +113,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            const scale = window.innerWidth < 768 ? 0.015 : 0.01  // Optimized mobile scale
+            const scale = window.innerWidth < 768 ? 0.08 : 0.06  // Larger scale for wider mountain like POC
             
             commands.forEach(cmd => {
               switch (cmd.code) {
