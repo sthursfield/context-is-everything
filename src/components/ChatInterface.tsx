@@ -40,6 +40,7 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
   const [emailSending, setEmailSending] = useState(false)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const [emailSuccess, setEmailSuccess] = useState<string | null>(null)
+  const [integrationStyle, setIntegrationStyle] = useState<'inline-pills' | 'tab-style'>('inline-pills')
   const [researchFlow, setResearchFlow] = useState<{
     active: boolean
     userSector: string | null
@@ -52,6 +53,20 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
     needsClarification: false
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Responsive integration style detection
+  useEffect(() => {
+    const updateIntegrationStyle = () => {
+      setIntegrationStyle(window.innerWidth <= 768 ? 'tab-style' : 'inline-pills')
+    }
+
+    // Set initial style
+    updateIntegrationStyle()
+
+    // Listen for resize events
+    window.addEventListener('resize', updateIntegrationStyle)
+    return () => window.removeEventListener('resize', updateIntegrationStyle)
+  }, [])
 
   // Check if sector needs clarification
   const needsSectorClarification = (sector: string): { needs: boolean; suggestions: string[] } => {
@@ -715,6 +730,27 @@ This isn't about faster analysis. It's about smarter strategy.
 • **Future**: Strategic collaboration framework`
   }
 
+  // Handle quick start button clicks
+  const handleQuickStartAction = (action: 'team' | 'whatwedo') => {
+    console.log('🚀 Quick start action:', action)
+
+    // Trigger conversation mode (white theme change)
+    onTriggerConversationMode?.()
+
+    // Use existing header button logic
+    if (action === 'team') {
+      // Trigger Team content using existing logic
+      window.dispatchEvent(new CustomEvent('headerButtonClick', {
+        detail: { action: 'team' }
+      }))
+    } else if (action === 'whatwedo') {
+      // Trigger What we do content using existing logic
+      window.dispatchEvent(new CustomEvent('headerButtonClick', {
+        detail: { action: 'whatwedo' }
+      }))
+    }
+  }
+
   const handleSubmit = async (query: string, isFromThreeFs = false) => {
     if (!query.trim()) return
 
@@ -1134,9 +1170,29 @@ We apologize for the inconvenience and appreciate your patience.`)
 
         {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mb-8 relative">
+          {/* Tab Style Quick Start (Mobile) */}
+          <div className={`tab-quick-start ${integrationStyle === 'tab-style' ? 'active' : ''}`}>
+            <button
+              className="tab-button"
+              onClick={() => handleQuickStartAction('team')}
+              type="button"
+            >
+              Team
+            </button>
+            <button
+              className="tab-button"
+              onClick={() => handleQuickStartAction('whatwedo')}
+              type="button"
+            >
+              What we do
+            </button>
+          </div>
+
           <form onSubmit={handleInputSubmit}>
             <div
-              className={`relative rounded-2xl transition-all duration-300 hover:shadow-xl ${
+              className={`relative rounded-[5px] transition-all duration-300 hover:shadow-xl ${
+                integrationStyle === 'tab-style' ? 'tab-style-wrapper' : ''
+              } ${
                 currentTheme === 'light'
                   ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
                   : 'bg-white shadow-lg'
@@ -1152,6 +1208,24 @@ We apologize for the inconvenience and appreciate your patience.`)
                   <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
+                </div>
+
+                {/* Inline Pills Quick Start (Desktop) */}
+                <div className={`quick-start-pills ${integrationStyle === 'inline-pills' ? 'active' : ''}`}>
+                  <button
+                    className="quick-pill"
+                    onClick={() => handleQuickStartAction('team')}
+                    type="button"
+                  >
+                    Team
+                  </button>
+                  <button
+                    className="quick-pill"
+                    onClick={() => handleQuickStartAction('whatwedo')}
+                    type="button"
+                  >
+                    What we do
+                  </button>
                 </div>
 
                 <Input

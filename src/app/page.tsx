@@ -87,43 +87,6 @@ export default function HomePage() {
               }}
             />
 
-            {/* Header Buttons - Moved below logo for better layout */}
-            <div className="header-buttons flex justify-center gap-4 md:gap-3 mb-6">
-              <button
-                className={`header-btn team-btn px-4 py-2 md:px-3 md:py-1.5 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-xs md:text-xs font-medium ${
-                  currentTheme === 'light'
-                    ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
-                    : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
-                }`}
-                onClick={() => {
-                  triggerConversationMode()
-                  // Trigger team content in ChatInterface (Foundation functionality)
-                  const event = new CustomEvent('headerButtonClick', {
-                    detail: { action: 'team' }
-                  })
-                  window.dispatchEvent(event)
-                }}
-              >
-                Team
-              </button>
-              <button
-                className={`header-btn whatwedo-btn px-4 py-2 md:px-3 md:py-1.5 backdrop-blur-sm border rounded-full transition-all duration-200 flex items-center gap-2 text-xs md:text-xs font-medium ${
-                  currentTheme === 'light'
-                    ? 'bg-white/20 border-gray/20 text-gray-900 hover:bg-white/30 hover:border-gray/30'
-                    : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
-                }`}
-                onClick={() => {
-                  triggerConversationMode()
-                  // Trigger what we do content in ChatInterface
-                  const event = new CustomEvent('headerButtonClick', {
-                    detail: { action: 'whatwedo' }
-                  })
-                  window.dispatchEvent(event)
-                }}
-              >
-                What we do
-              </button>
-            </div>
           </div>
         </header>
 

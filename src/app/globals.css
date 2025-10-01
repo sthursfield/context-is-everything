@@ -376,5 +376,109 @@ canvas {
   .animate-button-press {
     animation: buttonPress 0.2s ease-out;
   }
+
+  /* Quick Start Integration Styles */
+
+  /* Inline Pills */
+  .quick-start-pills {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-right: 12px;
+  }
+
+  .quick-start-pills.active {
+    display: flex;
+  }
+
+  .quick-pill {
+    padding: 6px 12px;
+    background: rgba(188, 48, 44, 0.1);
+    color: #BC302C;
+    border: 1px solid rgba(188, 48, 44, 0.2);
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .quick-pill:hover {
+    background: rgba(188, 48, 44, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .quick-pill:active {
+    transform: translateY(0);
+  }
+
+  /* Tab Style */
+  .tab-quick-start {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    display: none;
+    margin-bottom: -1px;
+  }
+
+  .tab-quick-start.active {
+    display: flex;
+  }
+
+  .tab-button {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: none;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .tab-button:first-child {
+    border-top-left-radius: 5px;
+  }
+
+  .tab-button:last-child {
+    border-top-right-radius: 5px;
+  }
+
+  .tab-button:hover {
+    background: rgba(188, 48, 44, 0.1);
+    color: #BC302C;
+    border-color: rgba(188, 48, 44, 0.3);
+  }
+
+  .tab-style-wrapper {
+    border-top-left-radius: 0 !important;
+  }
+
+  /* Mobile Responsive Adjustments */
+  @media (max-width: 768px) {
+    .quick-pill {
+      font-size: 11px;
+      padding: 3px 6px;
+      margin-right: 4px;
+    }
+
+    .quick-start-pills {
+      gap: 4px;
+      margin-right: 8px;
+    }
+
+    .tab-button {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+
+    .tab-quick-start {
+      left: 0;
+    }
+  }
 }
 /* CACHE BUSTER Wed Sep 24 20:49:39 BST 2025 */

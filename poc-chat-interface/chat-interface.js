@@ -9,21 +9,34 @@ class ChatInterfacePOC {
         this.params = {
             blurIntensity: 0,
             shadowIntensity: 15,
-            borderRadius: 24,
+            borderRadius: 5,
             backdropBlur: 20,
             animationType: 'none',
             buttonState: 'inactive',
-            integrationStyle: 'none'
+            integrationStyle: this.getResponsiveIntegrationStyle()
         };
 
         this.init();
-        this.setupControls();
         this.setupInputHandlers();
     }
 
     init() {
         console.log('🎨 Chat Interface POC initialized');
         this.updateStyles();
+        this.updateIntegrationStyle();
+
+        // Handle window resize for responsive integration
+        window.addEventListener('resize', () => {
+            const newStyle = this.getResponsiveIntegrationStyle();
+            if (newStyle !== this.params.integrationStyle) {
+                this.params.integrationStyle = newStyle;
+                this.updateIntegrationStyle();
+            }
+        });
+    }
+
+    getResponsiveIntegrationStyle() {
+        return window.innerWidth <= 768 ? 'tab-style' : 'inline-pills';
     }
 
     setupControls() {
@@ -130,15 +143,20 @@ class ChatInterfacePOC {
         const dropdownTrigger = document.getElementById('dropdownTrigger');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
-        dropdownTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('active');
-        });
+        if (dropdownTrigger && dropdownMenu) {
+            dropdownTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('active');
+                console.log('📋 Dropdown toggled:', dropdownMenu.classList.contains('active'));
+            });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', () => {
-            dropdownMenu.classList.remove('active');
-        });
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove('active');
+                }
+            });
+        }
 
         // Handle quick start button clicks
         document.addEventListener('click', (e) => {
@@ -152,16 +170,25 @@ class ChatInterfacePOC {
         this.chatInput.addEventListener('focus', () => {
             if (this.params.integrationStyle === 'expand-on-focus') {
                 this.chatWrapper.classList.add('expanded');
-                document.getElementById('expandQuickStart').classList.add('active');
+                const expandElement = document.getElementById('expandQuickStart');
+                if (expandElement) {
+                    expandElement.classList.add('active');
+                    console.log('✨ Expand on focus activated');
+                }
             }
         });
 
-        this.chatInput.addEventListener('blur', () => {
+        this.chatInput.addEventListener('blur', (e) => {
             if (this.params.integrationStyle === 'expand-on-focus') {
-                setTimeout(() => {
-                    this.chatWrapper.classList.remove('expanded');
-                    document.getElementById('expandQuickStart').classList.remove('active');
-                }, 200);
+                // Check if the blur is not because of clicking on expand buttons
+                const expandElement = document.getElementById('expandQuickStart');
+                if (expandElement && !expandElement.contains(e.relatedTarget)) {
+                    setTimeout(() => {
+                        this.chatWrapper.classList.remove('expanded');
+                        expandElement.classList.remove('active');
+                        console.log('✨ Expand on focus deactivated');
+                    }, 150);
+                }
             }
         });
     }
@@ -322,7 +349,11 @@ class ChatInterfacePOC {
         ];
 
         elements.forEach(id => {
-            document.getElementById(id).classList.remove('active');
+            const element = document.getElementById(id);
+            element.classList.remove('active');
+            if (id === 'dropdownContainer') {
+                element.style.display = 'none'; // Hide dropdown by default
+            }
         });
 
         // Remove wrapper classes
@@ -348,7 +379,9 @@ class ChatInterfacePOC {
                 break;
 
             case 'dropdown-menu':
-                document.getElementById('dropdownContainer').classList.add('active');
+                const dropdownContainer = document.getElementById('dropdownContainer');
+                dropdownContainer.style.display = 'block';
+                dropdownContainer.classList.add('active');
                 break;
 
             case 'tab-style':
@@ -443,6 +476,28 @@ class ChatInterfacePOC {
         this.updateIntegrationStyle();
 
         console.log('🔄 Interface reset to defaults');
+    }
+
+    setupControlToggle() {
+        const controlsToggle = document.getElementById('controlsToggle');
+        const controls = document.getElementById('controls');
+
+        controlsToggle.addEventListener('click', () => {
+            controls.classList.toggle('collapsed');
+            console.log('🎛️ Controls toggled');
+        });
+
+        // Auto-collapse on mobile initially
+        if (window.innerWidth <= 768) {
+            controls.classList.add('collapsed');
+        }
+
+        // Handle resize events
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768 && !controls.classList.contains('collapsed')) {
+                controls.classList.add('collapsed');
+            }
+        });
     }
 }
 
