@@ -13,7 +13,7 @@ function isRateLimited(ip: string): boolean {
     return false
   }
   
-  if (userLimit.count >= 1000) { // TESTING PHASE: 1000 requests per hour
+  if (userLimit.count >= 10) { // LOW CREDIT PHASE: 10 requests per hour
     return true
   }
   
@@ -190,7 +190,7 @@ Keep responses under 200 words, professional, insightful.`
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20240620',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 300,
         system: systemPrompt,
         messages: [
@@ -203,7 +203,9 @@ Keep responses under 200 words, professional, insightful.`
     })
 
     if (!response.ok) {
+      const errorText = await response.text()
       console.error('Anthropic API error:', response.status, response.statusText)
+      console.error('Error details:', errorText)
       return NextResponse.json(
         { error: 'AI service temporarily unavailable' },
         { status: 500 }
