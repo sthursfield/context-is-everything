@@ -113,7 +113,7 @@ export default function WireframeMountain({ currentTheme = 'dark' }: WireframeMo
             const points: THREE.Vector3[] = []
             let currentX = 0, currentY = 0
             
-            const scale = window.innerWidth < 768 ? 0.08 : 0.06  // Larger scale for wider mountain like POC
+            const scale = window.innerWidth < 768 ? 0.048 : 0.06  // Mobile 40% smaller for better context visibility
             
             commands.forEach(cmd => {
               switch (cmd.code) {
