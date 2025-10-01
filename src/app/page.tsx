@@ -31,6 +31,7 @@ export default function HomePage() {
         setIsTransitioning(false)
       }, 4000) // 4 seconds for smooth transition completion
     }
+    // Once in light mode, stay in light mode (don't revert to dark)
   }
 
   return (
@@ -73,8 +74,8 @@ export default function HomePage() {
               style={{
                 display: 'block',
                 minHeight: '20px',
-                width: '94%', // 25% bigger: 75% * 1.25 = 93.75% ≈ 94%
-                maxWidth: '350px', // 25% bigger: 280px * 1.25 = 350px
+                width: isMobile ? '94%' : '66%', // Desktop: 94% * 0.7 = 65.8% ≈ 66%, Mobile: keep 94%
+                maxWidth: isMobile ? '350px' : '245px', // Desktop: 350px * 0.7 = 245px, Mobile: keep 350px
                 height: 'auto'
               }}
               loading="eager"
@@ -90,10 +91,16 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Chat positioned responsively: higher on mobile (30vh), much lower on desktop (45vh) */}
+        {/* Chat positioned responsively: mobile 30vh, desktop theme-aware positioning */}
         <main
           className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto"
-          style={{ top: isMobile ? '30vh' : '45vh' }}
+          style={{
+            top: isMobile
+              ? '30vh'
+              : currentTheme === 'light'
+                ? 'calc(3rem + 2rem + 25px)' // Light mode: 25px from logo baseline
+                : 'calc(3rem + 2rem + 50px)'  // Dark mode: 50px from logo baseline
+          }}
         >
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
