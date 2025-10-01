@@ -69,8 +69,8 @@ export async function POST(request: NextRequest) {
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 <div style="display: flex; flex-direction: column; gap: 6px; margin: 8px 0;">
   <div style="display: flex; align-items: flex-start; padding: 8px; border: 1px solid #e0e0e0; border-radius: 8px; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(8px); gap: 16px;">
-    <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 75px; height: 75px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div style="width: 75px; height: 75px; border-radius: 8px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
+    <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 8px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
     <div style="flex: 1; min-width: 0;">
       <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Lindsay</h4>
       <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
@@ -79,8 +79,8 @@ Our approach centres on three core team members, each bringing distinct expertis
     </div>
   </div>
   <div style="display: flex; align-items: flex-start; padding: 8px; border: 1px solid #e0e0e0; border-radius: 8px; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(8px); gap: 16px;">
-    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 75px; height: 75px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div style="width: 75px; height: 75px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
+    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
     <div style="flex: 1; min-width: 0;">
       <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
       <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
@@ -89,8 +89,8 @@ Our approach centres on three core team members, each bringing distinct expertis
     </div>
   </div>
   <div style="display: flex; align-items: flex-start; padding: 8px; border: 1px solid #e0e0e0; border-radius: 8px; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(8px); gap: 16px;">
-    <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 75px; height: 75px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <div style="width: 75px; height: 75px; border-radius: 8px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
+    <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 8px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
     <div style="flex: 1; min-width: 0;">
       <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Spencer</h4>
       <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>

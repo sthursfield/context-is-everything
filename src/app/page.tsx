@@ -91,15 +91,17 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Chat positioned responsively: mobile 30vh, desktop theme-aware positioning */}
+        {/* Chat positioned with consistent relative distances across mobile and desktop */}
         <main
           className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto"
           style={{
             top: isMobile
-              ? '30vh'
-              : currentTheme === 'light'
-                ? 'calc(3rem + 2rem + 25px)' // Light mode: 25px from logo baseline
-                : 'calc(3rem + 2rem + 50px)'  // Dark mode: 50px from logo baseline
+              ? (currentTheme === 'light'
+                  ? 'calc(3rem + 4rem + 10px)'  // Mobile light: 10px from logo baseline
+                  : 'calc(3rem + 4rem + 50px)')  // Mobile dark: 50px from logo baseline
+              : (currentTheme === 'light'
+                  ? 'calc(3rem + 2rem + 10px)'   // Desktop light: 10px from logo baseline
+                  : 'calc(3rem + 2rem + 50px)')  // Desktop dark: 50px from logo baseline
           }}
         >
           <div className="max-w-4xl mx-auto w-full">
