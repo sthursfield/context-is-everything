@@ -40,7 +40,7 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
   const [emailSending, setEmailSending] = useState(false)
   const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const [emailSuccess, setEmailSuccess] = useState<string | null>(null)
-  const [integrationStyle, setIntegrationStyle] = useState<'inline-pills' | 'tab-style'>('inline-pills')
+  const [integrationStyle, setIntegrationStyle] = useState<'inline-pills' | 'below-chat'>('inline-pills')
   const [researchFlow, setResearchFlow] = useState<{
     active: boolean
     userSector: string | null
@@ -57,7 +57,7 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
   // Responsive integration style detection
   useEffect(() => {
     const updateIntegrationStyle = () => {
-      setIntegrationStyle(window.innerWidth <= 768 ? 'tab-style' : 'inline-pills')
+      setIntegrationStyle(window.innerWidth <= 768 ? 'below-chat' : 'inline-pills')
     }
 
     // Set initial style
@@ -1170,29 +1170,10 @@ We apologize for the inconvenience and appreciate your patience.`)
 
         {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mb-8 relative">
-          {/* Tab Style Quick Start (Mobile) */}
-          <div className={`tab-quick-start ${integrationStyle === 'tab-style' ? 'active' : ''}`}>
-            <button
-              className="tab-button"
-              onClick={() => handleQuickStartAction('team')}
-              type="button"
-            >
-              Team
-            </button>
-            <button
-              className="tab-button"
-              onClick={() => handleQuickStartAction('whatwedo')}
-              type="button"
-            >
-              What we do
-            </button>
-          </div>
 
           <form onSubmit={handleInputSubmit}>
             <div
               className={`relative rounded-[5px] transition-all duration-300 hover:shadow-xl ${
-                integrationStyle === 'tab-style' ? 'tab-style-wrapper' : ''
-              } ${
                 currentTheme === 'light'
                   ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
                   : 'bg-white shadow-lg'
@@ -1266,6 +1247,26 @@ We apologize for the inconvenience and appreciate your patience.`)
             </div>
           </form>
         </div>
+
+        {/* Below Chat Quick Start Links (Mobile) */}
+        {integrationStyle === 'below-chat' && (
+          <div className="below-chat-links">
+            <button
+              className={`below-chat-link ${currentTheme === 'light' ? 'light-mode' : ''}`}
+              onClick={() => handleQuickStartAction('team')}
+              type="button"
+            >
+              Team
+            </button>
+            <button
+              className={`below-chat-link ${currentTheme === 'light' ? 'light-mode' : ''}`}
+              onClick={() => handleQuickStartAction('whatwedo')}
+              type="button"
+            >
+              What we do
+            </button>
+          </div>
+        )}
         </div>
       </div>
     </div>

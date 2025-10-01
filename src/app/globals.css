@@ -458,6 +458,58 @@ canvas {
     border-top-left-radius: 0 !important;
   }
 
+  /* Below Chat Quick Start Links */
+  .below-chat-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 7px; /* 15px from visual edge: accounting for 8px shadow = 15px - 8px = 7px */
+  }
+
+  .below-chat-link {
+    background: none;
+    border: none;
+    color: #F8F5E8; /* Default dark mode color */
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  /* Light mode text color */
+  .below-chat-link.light-mode {
+    color: #611E45;
+  }
+
+  .below-chat-link:hover {
+    color: #BC302C;
+  }
+
+  .below-chat-link:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; /* Raised underline: was 0, now 2px */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #BC302C;
+    opacity: 1;
+  }
+
+  .below-chat-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; /* Raised underline: was 0, now 2px */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #BC302C;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
   /* Mobile Responsive Adjustments */
   @media (max-width: 768px) {
     .quick-pill {
