@@ -463,7 +463,7 @@ canvas {
     display: flex;
     justify-content: center;
     gap: 32px;
-    margin-top: 7px; /* 15px from visual edge: accounting for 8px shadow = 15px - 8px = 7px */
+    margin-top: -17px; /* Compensate for mb-8 and achieve 15px: mb-8 is 32px, so -32px + 15px = -17px */
   }
 
   .below-chat-link {
