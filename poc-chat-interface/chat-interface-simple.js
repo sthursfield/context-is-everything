@@ -12,6 +12,7 @@ class ChatInterfacePOC {
 
         this.init();
         this.setupInputHandlers();
+        this.setupThemeDetection();
     }
 
     init() {
@@ -33,7 +34,7 @@ class ChatInterfacePOC {
     }
 
     getResponsiveIntegrationStyle() {
-        return window.innerWidth <= 768 ? 'tab-style' : 'inline-pills';
+        return window.innerWidth <= 768 ? 'below-chat' : 'inline-pills';
     }
 
     setupInputHandlers() {
@@ -142,7 +143,8 @@ class ChatInterfacePOC {
             'sidebarQuickStart',
             'expandQuickStart',
             'dropdownContainer',
-            'tabQuickStart'
+            'tabQuickStart',
+            'belowChatLinks'
         ];
 
         elements.forEach(id => {
@@ -150,6 +152,8 @@ class ChatInterfacePOC {
             if (element) {
                 element.classList.remove('active');
                 if (id === 'dropdownContainer') {
+                    element.style.display = 'none';
+                } else if (id === 'belowChatLinks') {
                     element.style.display = 'none';
                 }
             }
@@ -169,6 +173,13 @@ class ChatInterfacePOC {
                 const tabQuickStart = document.getElementById('tabQuickStart');
                 if (tabQuickStart) tabQuickStart.classList.add('active');
                 this.chatWrapper.classList.add('tab-style-wrapper');
+                break;
+
+            case 'below-chat':
+                const belowChatLinks = document.getElementById('belowChatLinks');
+                if (belowChatLinks) {
+                    belowChatLinks.style.display = 'flex';
+                }
                 break;
 
             default:
@@ -197,6 +208,47 @@ class ChatInterfacePOC {
             this.handleSend();
         }, 500);
     }
+
+    setupThemeDetection() {
+        // Simulate theme changes for demo purposes
+        // In the real site, this would detect the actual theme from the page
+        let currentTheme = 'dark'; // Start with dark theme
+
+        const updateTheme = (theme) => {
+            const belowChatLinks = document.querySelectorAll('.below-chat-link');
+            belowChatLinks.forEach(link => {
+                if (theme === 'light') {
+                    link.classList.add('light-mode');
+                } else {
+                    link.classList.remove('light-mode');
+                }
+            });
+            console.log('🎨 Theme updated to:', theme);
+        };
+
+        // Initialize with dark theme
+        updateTheme(currentTheme);
+
+        // Simulate theme change when buttons are clicked (like in real site)
+        document.addEventListener('click', (e) => {
+            if (e.target.dataset.action) {
+                // Simulate theme change to light mode when quick start buttons are clicked
+                setTimeout(() => {
+                    currentTheme = 'light';
+                    updateTheme(currentTheme);
+                }, 100);
+            }
+        });
+
+        // For demo purposes, add a way to reset to dark theme
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                currentTheme = 'dark';
+                updateTheme(currentTheme);
+                console.log('🌙 Reset to dark theme (press Team/What we do to switch to light)');
+            }
+        });
+    }
 }
 
 // Initialize when DOM is loaded
@@ -204,5 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.chatPOC = new ChatInterfacePOC();
 
     console.log('🚀 Chat Interface POC Ready!');
-    console.log('📱 Mobile: Tab Style | 🖥️ Desktop: Inline Pills');
+    console.log('📱 Mobile: Below Chat Links | 🖥️ Desktop: Inline Pills');
+    console.log('🎨 Theme Demo: Click Team/What we do for light mode, press R to reset to dark');
 });
