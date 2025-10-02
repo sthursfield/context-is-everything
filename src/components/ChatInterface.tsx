@@ -1111,11 +1111,7 @@ We apologize for the inconvenience and appreciate your patience.`)
 
       {/* Input Section - Modern Chat Layout with Theme Awareness */}
       <div
-        className={`${
-          (messages.length > 0 || showEmailForm || emailSuccess)
-            ? 'fixed bottom-0 left-0 right-0 z-50 pt-6 pb-6'
-            : 'relative'
-        } transition-all duration-[4000ms]`}
+        className="relative transition-all duration-[4000ms]"
         style={(messages.length > 0 || showEmailForm || emailSuccess)
           ? currentTheme === 'light'
             ? {

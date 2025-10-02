@@ -40,7 +40,7 @@ export default function HomePage() {
       className={`min-h-screen relative overflow-x-hidden transition-all duration-[4000ms] ease-in-out ${isTransitioning ? 'transitioning' : ''}`}
       data-theme={currentTheme}
       style={{
-        backgroundColor: 'transparent',
+        backgroundColor: currentTheme === 'dark' ? '#611E45' : '#f8f9fa',
         transition: 'background-color 4s cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
