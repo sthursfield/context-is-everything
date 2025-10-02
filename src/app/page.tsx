@@ -94,10 +94,7 @@ export default function HomePage() {
 
         {/* Chat positioned with consistent relative distances across mobile and desktop */}
         <main
-          className="relative p-4 md:p-6 pointer-events-auto"
-          style={{
-            marginTop: isMobile ? '25px' : '40px'  // Mobile: 25px, Desktop: 40px from logo baseline
-          }}
+          className="relative p-4 md:p-6 pointer-events-auto mt-[25px] md:mt-[40px]"
         >
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
