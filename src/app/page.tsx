@@ -65,7 +65,7 @@ export default function HomePage() {
           transition: 'color 4s cubic-bezier(0.23, 1, 0.32, 1)'
         }}
       >
-        <header className="px-6 pb-6 pt-12 pointer-events-auto">
+        <header className="px-6 pt-12 pointer-events-auto">
           <div className="max-w-4xl mx-auto w-full">
             {/* ✅ BALANCED SPACING v10.1.0 - mb-20 for desktop, mobile needs CSS override check */}
             <img
