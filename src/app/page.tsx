@@ -96,7 +96,7 @@ export default function HomePage() {
         <main
           className="relative p-4 md:p-6 pointer-events-auto"
           style={{
-            marginTop: '25px'  // Consistent 25px from logo baseline across all versions
+            marginTop: isMobile ? '25px' : '40px'  // Mobile: 25px, Desktop: 40px from logo baseline
           }}
         >
           <div className="max-w-4xl mx-auto w-full">
