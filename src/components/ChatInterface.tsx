@@ -944,8 +944,7 @@ We apologize for the inconvenience and appreciate your patience.`)
       {(messages.length > 0 || showEmailForm || emailSuccess) && (
         <div className="messages-area overflow-y-auto pb-8 mb-4" style={{
           maxHeight: '60vh',
-          borderRadius: '16px',
-          marginBottom: '200px' // Extra space for fixed input
+          borderRadius: '16px'
         }}>
         {/* Email Success/Error Message */}
         {emailSuccess && (
@@ -1134,7 +1133,7 @@ We apologize for the inconvenience and appreciate your patience.`)
             }
         }
       >
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto">
 
         {/* Animated Message Overlay */}
         {isAnimating && (
@@ -1169,7 +1168,7 @@ We apologize for the inconvenience and appreciate your patience.`)
         )}
 
         {/* Main Input Field - Theme Aware with Liquid Glass */}
-        <div className="mb-4 relative">
+        <div className="mt-6 mb-6 relative">
 
           <form onSubmit={handleInputSubmit}>
             <div

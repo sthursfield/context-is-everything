@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import WireframeMountain from '@/components/WireframeMountain'
 import ChatInterface from '@/components/ChatInterface'
+import CookieConsent from '@/components/CookieConsent'
 import { useContextualTheme } from '@/hooks/useContextualTheme'
 
 export default function HomePage() {
@@ -97,8 +98,8 @@ export default function HomePage() {
           style={{
             top: isMobile
               ? (currentTheme === 'light'
-                  ? 'calc(3rem + 4rem + 25px)'  // Mobile light: 25px from logo baseline
-                  : 'calc(3rem + 4rem + 50px)')  // Mobile dark: 50px from logo baseline
+                  ? 'calc(3rem + 3rem + 15px)'  // Mobile light: 15px from logo baseline (moved up)
+                  : 'calc(3rem + 3rem + 25px)')  // Mobile dark: 25px from logo baseline (moved up)
               : (currentTheme === 'light'
                   ? 'calc(3rem + 2rem + 25px)'   // Desktop light: 25px from logo baseline
                   : 'calc(3rem + 2rem + 50px)')  // Desktop dark: 50px from logo baseline
@@ -114,9 +115,37 @@ export default function HomePage() {
           </div>
         </main>
 
+        {/* Footer with copyright and policy links */}
+        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? 'bottom-[-120px]' : 'bottom-0'}`}>
+          <div className="max-w-4xl mx-auto w-full">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm"
+                 style={{ color: '#959595' }}>
+              <div className="text-center md:text-left">
+                <div className="md:inline">Copyright © 2025 Context-is-Everything</div>
+                <div className="md:inline md:ml-2">All rights reserved</div>
+              </div>
+              <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
+                <a href="/privacy"
+                   className="hover:opacity-70 transition-opacity duration-200 underline"
+                   style={{ color: '#959595' }}>
+                  Privacy Policy
+                </a>
+                <a href="/cookies"
+                   className="hover:opacity-70 transition-opacity duration-200 underline"
+                   style={{ color: '#959595' }}>
+                  Cookie Policy
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+
         {/* Spacer to allow scrolling back to top */}
         <div className="h-screen pointer-events-none"></div>
       </div>
+
+      {/* EU Cookie Consent Banner */}
+      <CookieConsent />
     </div>
   )
 }
