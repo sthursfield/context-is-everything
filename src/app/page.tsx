@@ -94,15 +94,15 @@ export default function HomePage() {
 
         {/* Chat positioned with consistent relative distances across mobile and desktop */}
         <main
-          className="absolute left-0 right-0 p-4 md:p-6 pointer-events-auto"
+          className="relative p-4 md:p-6 pointer-events-auto"
           style={{
-            top: isMobile
+            marginTop: isMobile
               ? (currentTheme === 'light'
-                  ? 'calc(3rem + 3rem + 15px)'  // Mobile light: 15px from logo baseline (moved up)
-                  : 'calc(3rem + 3rem + 25px)')  // Mobile dark: 25px from logo baseline (moved up)
+                  ? '15px'   // Mobile light: 15px from logo baseline
+                  : '25px')  // Mobile dark: 25px from logo baseline
               : (currentTheme === 'light'
-                  ? 'calc(3rem + 2rem + 25px)'   // Desktop light: 25px from logo baseline
-                  : 'calc(3rem + 2rem + 50px)')  // Desktop dark: 50px from logo baseline
+                  ? '25px'   // Desktop light: 25px from logo baseline
+                  : '50px')  // Desktop dark: 50px from logo baseline
           }}
         >
           <div className="max-w-4xl mx-auto w-full">
