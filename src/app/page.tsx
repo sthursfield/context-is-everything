@@ -11,6 +11,7 @@ export default function HomePage() {
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark')
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [hasChatMessages, setHasChatMessages] = useState(false)
   const chatInterfaceRef = useRef<{ resetChat: () => void }>(null)
 
   useEffect(() => {
@@ -111,15 +112,16 @@ export default function HomePage() {
               currentTheme={currentTheme}
               isTransitioning={isTransitioning}
               onTriggerConversationMode={triggerConversationMode}
+              onChatStateChange={setHasChatMessages}
             />
           </div>
         </main>
 
         {/* Footer with copyright and policy links */}
-        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? 'bottom-[-35px]' : 'bottom-0'}`}>
+        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? (hasChatMessages ? 'hidden' : 'bottom-[-35px]') : 'bottom-0'}`}>
           <div className="max-w-4xl mx-auto w-full">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm"
-                 style={{ color: '#959595' }}>
+                 style={{ color: '#747071' }}>
               <div className="text-center md:text-left">
                 <div className="md:inline">Copyright © 2025 Context-is-Everything</div>
                 <div className="md:inline md:ml-2">All rights reserved</div>
@@ -127,12 +129,12 @@ export default function HomePage() {
               <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
                 <a href="/privacy"
                    className="hover:opacity-70 transition-opacity duration-200 underline"
-                   style={{ color: '#959595' }}>
+                   style={{ color: '#747071' }}>
                   Privacy Policy
                 </a>
                 <a href="/cookies"
                    className="hover:opacity-70 transition-opacity duration-200 underline"
-                   style={{ color: '#959595' }}>
+                   style={{ color: '#747071' }}>
                   Cookie Policy
                 </a>
               </div>

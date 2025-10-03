@@ -15,6 +15,7 @@ interface ChatInterfaceProps {
   currentTheme: 'dark' | 'light'
   isTransitioning: boolean
   onTriggerConversationMode?: () => void
+  onChatStateChange?: (hasMessages: boolean) => void
 }
 
 interface EmailFormData {
@@ -24,7 +25,7 @@ interface EmailFormData {
   message: string
 }
 
-const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(function ChatInterface({ currentColor, currentTheme, isTransitioning, onTriggerConversationMode }, ref) {
+const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(function ChatInterface({ currentColor, currentTheme, isTransitioning, onTriggerConversationMode, onChatStateChange }, ref) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -78,8 +79,14 @@ const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(
         step: 'sector',
         needsClarification: false
       })
+      onChatStateChange?.(false)
     }
   }), [])
+
+  // Notify parent about chat state changes
+  useEffect(() => {
+    onChatStateChange?.(messages.length > 0)
+  }, [messages, onChatStateChange])
 
   // Responsive integration style detection
   useEffect(() => {
