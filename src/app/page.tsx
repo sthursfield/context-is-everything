@@ -94,7 +94,7 @@ export default function HomePage() {
 
         {/* Chat positioned with consistent relative distances across mobile and desktop */}
         <main
-          className="relative md:p-6 pointer-events-auto mt-6 md:mt-10"
+          className="relative md:p-6 pointer-events-auto mt-1 md:mt-10"
         >
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
