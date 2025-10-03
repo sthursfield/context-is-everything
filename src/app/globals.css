@@ -233,30 +233,37 @@ canvas {
       padding: 6px !important;
     }
 
-    /* Make team profile text white on mobile */
-    [style*="color: #333"] {
-      color: white !important;
-    }
+  }
 
-    [style*="color: #666"] {
-      color: white !important;
-    }
+  /* Make team profile text white globally (mobile and desktop) */
+  [style*="color: #333"] {
+    color: white !important;
+  }
 
-    [style*="color: #555"] {
-      color: white !important;
-    }
+  [style*="color: #666"] {
+    color: white !important;
+  }
 
-    [style*="color: #0066cc"] {
-      color: white !important;
-    }
+  [style*="color: #555"] {
+    color: white !important;
+  }
 
-    /* Remove opaque background from Why Team Works section on mobile */
-    [style*="background: rgba(248, 249, 250, 0.3)"] {
-      background: transparent !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      backdrop-filter: none !important;
-    }
+  [style*="color: #0066cc"] {
+    color: white !important;
+  }
 
+  /* Make all text content in chat messages white for consistency */
+  .text-white p,
+  .text-white div,
+  .text-white span {
+    color: white !important;
+  }
+
+  /* Remove opaque background from Why Team Works section globally */
+  [style*="background: rgba(248, 249, 250, 0.3)"] {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: none !important;
   }
 
   /* Very small mobile screens - stack team cards vertically */
