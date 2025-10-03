@@ -117,16 +117,19 @@ export default function HomePage() {
           </div>
         </main>
 
-        {/* Footer with copyright and policy links */}
-        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? (hasChatMessages ? 'hidden' : 'bottom-[-35px]') : 'bottom-0'}`}>
-          <div className="max-w-4xl mx-auto w-full">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm"
-                 style={{ color: '#747071' }}>
-              <div className="text-center md:text-left">
-                <div className="md:inline">Copyright © 2025 Context-is-Everything</div>
-                <div className="md:inline md:ml-2">All rights reserved</div>
-              </div>
-              <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
+        {/* Spacer to allow scrolling back to top */}
+        <div className="h-screen pointer-events-none"></div>
+      </div>
+
+      {/* Footer with copyright and policy links */}
+      <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? (hasChatMessages ? 'hidden' : 'bottom-[-5px]') : 'bottom-[30px]'}`}>
+        <div className="max-w-4xl mx-auto w-full">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm"
+               style={{ color: '#747071' }}>
+            <div className="text-center md:text-left">
+              <div className="block md:inline" style={{ color: '#C2C2C2' }}>Copyright © 2025 Context-is-Everything</div>
+              <div className="block md:inline md:ml-2" style={{ color: '#C2C2C2' }}>All rights reserved</div>
+              <div className="flex justify-center md:hidden gap-4 mt-1">
                 <a href="/privacy"
                    className="hover:opacity-70 transition-opacity duration-200 underline"
                    style={{ color: '#747071' }}>
@@ -139,12 +142,21 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
+            <div className="hidden md:flex gap-6">
+              <a href="/privacy"
+                 className="hover:opacity-70 transition-opacity duration-200 underline"
+                 style={{ color: '#747071' }}>
+                Privacy Policy
+              </a>
+              <a href="/cookies"
+                 className="hover:opacity-70 transition-opacity duration-200 underline"
+                 style={{ color: '#747071' }}>
+                Cookie Policy
+              </a>
+            </div>
           </div>
-        </footer>
-
-        {/* Spacer to allow scrolling back to top */}
-        <div className="h-screen pointer-events-none"></div>
-      </div>
+        </div>
+      </footer>
 
       {/* EU Cookie Consent Banner */}
       <CookieConsent />

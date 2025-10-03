@@ -44,7 +44,7 @@ export default function PrivacyPage() {
       {/* Page content */}
       <div
         className={`relative z-10 min-h-screen transition-colors duration-[4000ms] cursor-pointer ${
-          currentTheme === 'light' ? 'text-gray-900' : 'text-white'
+          currentTheme === 'light' ? 'text-gray-900' : 'text-gray-900'
         }`}
         onClick={handleBackgroundClick}
       >
