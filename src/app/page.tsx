@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import WireframeMountain from '@/components/WireframeMountain'
 import ChatInterface from '@/components/ChatInterface'
 import CookieConsent from '@/components/CookieConsent'
@@ -11,6 +11,7 @@ export default function HomePage() {
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark')
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const chatInterfaceRef = useRef<{ resetChat: () => void }>(null)
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -40,7 +41,7 @@ export default function HomePage() {
       className={`min-h-screen relative overflow-x-hidden transition-all duration-[4000ms] ease-in-out ${isTransitioning ? 'transitioning' : ''}`}
       data-theme={currentTheme}
       style={{
-        backgroundColor: currentTheme === 'dark' ? '#611E45' : '#f8f9fa',
+        backgroundColor: currentTheme === 'dark' ? '#36292C' : '#f8f9fa',
         transition: 'background-color 4s cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
@@ -82,9 +83,16 @@ export default function HomePage() {
               loading="eager"
               decoding="sync"
               onClick={() => {
-                // Only refresh on desktop (md and up)
-                if (typeof window !== 'undefined' && window.innerWidth >= 768) {
-                  window.location.reload()
+                if (typeof window !== 'undefined') {
+                  if (window.innerWidth >= 768) {
+                    // Desktop: reset chat interface
+                    chatInterfaceRef.current?.resetChat()
+                  } else {
+                    // Mobile: reset chat interface and return to dark mode
+                    chatInterfaceRef.current?.resetChat()
+                    setCurrentTheme('dark')
+                    setIsTransitioning(false)
+                  }
                 }
               }}
             />
@@ -98,6 +106,7 @@ export default function HomePage() {
         >
           <div className="max-w-4xl mx-auto w-full">
             <ChatInterface
+              ref={chatInterfaceRef}
               currentColor={colors.accent}
               currentTheme={currentTheme}
               isTransitioning={isTransitioning}
@@ -107,7 +116,7 @@ export default function HomePage() {
         </main>
 
         {/* Footer with copyright and policy links */}
-        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? 'bottom-[-120px]' : 'bottom-0'}`}>
+        <footer className={`fixed left-0 right-0 z-20 pointer-events-auto p-4 md:p-6 bg-transparent ${isMobile ? 'bottom-[-35px]' : 'bottom-0'}`}>
           <div className="max-w-4xl mx-auto w-full">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm"
                  style={{ color: '#959595' }}>

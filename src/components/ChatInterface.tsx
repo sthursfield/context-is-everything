@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -24,7 +24,7 @@ interface EmailFormData {
   message: string
 }
 
-export default function ChatInterface({ currentColor, currentTheme, isTransitioning, onTriggerConversationMode }: ChatInterfaceProps) {
+const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(function ChatInterface({ currentColor, currentTheme, isTransitioning, onTriggerConversationMode }, ref) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -53,6 +53,33 @@ export default function ChatInterface({ currentColor, currentTheme, isTransition
     needsClarification: false
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Expose resetChat function to parent component
+  useImperativeHandle(ref, () => ({
+    resetChat: () => {
+      setMessages([])
+      setInputValue('')
+      setIsLoading(false)
+      setIsAnimating(false)
+      setAnimatingMessage('')
+      setShowEmailForm(false)
+      setEmailForm({
+        name: '',
+        email: '',
+        teamMember: 'General Inquiry',
+        message: ''
+      })
+      setEmailSending(false)
+      setHasUserInteracted(false)
+      setEmailSuccess(null)
+      setResearchFlow({
+        active: false,
+        userSector: null,
+        step: 'sector',
+        needsClarification: false
+      })
+    }
+  }), [])
 
   // Responsive integration style detection
   useEffect(() => {
@@ -477,7 +504,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('## ')) {
         const headerText = trimmedLine.replace(/^## \*\*(.+?)\*\*$/, '$1').replace(/^## /, '')
         return (
-          <h2 key={index} className="text-lg font-bold text-gray-900 mt-6 mb-3 first:mt-0">
+          <h2 key={index} className="text-lg font-bold text-white md:text-gray-900 mt-6 mb-3 first:mt-0">
             {headerText}
           </h2>
         )
@@ -486,7 +513,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('### ')) {
         const headerText = trimmedLine.replace(/^### \*\*(.+?)\*\*.*$/, '$1').replace(/^### /, '')
         return (
-          <h3 key={index} className="text-md font-semibold text-gray-900 mt-4 mb-2">
+          <h3 key={index} className="text-md font-semibold text-white md:text-gray-900 mt-4 mb-2">
             {headerText}
           </h3>
         )
@@ -518,7 +545,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3 && !trimmedLine.includes('[Contact')) {
         const boldText = trimmedLine.replace(/^\*\*(.+?)\*\*$/, '$1')
         return (
-          <div key={index} className="font-bold text-gray-900 mt-4 mb-2">
+          <div key={index} className="font-bold text-white md:text-gray-900 mt-4 mb-2">
             {boldText}
           </div>
         )
@@ -734,8 +761,7 @@ This isn't about faster analysis. It's about smarter strategy.
   const handleQuickStartAction = (action: 'team' | 'whatwedo') => {
     console.log('🚀 Quick start action:', action)
 
-    // Trigger conversation mode (white theme change)
-    onTriggerConversationMode?.()
+    // Light mode disabled - no theme change
 
     // Use existing header button logic
     if (action === 'team') {
@@ -847,16 +873,13 @@ This isn't about faster analysis. It's about smarter strategy.
         // Instant submission with no delays in dark mode
         setInputValue('')
         handleSubmit(messageToSubmit)
-        // Trigger conversation mode after submission to avoid blocking
-        setTimeout(() => {
-          onTriggerConversationMode?.()
-        }, 50)
+        // Light mode disabled - no theme change
       } else {
         // Light theme only: Claude-style animation with solidification effect
         setAnimatingMessage(inputValue)
         setIsAnimating(true)
         setInputValue('')
-        onTriggerConversationMode?.()
+        // Light mode disabled - no theme change
 
         // After animation duration, submit the message
         setTimeout(() => {
@@ -1074,7 +1097,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                     className={`p-4 rounded-2xl ${
                       message.type === 'user'
                         ? 'text-white text-left max-w-xs'
-                        : 'text-gray-800 w-full backdrop-blur-sm bg-white/[0.05] border border-white/20 shadow-2xl'
+                        : 'text-white md:text-gray-800 w-full backdrop-blur-sm bg-white/[0.05] border border-white/20 shadow-2xl'
                     }`}
                     style={message.type === 'user' ? {
                       backgroundColor: currentColor
@@ -1112,22 +1135,6 @@ We apologize for the inconvenience and appreciate your patience.`)
       {/* Input Section - Modern Chat Layout with Theme Awareness */}
       <div
         className="relative transition-all duration-[4000ms]"
-        style={(messages.length > 0 || showEmailForm || emailSuccess)
-          ? currentTheme === 'light'
-            ? {
-                background: 'linear-gradient(to top, rgba(248, 249, 250, 0.95) 0%, rgba(248, 249, 250, 0.8) 70%, transparent 100%)',
-                backdropFilter: 'blur(20px) saturate(180%)',
-                transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
-              }
-            : {
-                background: 'linear-gradient(to top, rgba(55, 37, 40, 0.95) 0%, rgba(55, 37, 40, 0.8) 70%, transparent 100%)',
-                backdropFilter: 'blur(8px)',
-                transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
-              }
-          : {
-              transition: 'all 4s cubic-bezier(0.23, 1, 0.32, 1)'
-            }
-        }
       >
         <div className="max-w-4xl mx-auto">
 
@@ -1207,7 +1214,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onFocus={() => onTriggerConversationMode?.()}
+                  onFocus={() => {}}
                   placeholder="How can we help?"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
@@ -1266,4 +1273,6 @@ We apologize for the inconvenience and appreciate your patience.`)
       </div>
     </div>
   )
-}
+})
+
+export default ChatInterface
