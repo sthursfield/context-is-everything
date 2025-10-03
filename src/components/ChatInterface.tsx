@@ -30,6 +30,7 @@ const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [animatingMessage, setAnimatingMessage] = useState('')
   const [showEmailForm, setShowEmailForm] = useState(false)
   const [emailForm, setEmailForm] = useState<EmailFormData>({
@@ -55,38 +56,46 @@ const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // Complete reset function with scroll to top
+  const resetToHome = () => {
+    setMessages([])
+    setInputValue('')
+    setIsLoading(false)
+    setIsAnimating(false)
+    setAnimatingMessage('')
+    setShowEmailForm(false)
+    setEmailForm({
+      name: '',
+      email: '',
+      teamMember: 'General Inquiry',
+      message: ''
+    })
+    setEmailSuccess(null)
+    setEmailSending(false)
+    setHasUserInteracted(false)
+    setResearchFlow({
+      active: false,
+      userSector: null,
+      step: 'sector',
+      needsClarification: false
+    })
+
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    // Notify parent about state change
+    onChatStateChange?.(false)
+  }
+
   // Expose resetChat function to parent component
   useImperativeHandle(ref, () => ({
-    resetChat: () => {
-      setMessages([])
-      setInputValue('')
-      setIsLoading(false)
-      setIsAnimating(false)
-      setAnimatingMessage('')
-      setShowEmailForm(false)
-      setEmailForm({
-        name: '',
-        email: '',
-        teamMember: 'General Inquiry',
-        message: ''
-      })
-      setEmailSending(false)
-      setHasUserInteracted(false)
-      setEmailSuccess(null)
-      setResearchFlow({
-        active: false,
-        userSector: null,
-        step: 'sector',
-        needsClarification: false
-      })
-      onChatStateChange?.(false)
-    }
+    resetChat: resetToHome
   }), [])
 
   // Notify parent about chat state changes
   useEffect(() => {
-    onChatStateChange?.(messages.length > 0)
-  }, [messages, onChatStateChange])
+    onChatStateChange?.(messages.length > 0 || showEmailForm || emailSuccess !== null)
+  }, [messages, showEmailForm, emailSuccess, onChatStateChange])
 
   // Responsive integration style detection
   useEffect(() => {
@@ -100,6 +109,27 @@ const ChatInterface = forwardRef<{ resetChat: () => void }, ChatInterfaceProps>(
     // Listen for resize events
     window.addEventListener('resize', updateIntegrationStyle)
     return () => window.removeEventListener('resize', updateIntegrationStyle)
+  }, [])
+
+  // Mobile detection for form height
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
+
+  // Handle page refresh - reset to home state
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Reset state before page unloads
+      resetToHome()
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
   }, [])
 
   // Check if sector needs clarification
@@ -511,7 +541,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('## ')) {
         const headerText = trimmedLine.replace(/^## \*\*(.+?)\*\*$/, '$1').replace(/^## /, '')
         return (
-          <h2 key={index} className="text-lg font-bold text-white md:text-gray-900 mt-6 mb-3 first:mt-0">
+          <h2 key={index} className="text-lg font-bold text-gray-900 mt-6 mb-3 first:mt-0">
             {headerText}
           </h2>
         )
@@ -520,7 +550,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('### ')) {
         const headerText = trimmedLine.replace(/^### \*\*(.+?)\*\*.*$/, '$1').replace(/^### /, '')
         return (
-          <h3 key={index} className="text-md font-semibold text-white md:text-gray-900 mt-4 mb-2">
+          <h3 key={index} className="text-md font-semibold text-gray-900 mt-4 mb-2">
             {headerText}
           </h3>
         )
@@ -552,7 +582,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.split('**').length === 3 && !trimmedLine.includes('[Contact')) {
         const boldText = trimmedLine.replace(/^\*\*(.+?)\*\*$/, '$1')
         return (
-          <div key={index} className="font-bold text-white md:text-gray-900 mt-4 mb-2">
+          <div key={index} className="font-bold text-gray-900 mt-4 mb-2">
             {boldText}
           </div>
         )
@@ -973,14 +1003,18 @@ We apologize for the inconvenience and appreciate your patience.`)
       {/* Messages Area - Scrollable (only when messages exist) */}
       {(messages.length > 0 || showEmailForm || emailSuccess) && (
         <div className="messages-area overflow-y-auto pb-8 mb-4" style={{
-          maxHeight: '60vh',
+          maxHeight: isMobile ? '85vh' : '60vh',
           borderRadius: '16px'
         }}>
         {/* Email Success/Error Message */}
         {emailSuccess && (
           <div className="mb-4">
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4" style={{ borderLeftColor: emailSuccess.includes('✅') ? '#10B981' : '#EF4444' }}>
-              <div className="text-sm leading-relaxed text-gray-800">
+            <div className="rounded-2xl shadow-lg p-6" style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)'
+            }}>
+              <div className="text-sm leading-relaxed text-gray-900" style={{ color: '#000000' }}>
                 {formatResponse(emailSuccess)}
               </div>
               <button
@@ -998,16 +1032,19 @@ We apologize for the inconvenience and appreciate your patience.`)
 
         {/* Email Contact Form */}
         {showEmailForm && (
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-4 border-2 border-blue-200">
+          <div className="rounded-2xl shadow-lg p-6 mb-4 border-2 border-blue-200" style={{
+            background: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)'
+          }}>
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Contact Our Team</h3>
-              <p className="text-sm text-gray-600">Send us a message and we&apos;ll get back to you within 24 hours.</p>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#C2C2C2' }}>Contact Our Team</h3>
             </div>
 
             <form onSubmit={handleEmailSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                  <label className="block text-sm font-medium text-white mb-1">Your Name</label>
                   <input
                     type="text"
                     value={emailForm.name}
@@ -1018,7 +1055,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                  <label className="block text-sm font-medium text-white mb-1">Your Email</label>
                   <input
                     type="email"
                     value={emailForm.email}
@@ -1030,7 +1067,7 @@ We apologize for the inconvenience and appreciate your patience.`)
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Who would you like to reach?</label>
+                <label className="block text-sm font-medium text-white mb-1">Who would you like to reach?</label>
                 <select
                   value={emailForm.teamMember}
                   onChange={(e) => handleEmailFormChange('teamMember', e.target.value)}
@@ -1044,7 +1081,7 @@ We apologize for the inconvenience and appreciate your patience.`)
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className="block text-sm font-medium text-white mb-1">Message</label>
                 <textarea
                   value={emailForm.message}
                   onChange={(e) => handleEmailFormChange('message', e.target.value)}
@@ -1069,8 +1106,8 @@ We apologize for the inconvenience and appreciate your patience.`)
 
                 <button
                   type="button"
-                  onClick={() => setShowEmailForm(false)}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  onClick={resetToHome}
+                  className="px-4 py-2 border border-gray-300 text-white rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200"
                 >
                   Cancel
                 </button>
@@ -1104,7 +1141,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                     className={`p-4 rounded-2xl ${
                       message.type === 'user'
                         ? 'text-white text-left max-w-xs'
-                        : 'text-white md:text-gray-800 w-full backdrop-blur-sm bg-white/[0.05] border border-white/20 shadow-2xl'
+                        : 'text-gray-800 w-full backdrop-blur-sm bg-white/[0.05] border border-white/20 shadow-2xl'
                     }`}
                     style={message.type === 'user' ? {
                       backgroundColor: currentColor
