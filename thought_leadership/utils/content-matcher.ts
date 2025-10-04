@@ -230,7 +230,7 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
   const followUps: Record<string, string[]> = {
     'ai-project-failures': [
       'What specific challenges are you facing with your AI initiative?',
-      'How is your organization approaching change management for AI?',
+      'How is your organisation approaching change management for AI?',
       'Are you looking for strategies to improve stakeholder buy-in?',
       'Would you like to discuss data strategy and governance frameworks?'
     ],
@@ -238,18 +238,18 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
       'What industry or business context are you working within?',
       'How familiar is your team with AI implementation best practices?',
       'Are you looking for guidance on technology stack selection?',
-      'Would you like to explore specific use cases for your organization?'
+      'Would you like to explore specific use cases for your organisation?'
     ],
     'transformation-readiness': [
-      'Where is your organization in its digital transformation journey?',
+      'Where is your organisation in its digital transformation journey?',
       'What are the key stakeholders involved in this initiative?',
       'Are you looking for an assessment framework or implementation roadmap?',
       'How is leadership support for this transformation effort?'
     ],
     'insurance-brokerage-transformation': [
-      'Are you facing similar conversion challenges in your business?',
-      'Would you like to know more about the methodology we used?',
-      'Interested in how we eliminated the middleware complexity?',
+      'How did you identify the 85% unnecessary complexity?',
+      'What made the conversion rate improve so dramatically?',
+      'Can this approach work for other insurance sectors?',
       'Want to discuss ROI timelines and implementation approach?'
     ]
   };
@@ -259,6 +259,38 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
     'Are there specific aspects of this challenge you\'d like to discuss?',
     'How does this relate to your current business objectives?'
   ];
+}
+
+/**
+ * Detect if query is asking about methodology/approach
+ */
+export function isMethodologyQuery(query: string): boolean {
+  const methodologyKeywords = [
+    'how do you', 'methodology', 'approach', 'process', 'framework',
+    'how it works', 'implementation', 'strategy', 'technique', 'method',
+    'how you work', 'your process', 'your approach'
+  ];
+
+  const queryLower = query.toLowerCase();
+  return methodologyKeywords.some(keyword => queryLower.includes(keyword));
+}
+
+/**
+ * Get combined methodology explanation
+ */
+export function getCombinedMethodology(): string {
+  return `Our **Context-First Methodology** adapts to each unique situation:
+
+**For Operational Transformation** (Insurance Case):
+- Map actual business context and requirements
+- Identify valuable vs. unnecessary complexity
+- Design intelligent automation preserving valuable logic
+- Implement with risk mitigation strategies
+
+**Pattern Recognition Across Sectors:**
+Understanding context FIRST reveals which approaches work. Generic "best practices" fail because they ignore what makes each organisation different.
+
+Observable pattern: When technology understands business context, it transforms operations rather than just digitising broken processes.`;
 }
 
 /**

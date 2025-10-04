@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { identifyVisitorFromNextRequest } from '../../../../thought_leadership/utils/visitor-detection'
-import { matchQueryToArticles, getBestArticleMatch } from '../../../../thought_leadership/utils/content-matcher'
+import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, getCombinedMethodology } from '../../../../thought_leadership/utils/content-matcher'
 import { serveArticleContent, serveCaseStudyContent } from '../../../../thought_leadership/utils/content-server'
 
 // Rate limiting store (in production, use Redis or similar)
@@ -69,6 +69,19 @@ export async function POST(request: NextRequest) {
     try {
       // Detect visitor type for contextual content serving
       const visitorContext = identifyVisitorFromNextRequest(request)
+
+      // Check for methodology queries first (how do you work, your approach, etc.)
+      if (isMethodologyQuery(sanitizedQuery)) {
+        return NextResponse.json({
+          answer: getCombinedMethodology(),
+          timestamp: new Date().toISOString(),
+          source: 'methodology',
+          metadata: {
+            contentType: 'methodology_overview',
+            visitorType: visitorContext.type
+          }
+        })
+      }
 
       // Match query to thought leadership articles and case studies
       const contentMatch = getBestArticleMatch(sanitizedQuery)
