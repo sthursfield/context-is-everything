@@ -65,6 +65,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Track query for daily intelligence reports
+    const trackingTimestamp = new Date().toISOString()
+
     // THOUGHT LEADERSHIP + CASE STUDIES INTEGRATION: Check for matches first
     try {
       // Detect visitor type for contextual content serving
@@ -72,6 +75,16 @@ export async function POST(request: NextRequest) {
 
       // Check for methodology queries first (how do you work, your approach, etc.)
       if (isMethodologyQuery(sanitizedQuery)) {
+        // Log successful methodology match
+        console.log('CONTENT_MATCH:', JSON.stringify({
+          timestamp: trackingTimestamp,
+          query: sanitizedQuery,
+          matchedContent: 'methodology_overview',
+          confidence: 1.0,
+          visitorType: visitorContext.type,
+          source: 'methodology'
+        }))
+
         return NextResponse.json({
           answer: getCombinedMethodology(),
           timestamp: new Date().toISOString(),
@@ -110,6 +123,16 @@ export async function POST(request: NextRequest) {
             )
 
         if (contentResponse) {
+          // Log successful content match
+          console.log('CONTENT_MATCH:', JSON.stringify({
+            timestamp: trackingTimestamp,
+            query: sanitizedQuery,
+            matchedContent: contentMatch.articleId,
+            confidence: contentMatch.confidence,
+            visitorType: visitorContext.type,
+            source: isCaseStudy ? 'case_study' : 'thought_leadership'
+          }))
+
           return NextResponse.json({
             answer: contentResponse.content,
             timestamp: new Date().toISOString(),
@@ -122,6 +145,18 @@ export async function POST(request: NextRequest) {
             }
           })
         }
+      }
+
+      // Log unmatched query (no content found)
+      if (!contentMatch || contentMatch.confidence <= 0.5) {
+        console.log('CONTENT_MATCH:', JSON.stringify({
+          timestamp: trackingTimestamp,
+          query: sanitizedQuery,
+          matchedContent: null,
+          confidence: contentMatch?.confidence || 0,
+          visitorType: visitorContext.type,
+          source: 'unmatched'
+        }))
       }
     } catch (error) {
       // Log error but continue to fallback AI response
