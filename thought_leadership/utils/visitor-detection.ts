@@ -142,14 +142,14 @@ export function getVisitorConfidence(context: VisitorContext): number {
       // High confidence if explicit UTM source
       if (utmSource === 'newsletter' || utmSource === 'email') return 0.9;
       // Medium confidence if newsletter referrer
-      if (NEWSLETTER_PATTERNS.some(p => referrer.includes(p))) return 0.7;
+      if (referrer && NEWSLETTER_PATTERNS.some(p => referrer.includes(p))) return 0.7;
       return 0.5;
 
     case 'chat':
       // High confidence if no bot/newsletter indicators
       const hasNoBotIndicators = !BOT_PATTERNS.some(p => userAgent.toLowerCase().includes(p));
       const hasNoNewsletterIndicators = !NEWSLETTER_PATTERNS.some(p =>
-        referrer.includes(p) || (utmSource || '').includes(p)
+        (referrer && referrer.includes(p)) || (utmSource || '').includes(p)
       );
       return hasNoBotIndicators && hasNoNewsletterIndicators ? 0.8 : 0.6;
 
