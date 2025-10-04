@@ -614,12 +614,21 @@ Our approach centres on three core team members, each bringing distinct expertis
   // AI API integration with fallback to curated responses
   const getApiResponse = async (query: string): Promise<string> => {
     try {
+      // Send last 3 messages for context (user and assistant turns)
+      const recentMessages = messages.slice(-6).map(msg => ({
+        role: msg.type === 'user' ? 'user' : 'assistant',
+        content: msg.content
+      }))
+
       const response = await fetch('/api/ai-consultant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({
+          query,
+          conversationHistory: recentMessages
+        })
       })
 
       if (!response.ok) {

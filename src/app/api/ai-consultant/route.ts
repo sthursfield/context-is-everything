@@ -46,8 +46,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { query } = await request.json()
-    
+    const { query, conversationHistory = [] } = await request.json()
+
     // Validate input
     if (!query || typeof query !== 'string') {
       return NextResponse.json(
@@ -57,6 +57,14 @@ export async function POST(request: NextRequest) {
     }
 
     const sanitizedQuery = sanitizeInput(query)
+
+    // Sanitize conversation history
+    const sanitizedHistory = Array.isArray(conversationHistory)
+      ? conversationHistory.slice(-6).map((msg: any) => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: sanitizeInput(msg.content || '')
+        }))
+      : []
 
     if (!sanitizedQuery) {
       return NextResponse.json(
@@ -277,6 +285,8 @@ ABSOLUTE REQUIREMENTS:
 • Direct, conversational tone
 • Evidence-based claims only - no unsupported numbers
 • NEVER make up pages or resources that don't exist
+• ALWAYS hyperlink team member names when recommending contact: **[Spencer - Strategy Director](javascript:void(0))**, **[Lindsay - CTO](javascript:void(0))**, **[Robbie MacIntosh - Operations Director](javascript:void(0))**
+• When mentioning team members in recommendations, make their names clickable contact links
 
 STANDARD RESPONSES:
 
@@ -310,6 +320,10 @@ PROHIBITED ELEMENTS:
 
 TRIAGE GUIDANCE FOR COMMON QUESTIONS:
 
+**Contact/Connect Requests** (e.g., "connect me", "contact", "speak to", "talk to"):
+- If you just recommended a team member, use: "**[Team Member Name](javascript:void(0))**"
+- If context unclear, ask: "Which team member would be most relevant? **[Lindsay - CTO](javascript:void(0))** for technical, **[Spencer - Strategy Director](javascript:void(0))** for strategy, **[Robbie MacIntosh - Operations Director](javascript:void(0))** for operations."
+
 **Pricing/Rates**: "Context is everything - pricing included. Most strategic engagements sit in the £5-25K range over several months, but without understanding your specific situation, anything else would be guesswork. **[Spencer - Strategy Director](javascript:void(0))**"
 
 **Payment Terms/Plans**: "Payment structures depend on project scope and timeline. We don't offer standardised payment plans - terms are agreed based on your context and deliverables. **[Spencer - Strategy Director](javascript:void(0))**"
@@ -338,6 +352,15 @@ TRIAGE GUIDANCE FOR COMMON QUESTIONS:
 
 Keep responses under 200 words, professional, insightful.`
 
+    // Build messages array with conversation history
+    const messages = [
+      ...sanitizedHistory,
+      {
+        role: 'user',
+        content: sanitizedQuery
+      }
+    ]
+
     // Call Anthropic API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -350,12 +373,7 @@ Keep responses under 200 words, professional, insightful.`
         model: 'claude-3-5-sonnet-20241022',
         max_tokens: 300,
         system: systemPrompt,
-        messages: [
-          {
-            role: 'user',
-            content: sanitizedQuery
-          }
-        ]
+        messages: messages
       })
     })
 
