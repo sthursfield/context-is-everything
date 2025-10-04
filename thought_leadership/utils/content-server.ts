@@ -1,0 +1,371 @@
+/**
+ * Content Server Utility
+ * Handles version selection and content serving logic
+ */
+
+import { VisitorType, VisitorContext } from './visitor-detection';
+import { QueryMatch } from './content-matcher';
+
+export interface ArticleContent {
+  id: string;
+  title: string;
+  slug: string;
+  metadata: {
+    publishedDate: string;
+    lastUpdated: string;
+    author: string;
+    readingTime: number;
+    tags: string[];
+    seoKeywords: string[];
+  };
+  versions: {
+    bot: ArticleVersion;
+    human: ArticleVersion;
+    chat: ChatVersion;
+  };
+}
+
+export interface ArticleVersion {
+  content: string;
+  wordCount: number;
+  excerpt: string;
+  structuredData?: any;
+  callToAction?: string;
+}
+
+export interface ChatVersion {
+  sections: ChatSection[];
+  followUpQuestions: string[];
+  industryExamples: Record<string, string>;
+}
+
+export interface ChatSection {
+  id: string;
+  title: string;
+  content: string;
+  keywords: string[];
+  relevanceScore?: number;
+}
+
+export interface ContentResponse {
+  content: string;
+  version: 'bot' | 'human' | 'chat';
+  source: 'article' | 'generated';
+  metadata?: {
+    articleId?: string;
+    confidence?: number;
+    followUpQuestions?: string[];
+    relatedArticles?: string[];
+  };
+}
+
+/**
+ * Load article from JSON file
+ */
+async function loadArticle(articleId: string): Promise<ArticleContent | null> {
+  try {
+    // In Node.js environment (API routes), read from filesystem
+    if (typeof window === 'undefined') {
+      const fs = await import('fs');
+      const path = await import('path');
+
+      const articlePath = path.join(process.cwd(), 'thought_leadership', 'articles', `${articleId}.json`);
+
+      if (!fs.existsSync(articlePath)) {
+        console.warn(`Article ${articleId} not found at ${articlePath}`);
+        return null;
+      }
+
+      const fileContent = fs.readFileSync(articlePath, 'utf8');
+      return JSON.parse(fileContent);
+    } else {
+      // In browser environment, fetch from public API
+      const articlePath = `/thought_leadership/articles/${articleId}.json`;
+      const response = await fetch(articlePath);
+
+      if (!response.ok) {
+        console.warn(`Article ${articleId} not found`);
+        return null;
+      }
+
+      return await response.json();
+    }
+  } catch (error) {
+    console.error(`Error loading article ${articleId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Generate schema markup for SEO bots
+ */
+function generateSchemaMarkup(article: ArticleContent): string {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": article.title,
+    "author": {
+      "@type": "Organization",
+      "name": "Context is Everything"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Context is Everything",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://contextiseverything.ai/logo.png"
+      }
+    },
+    "datePublished": article.metadata.publishedDate,
+    "dateModified": article.metadata.lastUpdated,
+    "description": article.versions.bot.excerpt,
+    "keywords": article.metadata.seoKeywords.join(", "),
+    "wordCount": article.versions.bot.wordCount,
+    "timeRequired": `PT${article.metadata.readingTime}M`,
+    "about": {
+      "@type": "Thing",
+      "name": "AI Consulting"
+    }
+  };
+
+  return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
+}
+
+/**
+ * Generate chat CTA for newsletter readers
+ */
+function generateChatCTA(): string {
+  return `
+
+**Ready to explore this further?**
+
+Our AI consultancy team can help you navigate these challenges with personalized guidance.
+
+[Start a conversation with our experts →](#chat)
+
+*Get insights tailored to your specific industry and organizational context.*`;
+}
+
+/**
+ * Extract relevant chat section based on query context
+ */
+function extractRelevantSection(
+  article: ArticleContent,
+  queryContext: QueryMatch
+): ChatSection | null {
+  const chatVersion = article.versions.chat;
+
+  // Score sections based on keyword matching
+  const scoredSections = chatVersion.sections.map(section => {
+    const matchCount = section.keywords.filter(keyword =>
+      queryContext.matchedKeywords.some(matched =>
+        keyword.toLowerCase().includes(matched.toLowerCase()) ||
+        matched.toLowerCase().includes(keyword.toLowerCase())
+      )
+    ).length;
+
+    return {
+      ...section,
+      relevanceScore: matchCount / section.keywords.length
+    };
+  });
+
+  // Return highest scoring section
+  const bestSection = scoredSections.reduce((best, current) =>
+    (current.relevanceScore || 0) > (best.relevanceScore || 0) ? current : best
+  );
+
+  return bestSection.relevanceScore && bestSection.relevanceScore > 0.3 ? bestSection : null;
+}
+
+/**
+ * Enhance content with industry-specific examples
+ */
+function enhanceWithIndustryContext(
+  content: string,
+  article: ArticleContent,
+  visitorContext: VisitorContext
+): string {
+  // Extract industry from referrer or UTM data
+  const industry = detectIndustryFromContext(visitorContext);
+
+  if (industry && article.versions.chat.industryExamples[industry]) {
+    const industryExample = article.versions.chat.industryExamples[industry];
+    return `${content}
+
+**${industry.charAt(0).toUpperCase() + industry.slice(1)} Context:**
+${industryExample}`;
+  }
+
+  return content;
+}
+
+/**
+ * Detect industry from visitor context
+ */
+function detectIndustryFromContext(context: VisitorContext): string | null {
+  const referrer = (context.referrer || '').toLowerCase();
+  const utmSource = (context.utmSource || '').toLowerCase();
+
+  const industryKeywords = {
+    healthcare: ['health', 'medical', 'clinical', 'hospital'],
+    finance: ['bank', 'financial', 'investment', 'trading'],
+    retail: ['retail', 'ecommerce', 'shopping', 'commerce'],
+    manufacturing: ['manufacturing', 'production', 'industrial'],
+    technology: ['tech', 'software', 'saas', 'platform']
+  };
+
+  for (const [industry, keywords] of Object.entries(industryKeywords)) {
+    if (keywords.some(keyword =>
+      referrer.includes(keyword) || utmSource.includes(keyword)
+    )) {
+      return industry;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Main content serving function
+ */
+export async function serveArticleContent(
+  articleId: string,
+  visitorType: VisitorType,
+  queryContext?: QueryMatch,
+  visitorContext?: VisitorContext
+): Promise<ContentResponse | null> {
+  const article = await loadArticle(articleId);
+
+  if (!article) {
+    return null;
+  }
+
+  switch (visitorType) {
+    case 'bot': {
+      // Serve comprehensive content for SEO
+      const content = article.versions.bot.content;
+      const schemaMarkup = generateSchemaMarkup(article);
+
+      return {
+        content: `${content}\n\n${schemaMarkup}`,
+        version: 'bot',
+        source: 'article',
+        metadata: {
+          articleId,
+          confidence: 1.0
+        }
+      };
+    }
+
+    case 'newsletter': {
+      // Serve engaging human version with CTA
+      const content = article.versions.human.content;
+      const cta = generateChatCTA();
+
+      return {
+        content: `${content}${cta}`,
+        version: 'human',
+        source: 'article',
+        metadata: {
+          articleId,
+          confidence: 1.0
+        }
+      };
+    }
+
+    case 'chat': {
+      // Serve contextual section with enhancements
+      if (!queryContext) {
+        // Fallback to excerpt if no query context
+        return {
+          content: article.versions.human.excerpt,
+          version: 'chat',
+          source: 'article',
+          metadata: {
+            articleId,
+            confidence: 0.7,
+            followUpQuestions: article.versions.chat.followUpQuestions.slice(0, 2)
+          }
+        };
+      }
+
+      const relevantSection = extractRelevantSection(article, queryContext);
+
+      if (!relevantSection) {
+        return null;
+      }
+
+      // Enhance with industry context if available
+      let content = relevantSection.content;
+      if (visitorContext) {
+        content = enhanceWithIndustryContext(content, article, visitorContext);
+      }
+
+      return {
+        content,
+        version: 'chat',
+        source: 'article',
+        metadata: {
+          articleId,
+          confidence: queryContext.confidence,
+          followUpQuestions: article.versions.chat.followUpQuestions.slice(0, 3),
+          relatedArticles: [] // Could be populated with related content
+        }
+      };
+    }
+
+    default:
+      return null;
+  }
+}
+
+/**
+ * Enhanced response selection for ChatInterface integration
+ */
+export async function selectResponse(
+  query: string,
+  visitorType: VisitorType,
+  queryMatch?: QueryMatch,
+  visitorContext?: VisitorContext
+): Promise<ContentResponse | null> {
+
+  // Priority 1: Check for article match
+  if (queryMatch && queryMatch.confidence > 0.4) {
+    const articleResponse = await serveArticleContent(
+      queryMatch.articleId,
+      visitorType,
+      queryMatch,
+      visitorContext
+    );
+
+    if (articleResponse) {
+      return articleResponse;
+    }
+  }
+
+  // Priority 2: Could integrate with existing Foundation/Team/Research responses
+  // Priority 3: Fall back to AI generation
+
+  return null;
+}
+
+/**
+ * Debug helper for development
+ */
+export function debugContentServing(
+  articleId: string,
+  visitorType: VisitorType,
+  queryContext?: QueryMatch
+): void {
+  if (process.env.NODE_ENV !== 'development') return;
+
+  console.log('🎬 Content Serving Debug:', {
+    articleId,
+    visitorType,
+    queryContext: queryContext ? {
+      confidence: Math.round(queryContext.confidence * 100) + '%',
+      matchedKeywords: queryContext.matchedKeywords.slice(0, 3)
+    } : 'none'
+  });
+}

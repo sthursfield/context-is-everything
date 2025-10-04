@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { identifyVisitorFromNextRequest } from '../../../../thought_leadership/utils/visitor-detection'
+import { matchQueryToArticles, getBestArticleMatch } from '../../../../thought_leadership/utils/content-matcher'
+import { serveArticleContent } from '../../../../thought_leadership/utils/content-server'
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -60,6 +63,42 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid query after sanitization' },
         { status: 400 }
       )
+    }
+
+    // THOUGHT LEADERSHIP INTEGRATION: Check for article matches first
+    try {
+      // Detect visitor type for contextual content serving
+      const visitorContext = identifyVisitorFromNextRequest(request)
+
+      // Match query to thought leadership articles
+      const articleMatch = getBestArticleMatch(sanitizedQuery)
+
+      // If we have a high-confidence match, serve article content
+      if (articleMatch && articleMatch.confidence > 0.5) {
+        const articleResponse = await serveArticleContent(
+          articleMatch.articleId,
+          visitorContext.type,
+          articleMatch,
+          visitorContext
+        )
+
+        if (articleResponse) {
+          return NextResponse.json({
+            answer: articleResponse.content,
+            timestamp: new Date().toISOString(),
+            source: 'thought_leadership',
+            metadata: {
+              articleId: articleMatch.articleId,
+              confidence: articleMatch.confidence,
+              visitorType: visitorContext.type,
+              followUpQuestions: articleResponse.metadata?.followUpQuestions
+            }
+          })
+        }
+      }
+    } catch (error) {
+      // Log error but continue to fallback AI response
+      console.error('Thought leadership system error:', error)
     }
 
     // DEBUG: Special handling for Foundation/Team queries
