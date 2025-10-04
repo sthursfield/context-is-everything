@@ -91,7 +91,9 @@ export async function POST(request: NextRequest) {
         // Determine if this is a case study or article
         const isCaseStudy = contentMatch.articleId.includes('transformation') ||
                             contentMatch.articleId.includes('insurance') ||
-                            contentMatch.articleId.includes('brokerage')
+                            contentMatch.articleId.includes('brokerage') ||
+                            contentMatch.articleId.includes('lsa-contract-analysis') ||
+                            contentMatch.articleId.includes('procurement-analysis')
 
         const contentResponse = isCaseStudy
           ? await serveCaseStudyContent(

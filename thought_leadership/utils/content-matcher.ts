@@ -76,6 +76,36 @@ const CASE_STUDY_KEYWORDS = {
       'architectural simplification', 'document generation', 'competitive advantage'
     ],
     industries: ['insurance', 'healthcare', 'finance']
+  },
+  'lsa-contract-analysis': {
+    primary: [
+      'education', 'student', 'university', 'contract analysis', 'LSA',
+      'architecture school', 'transparency', 'student rights'
+    ],
+    secondary: [
+      'educational transparency', 'contract risk', 'institutional merger',
+      'student protection', 'hidden fees', 'refund policy', 'legal analysis'
+    ],
+    concepts: [
+      'information asymmetry', 'risk disclosure', 'forensic analysis',
+      'multi-tier verification', 'public transparency', 'student empowerment'
+    ],
+    industries: ['education', 'legal', 'professional services']
+  },
+  'procurement-analysis': {
+    primary: [
+      'procurement', 'vendor evaluation', 'supplier', 'RFP', 'contract evaluation',
+      'catering', 'sports venue', '48 hours', 'AI analysis'
+    ],
+    secondary: [
+      'procurement transformation', 'anomaly detection', 'hidden costs',
+      'vendor comparison', 'time reduction', 'enterprise procurement'
+    ],
+    concepts: [
+      'context-aware AI', 'multi-format processing', 'audit trails',
+      'financial modeling', 'risk assessment', 'strategic acceleration'
+    ],
+    industries: ['sports', 'entertainment', 'procurement', 'facilities']
   }
 };
 
@@ -251,6 +281,18 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
       'What made the conversion rate improve so dramatically?',
       'Can this approach work for other insurance sectors?',
       'Want to discuss ROI timelines and implementation approach?'
+    ],
+    'lsa-contract-analysis': [
+      'How did you verify all 75+ sources?',
+      'What other hidden risks did you discover?',
+      'Can this methodology apply to other institutions?',
+      'How do you ensure complete transparency?'
+    ],
+    'procurement-analysis': [
+      'How did the AI detect the hidden £200K?',
+      'What types of procurement can this handle?',
+      'How do you maintain enterprise audit standards?',
+      'Can this work for other contract evaluations?'
     ]
   };
 
@@ -281,11 +323,26 @@ export function isMethodologyQuery(query: string): boolean {
 export function getCombinedMethodology(): string {
   return `Our **Context-First Methodology** adapts to each unique situation:
 
-**For Operational Transformation** (Insurance Case):
+**For Operational Transformation** (Insurance):
 - Map actual business context and requirements
 - Identify valuable vs. unnecessary complexity
 - Design intelligent automation preserving valuable logic
 - Implement with risk mitigation strategies
+- Result: 150% conversion improvement, £200K+ annual savings
+
+**For Transparency Creation** (Education):
+- Forensic document analysis and translation
+- Multi-tier verification across 75+ sources
+- Risk identification and quantification
+- Public publication with complete transparency
+- Result: Students empowered with £3,600 risk visibility
+
+**For Strategic Acceleration** (Procurement):
+- Build intelligence context through automated research
+- Process multi-format documents into standardised data
+- Apply multi-lens analysis for comprehensive evaluation
+- Create enterprise-grade audit trails
+- Result: 95% time reduction, £200K+ hidden costs discovered
 
 **Pattern Recognition Across Sectors:**
 Understanding context FIRST reveals which approaches work. Generic "best practices" fail because they ignore what makes each organisation different.
