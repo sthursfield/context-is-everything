@@ -25,6 +25,35 @@ export interface ArticleContent {
   };
 }
 
+export interface CaseStudyContent {
+  case_study: {
+    id: string;
+    client: {
+      industry: string;
+      sub_sector: string;
+      size: string;
+      region: string;
+      anonymous_name: string;
+    };
+    versions: {
+      human: {
+        executive_summary: string;
+        key_metrics?: string;
+        lessons_learned?: string;
+      };
+      bot: {
+        comprehensive_version: string;
+      };
+      chat: {
+        chunks: Record<string, string>;
+      };
+    };
+    metrics: Record<string, any>;
+    keywords_for_matching?: string[];
+    lessons?: string[];
+  };
+}
+
 export interface ArticleVersion {
   content: string;
   wordCount: number;
@@ -92,6 +121,43 @@ async function loadArticle(articleId: string): Promise<ArticleContent | null> {
     }
   } catch (error) {
     console.error(`Error loading article ${articleId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Load case study from JSON file
+ */
+async function loadCaseStudy(caseStudyId: string): Promise<CaseStudyContent | null> {
+  try {
+    // In Node.js environment (API routes), read from filesystem
+    if (typeof window === 'undefined') {
+      const fs = await import('fs');
+      const path = await import('path');
+
+      const caseStudyPath = path.join(process.cwd(), 'Case_studies', `${caseStudyId}.json`);
+
+      if (!fs.existsSync(caseStudyPath)) {
+        console.warn(`Case study ${caseStudyId} not found at ${caseStudyPath}`);
+        return null;
+      }
+
+      const fileContent = fs.readFileSync(caseStudyPath, 'utf8');
+      return JSON.parse(fileContent);
+    } else {
+      // In browser environment, fetch from public API
+      const caseStudyPath = `/Case_studies/${caseStudyId}.json`;
+      const response = await fetch(caseStudyPath);
+
+      if (!response.ok) {
+        console.warn(`Case study ${caseStudyId} not found`);
+        return null;
+      }
+
+      return await response.json();
+    }
+  } catch (error) {
+    console.error(`Error loading case study ${caseStudyId}:`, error);
     return null;
   }
 }
@@ -227,6 +293,134 @@ function detectIndustryFromContext(context: VisitorContext): string | null {
 }
 
 /**
+ * Select appropriate case study chunk based on query intent
+ */
+function selectCaseStudyChunk(query: string, chunks: Record<string, string>): string {
+  const queryLower = query.toLowerCase();
+
+  // Intent-based chunk selection
+  if (queryLower.includes('result') || queryLower.includes('roi') || queryLower.includes('outcome') || queryLower.includes('proof')) {
+    return chunks.results || chunks.roi || chunks.solution;
+  }
+  if (queryLower.includes('how') || queryLower.includes('methodology') || queryLower.includes('approach')) {
+    return chunks.methodology || chunks.solution;
+  }
+  if (queryLower.includes('challenge') || queryLower.includes('problem') || queryLower.includes('issue')) {
+    return chunks.challenge;
+  }
+  if (queryLower.includes('why') || queryLower.includes('context') || queryLower.includes('factor')) {
+    return chunks.context_factors || chunks.solution;
+  }
+  if (queryLower.includes('advantage') || queryLower.includes('competitive') || queryLower.includes('moat')) {
+    return chunks.competitive_advantage || chunks.results;
+  }
+
+  // Default to solution if no specific intent detected
+  return chunks.solution || chunks.challenge;
+}
+
+/**
+ * Serve case study content based on visitor type and query
+ */
+export async function serveCaseStudyContent(
+  caseStudyId: string,
+  visitorType: VisitorType,
+  query?: string,
+  queryContext?: QueryMatch
+): Promise<ContentResponse | null> {
+  const caseStudy = await loadCaseStudy(caseStudyId);
+
+  if (!caseStudy) {
+    return null;
+  }
+
+  const study = caseStudy.case_study;
+
+  switch (visitorType) {
+    case 'bot': {
+      // Serve comprehensive version for SEO with schema markup
+      const content = study.versions.bot.comprehensive_version;
+
+      // Generate schema markup for case study
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "CaseStudy",
+        "name": `${study.client.industry} Digital Transformation`,
+        "about": {
+          "@type": "Organization",
+          "industry": study.client.industry
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Context is Everything"
+        },
+        "description": study.versions.human.executive_summary.substring(0, 200)
+      };
+
+      const schemaMarkup = `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
+
+      return {
+        content: `${content}\n\n${schemaMarkup}`,
+        version: 'bot',
+        source: 'article',
+        metadata: {
+          articleId: caseStudyId,
+          confidence: 1.0
+        }
+      };
+    }
+
+    case 'newsletter': {
+      // Serve human-friendly executive summary with metrics
+      let content = study.versions.human.executive_summary;
+
+      if (study.versions.human.key_metrics) {
+        content += `\n\n### Key Results\n\n${study.versions.human.key_metrics}`;
+      }
+
+      const cta = generateChatCTA();
+
+      return {
+        content: `${content}${cta}`,
+        version: 'human',
+        source: 'article',
+        metadata: {
+          articleId: caseStudyId,
+          confidence: 1.0
+        }
+      };
+    }
+
+    case 'chat': {
+      // Serve contextual chunk based on query intent
+      const selectedChunk = query
+        ? selectCaseStudyChunk(query, study.versions.chat.chunks)
+        : study.versions.chat.chunks.solution || study.versions.chat.chunks.challenge;
+
+      const followUpQuestions = [
+        'Would you like to know more about the results?',
+        'Interested in the methodology we used?',
+        'Want to explore similar challenges in your industry?'
+      ];
+
+      return {
+        content: selectedChunk,
+        version: 'chat',
+        source: 'article',
+        metadata: {
+          articleId: caseStudyId,
+          confidence: queryContext?.confidence || 0.8,
+          followUpQuestions
+        }
+      };
+    }
+
+    default:
+      return null;
+  }
+}
+
+/**
  * Main content serving function
  */
 export async function serveArticleContent(
@@ -330,17 +524,35 @@ export async function selectResponse(
   visitorContext?: VisitorContext
 ): Promise<ContentResponse | null> {
 
-  // Priority 1: Check for article match
+  // Priority 1: Check for article or case study match
   if (queryMatch && queryMatch.confidence > 0.4) {
-    const articleResponse = await serveArticleContent(
-      queryMatch.articleId,
-      visitorType,
-      queryMatch,
-      visitorContext
-    );
+    // Determine if this is a case study or article based on ID prefix
+    const isCaseStudy = queryMatch.articleId.includes('transformation') ||
+                        queryMatch.articleId.includes('insurance') ||
+                        queryMatch.articleId.includes('brokerage');
 
-    if (articleResponse) {
-      return articleResponse;
+    if (isCaseStudy) {
+      const caseStudyResponse = await serveCaseStudyContent(
+        queryMatch.articleId,
+        visitorType,
+        query,
+        queryMatch
+      );
+
+      if (caseStudyResponse) {
+        return caseStudyResponse;
+      }
+    } else {
+      const articleResponse = await serveArticleContent(
+        queryMatch.articleId,
+        visitorType,
+        queryMatch,
+        visitorContext
+      );
+
+      if (articleResponse) {
+        return articleResponse;
+      }
     }
   }
 

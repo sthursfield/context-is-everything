@@ -59,6 +59,27 @@ const ARTICLE_KEYWORDS = {
 };
 
 /**
+ * Case Study keyword mapping for query matching
+ */
+const CASE_STUDY_KEYWORDS = {
+  'insurance-brokerage-transformation': {
+    primary: [
+      'insurance', 'conversion rate', 'lead conversion', 'automation',
+      'InsurTech', 'medical aesthetics', 'brokerage'
+    ],
+    secondary: [
+      'digital transformation', 'process optimization', 'agent productivity',
+      'middleware', 'ROI', 'scalability', 'form automation'
+    ],
+    concepts: [
+      'context-aware automation', 'intelligent questioning', 'eliminate complexity',
+      'architectural simplification', 'document generation', 'competitive advantage'
+    ],
+    industries: ['insurance', 'healthcare', 'finance']
+  }
+};
+
+/**
  * Industry-specific context mapping
  */
 const INDUSTRY_CONTEXT = {
@@ -120,13 +141,14 @@ function detectIndustryContext(query: string): string[] {
 }
 
 /**
- * Match user query to relevant articles
+ * Match user query to relevant articles and case studies
  */
 export function matchQueryToArticles(query: string): QueryMatch[] {
   const queryKeywords = extractKeywords(query);
   const industries = detectIndustryContext(query);
   const matches: QueryMatch[] = [];
 
+  // Match against thought leadership articles
   Object.entries(ARTICLE_KEYWORDS).forEach(([articleId, keywords]) => {
     // Calculate matches for different keyword types
     const primaryMatch = calculateSemanticMatch(queryKeywords, keywords.primary);
@@ -147,6 +169,33 @@ export function matchQueryToArticles(query: string): QueryMatch[] {
 
       matches.push({
         articleId,
+        confidence: totalConfidence,
+        matchedKeywords,
+        relevantSections: industries.length > 0 ? industries : undefined
+      });
+    }
+  });
+
+  // Match against case studies
+  Object.entries(CASE_STUDY_KEYWORDS).forEach(([caseStudyId, keywords]) => {
+    const primaryMatch = calculateSemanticMatch(queryKeywords, keywords.primary);
+    const secondaryMatch = calculateSemanticMatch(queryKeywords, keywords.secondary) * 0.8;
+    const conceptMatch = calculateSemanticMatch(queryKeywords, keywords.concepts) * 0.6;
+
+    // Industry-specific boost for case studies
+    const industryBoost = keywords.industries && industries.some(i => keywords.industries.includes(i)) ? 0.15 : 0;
+
+    const totalConfidence = Math.min(1.0, primaryMatch + secondaryMatch + conceptMatch + industryBoost);
+
+    if (totalConfidence > 0.2) {
+      const matchedKeywords = [
+        ...keywords.primary.filter(k => queryKeywords.some(qk => k.includes(qk) || qk.includes(k))),
+        ...keywords.secondary.filter(k => queryKeywords.some(qk => k.includes(qk) || qk.includes(k))),
+        ...keywords.concepts.filter(k => queryKeywords.some(qk => k.includes(qk) || qk.includes(k)))
+      ];
+
+      matches.push({
+        articleId: caseStudyId,
         confidence: totalConfidence,
         matchedKeywords,
         relevantSections: industries.length > 0 ? industries : undefined
@@ -175,7 +224,7 @@ export function isThoughtLeadershipQuery(query: string): boolean {
 }
 
 /**
- * Generate contextual follow-up questions based on matched article
+ * Generate contextual follow-up questions based on matched article or case study
  */
 export function generateFollowUpQuestions(match: QueryMatch): string[] {
   const followUps: Record<string, string[]> = {
@@ -196,6 +245,12 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
       'What are the key stakeholders involved in this initiative?',
       'Are you looking for an assessment framework or implementation roadmap?',
       'How is leadership support for this transformation effort?'
+    ],
+    'insurance-brokerage-transformation': [
+      'Are you facing similar conversion challenges in your business?',
+      'Would you like to know more about the methodology we used?',
+      'Interested in how we eliminated the middleware complexity?',
+      'Want to discuss ROI timelines and implementation approach?'
     ]
   };
 
