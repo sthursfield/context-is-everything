@@ -506,26 +506,46 @@ Our approach centres on three core team members, each bringing distinct expertis
 
   // Convert markdown to HTML string for dangerouslySetInnerHTML
   const markdownToHtml = (text: string): string => {
-    return text
-      // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
-      .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
-        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
-      })
-      // Handle regular contact links: [Contact Name](javascript:void(0))
-      .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
-        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
-      })
-      // Handle headers
-      .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #1f2937;">$1</h2>')
-      .replace(/^### (.+)/gm, '<h3 style="font-size: 14px; font-weight: 600; margin: 6px 0 3px 0; color: #1f2937;">$1</h3>')
-      // Handle remaining bold text
-      .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
-      // Handle bullet points
-      .replace(/^• (.+)/gm, '<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>$1</div>')
-      // Handle regular external links
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
-      // Handle line breaks
-      .replace(/\n/g, '<br>')
+    // Split into lines and wrap each paragraph with proper spacing
+    const lines = text.split('\n').filter(line => line.trim())
+
+    return lines.map(line => {
+      const trimmedLine = line.trim()
+
+      // Process the line with markdown replacements
+      let processedLine = trimmedLine
+        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (_, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle regular contact links: [Contact Name](javascript:void(0))
+        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (_, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle remaining bold text
+        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+        // Handle regular external links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
+
+      // Wrap based on content type with proper spacing (mb-3 = 12px)
+      if (trimmedLine.startsWith('## ')) {
+        const headerText = processedLine.replace(/^## /, '')
+        return `<h2 style="font-size: 16px; font-weight: 600; margin: 24px 0 12px 0; color: #1f2937;">${headerText}</h2>`
+      }
+
+      if (trimmedLine.startsWith('### ')) {
+        const headerText = processedLine.replace(/^### /, '')
+        return `<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px 0; color: #1f2937;">${headerText}</h3>`
+      }
+
+      if (trimmedLine.startsWith('• ')) {
+        const bulletContent = processedLine.replace(/^• /, '')
+        return `<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>${bulletContent}</div>`
+      }
+
+      // Regular paragraph with mb-3 spacing (12px)
+      return `<div style="margin-bottom: 12px; line-height: 1.625;">${processedLine}</div>`
+    }).join('')
   }
 
   const formatResponse = (text: string) => {
@@ -1284,7 +1304,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   disabled={isLoading || isAnimating}
                 />
 
-                <Button
+                <button
                   type="button"
                   onClick={() => {
                     if (!inputValue.trim()) {
@@ -1296,10 +1316,10 @@ We apologize for the inconvenience and appreciate your patience.`)
                     }
                   }}
                   disabled={isLoading || isAnimating}
-                  className={`ml-2 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-110 active:scale-95 ${
+                  className={`ml-2 rounded-full h-10 w-10 p-0 flex items-center justify-center border-0 cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 ${
                     isAnimating ? 'animate-button-press' : ''
                   } ${!inputValue.trim() && !isLoading && !isAnimating ? 'animate-slow-glow' : ''} ${
-                    (inputValue.trim() || isAnimating) ? 'bg-[#BC302C] text-white' : ''
+                    (inputValue.trim() || isAnimating) ? 'bg-[#BC302C] text-white' : 'bg-gray-200 text-gray-400'
                   }`}
                   style={
                     (!inputValue.trim() && !isLoading && !isAnimating) ? {} : {
@@ -1319,7 +1339,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                   )}
-                </Button>
+                </button>
               </div>
             </div>
           </form>
