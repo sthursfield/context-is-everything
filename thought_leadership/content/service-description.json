@@ -1,47 +1,82 @@
 {
-  "id": "core-services",
-  "title": "What We Do - Core Services",
-  "created": "2025-10-05",
-  "versions": {
-    "concise": {
-      "content": "We analyse how things actually work in your organisation before suggesting solutions. Most failures happen when companies copy best practices without adapting them - what works brilliantly somewhere else can create bottlenecks in your context.\n\nWe look across sectors to find approaches that single-industry experts miss.\n\nOur work centres on three areas:\n• **Strategic transformation** - adapting proven approaches to your specific situation\n• **Context analysis** - understanding implementation dynamics before proposing solutions\n• **Cross-sector insights** - pattern recognition from insurance, education, procurement, and beyond\n\nReal examples: Insurance brokerage (150% conversion improvement), education transparency (LSA contract analysis), procurement acceleration (48-hour turnaround vs weeks).\n\nWhat are you working on - think we can help?",
-      "use_case": "Quick overview for 'what do you do' queries"
+  "service_module": {
+    "id": "ai-consulting-services",
+    "type": "service",
+    "title": "AI Consulting Services - Context-Driven Implementation",
+    "created": "2025-10-05",
+
+    "target_searches": [
+      "AI consulting services",
+      "AI ROI consulting",
+      "AI operational efficiency",
+      "reduce costs with AI",
+      "AI implementation strategy",
+      "scale AI in enterprise",
+      "AI governance framework"
+    ],
+
+    "versions": {
+      "human": {
+        "headline": "AI Consulting That Actually Delivers ROI",
+        "content": "## The AI Implementation Challenge\n\nMultiple studies indicate that 70-87% of AI projects fail to move beyond pilot stage or deliver expected value. The primary reason? Generic AI solutions applied without understanding business context.\n\nWe take a different approach.\n\n### What We Actually Do\n\nWe don't sell pre-built AI tools. We build AI that understands your specific context - your industry nuances, operational realities, and unique challenges.\n\n**Documented Results from Our Case Studies:**\n\n**Insurance Brokerage:** We built AI that understood state-specific insurance regulations and medical service risk profiles. Verified result: Conversion rates improved from <20% to 50%+ (150% increase), with $200,000+ in annual technical debt eliminated.\n\n**Major Sports Venue:** We created AI that understood stadium catering industry benchmarks and staffing ratios. Verified result: Identified £200,000 in hidden annual costs within 48 hours (versus 3-week manual process).\n\n### How We Deliver ROI\n\n**Operational Efficiency** \nMcKinsey reports AI can deliver 20-30% improvements when properly implemented. Our documented cases show:\n- 95% reduction in procurement analysis time\n- 85% reduction in administrative tasks (insurance case)\n- 66% faster response times through architectural simplification\n\n**Cost Reduction**\nOur verified project outcomes include:\n- $200,000+ annual savings from eliminated technical debt (insurance)\n- £200,000 hidden costs identified in vendor proposals (procurement)\n- 85% reduction in middleware maintenance costs\n\n**Revenue Growth**\nDocumented improvements from our implementations:\n- 150% conversion rate improvement (insurance brokerage)\n- 10x scalability achieved without proportional cost increases\n\n### Our Implementation Approach\n\n**Week 1-2: Context Discovery**\n- Map your unique business environment\n- Identify where AI will create measurable value\n- Understand constraints and opportunities\n\n**Week 3-6: Prototype Development**\n- Build AI that understands YOUR context\n- Test with real scenarios\n- Validate ROI projections\n\n**Week 7-12: Scale and Optimize**\n- Full implementation with safety nets\n- Continuous improvement based on results\n- Knowledge transfer to your team\n\n### Why Context Matters\n\n**Generic AI Often Fails Because:**\n- It lacks understanding of industry-specific regulations\n- It can't identify anomalies without knowing what's normal\n- It makes assumptions that don't fit your reality\n\n**Context-Aware AI Succeeds Because:**\n- It understands your specific situation\n- It identifies patterns generic systems miss\n- It delivers immediate, measurable value\n\n### Team Expertise\n\n**[Lindsay - CTO](javascript:void(0))**: Enterprise software veteran with 20+ years FinTech experience. Former CTO at Telrock (17 years), CTO at Kinverse. Technical innovation specialist - from traditional enterprise architecture to rapid delivery platforms. Bubble.io Ambassador & Certification Advisory Committee.\n\n**[Robbie MacIntosh - Operations Director](javascript:void(0))**: Crisis management and operational transformation. \"Is Everyone Safe\" co-founder. Large-scale operations specialist.\n\n**[Spencer - Strategy Director](javascript:void(0))**: AI strategy, brand positioning, cross-sector pattern recognition. Contextual adaptation specialist.\n\n### Start With a Proof of Value\n\nSelect a specific business challenge. We'll demonstrate what context-aware AI can achieve using your actual data within 48 hours. This isn't a generic demo - it's real analysis of your real challenges.\n\nWhat are you working on - think we can help? **[Contact us](javascript:void(0))**"
+      },
+
+      "bot": {
+        "content": "# AI Consulting Services: Context-Driven Implementation for Enterprise ROI\n\n## Executive Summary\n\nResearch from MIT Sloan Management Review indicates that 70% of companies report minimal or no impact from AI, while Gartner reports that 85% of AI projects deliver erroneous outcomes due to bias in data, algorithms, or teams. Our AI consulting services address these challenges through context-aware implementations that have delivered documented results: operational efficiency gains of 20-95%, cost reductions from $200,000 to £200,000+ annually, and revenue improvements up to 150%.\n\n## The Current State of AI Implementation\n\n### Market Reality\n\nAccording to Accenture, three out of four C-suite executives believe that if they don't scale AI in the next five years, they risk going out of business entirely. Meanwhile, McKinsey shows that while 78% of organizations use AI in at least one business function, most struggle to scale beyond pilots.\n\n### The Context Gap\n\nEvery business operates within unique parameters: industry-specific regulations, organizational processes, customer behaviors, resource constraints. Generic AI solutions cannot navigate these complexities effectively.\n\n## Our Approach: Context-First AI Implementation\n\n### Verified Case Studies\n\n**Insurance Brokerage**: 150% conversion improvement by understanding state-specific regulations and medical service risk profiles. $200,000+ annual savings, 10x scalability achieved.\n\n**Sports Venue**: £200,000 in hidden annual costs identified through industry benchmark knowledge. 95% reduction in analysis time (3 weeks to 48 hours).\n\n**Educational Institution**: Complete risk transparency through contextual analysis of 92 pages of contracts. Critical risks identified and quantified.\n\n### Implementation Methodology\n\n**Phase 1: Context Discovery (Weeks 1-2)**\n- Business process documentation and analysis\n- Regulatory requirement mapping\n- Technology infrastructure assessment\n- AI opportunity assessment with ROI projections\n\n**Phase 2: Prototype Development (Weeks 3-6)**\n- Custom model development incorporating context\n- Integration with existing systems\n- Real-scenario testing\n- Performance validation\n\n**Phase 3: Scale and Optimization (Weeks 7-12)**\n- Production deployment\n- Performance monitoring\n- Team training\n- Continuous optimization\n\n## Service Offerings\n\n### AI Strategy and Roadmap Development\nBCG research shows only 28% of organizations feel fully prepared for AI implementation. We provide AI readiness assessment, opportunity identification, ROI modeling, and phased implementation roadmap.\n\n### Operational Efficiency Optimization\nMcKinsey reports 45% of work activities could be automated. Our documented results: 95% reduction in analysis time, 85% reduction in administrative tasks, 66% improvement in response times.\n\n### Revenue Enhancement Solutions\nVerified impact: 150% conversion rate improvement, 10x scalability without proportional costs. Industry studies show 10-20% revenue increases from AI personalization (BCG).\n\n### Cost Reduction and Risk Management\nVerified savings: $200,000+ annual cost reduction, £200,000 hidden costs identified, 85% reduction in maintenance overhead.\n\n### AI Governance and Responsible AI\nPwC October 2024 survey found risk management and Responsible AI are top concerns. We implement governance frameworks, ethical guidelines, bias detection, and transparency systems.\n\n## Industry-Specific Solutions\n\n### Financial Services and Banking\nFuture Market Insights reports finance leads AI consulting with 22.3% market share. Our capabilities: fraud detection, risk assessment, regulatory compliance automation.\n\n### Insurance\nProven solutions including dynamic underwriting systems (150% conversion achieved), regional regulation compliance, multi-channel optimization.\n\n### Healthcare and Life Sciences\nHIPAA-compliant patient data analysis, clinical decision support, operational efficiency, compliance monitoring.\n\n## ROI and Value Delivery\n\n### Measurable Outcomes\n\n**Operational Efficiency** (Documented):\n- Processing time: 95% reduction\n- Administrative tasks: 85% reduction  \n- Response times: 66% improvement\n- Industry average: 20-30% gains (McKinsey)\n\n**Financial Impact** (Verified):\n- Cost savings: $200,000-£200,000+ annually\n- Revenue increases: Up to 150% documented\n- Scaling efficiency: 10x capacity achieved\n\n## Implementation Success Factors\n\nBased on research and experience:\n1. **Executive Sponsorship**: BCG reports initiatives with C-suite involvement are 1.5x more likely to succeed\n2. **Data Quality**: O'Reilly found 96% encounter data quality challenges\n3. **Change Management**: McKinsey shows 70% of transformations fail without proper change management\n4. **Clear Metrics**: Organizations tracking AI metrics are 2x more likely to report value (MIT Sloan)\n\n## Engagement Models\n\n**Proof of Value (48 Hours)**: Demonstrate tangible value on real business challenge using your data.\n\n**Pilot Program (4-6 Weeks)**: Validate approach with limited scope including context mapping, prototype, performance measurement.\n\n**Full Implementation (12+ Weeks)**: Comprehensive AI integration with complete context mapping, solution development, deployment, training.\n\n## Industry Context\n\nFuture Market Insights (August 2025): AI Consulting Services Market CAGR 25.5-25.7% from 2024-2034. Large enterprises leading growth. Investment yielding 40% operational efficiency increases.\n\nGovernment initiatives: US allocated $2.8 billion in 2024. China targeting 70% of large enterprises by 2030.\n\n## Risk Mitigation\n\nCommon risks: data quality/bias, integration complexity, regulatory compliance, change resistance. Our approach: comprehensive data audits, phased integration, built-in compliance monitoring, structured change management, realistic expectation setting.\n\n## Conclusion\n\nWhile 70-85% of AI projects struggle, our context-first approach has demonstrated measurable success. By understanding your specific business environment rather than applying generic solutions, we've achieved documented results including 150% conversion improvements, 95% time reductions, and hundreds of thousands in cost savings.\n\n## Sources\n\n- MIT Sloan Management Review: 'Winning With AI'\n- McKinsey: 'The State of AI 2024-2025'\n- Gartner: 'AI Project Failure Rates 2022'\n- Accenture: 'AI: Built to Scale'\n- BCG: 'AI Readiness Survey 2024'\n- Future Market Insights: 'AI Consulting Services Market August 2025'\n- PwC Pulse Survey October 2024\n- O'Reilly: 'AI Adoption in the Enterprise 2024'\n- Internal Case Studies: Verified project results"
+      },
+
+      "chat": {
+        "what_we_do": "We build AI that understands your specific business context - not generic solutions. Our documented results include a 150% conversion improvement for an insurance brokerage by understanding state-specific regulations, and £200K in hidden costs found for a sports venue through industry benchmark knowledge. We focus on delivering measurable ROI through context-aware AI.",
+
+        "how_we_work": "Three proven phases: 1) Context Discovery (1-2 weeks) - we map your unique environment and constraints. 2) Prototype Development (3-6 weeks) - we build and validate solutions with your actual data. 3) Scale and Optimize (remaining weeks) - full implementation with continuous improvement. Typical full implementation: 12 weeks.",
+
+        "roi_proof": "Our verified results: 95% reduction in procurement analysis time (3 weeks to 48 hours), 150% conversion improvement for insurance, £200K hidden costs identified in vendor proposals, $200K+ annual savings from eliminated complexity. Industry studies show AI can deliver 20-30% operational efficiency gains when properly implemented (McKinsey).",
+
+        "why_different": "Studies show 70-85% of AI projects fail (MIT Sloan, Gartner) because they use generic solutions. We build AI that understands YOUR specific context. For example, our procurement AI knew stadium catering ratios and caught hidden costs that generic AI would miss. Context awareness is the difference between failure and success.",
+
+        "pricing_model": "We offer three engagement models: 1) 48-hour Proof of Value - demonstrate results on your specific challenge. 2) 4-6 week Pilot - validate approach in limited scope. 3) 12+ week Full Implementation - comprehensive transformation. All include clear success metrics and ROI tracking.",
+
+        "industries": "We work across industries with documented success in: Insurance (150% conversion improvement), Procurement (95% time reduction), Financial Services (fraud detection, compliance), Healthcare (privacy-compliant analysis), and Education (risk transparency). Each implementation is customized to industry-specific regulations and requirements.",
+
+        "governance": "AI governance is critical - PwC reports it's a top concern but few act on it. We build governance into every implementation: ethical guidelines, bias detection, transparency systems, and compliance monitoring. This ensures sustainable AI that doesn't create regulatory or reputational risks.",
+
+        "typical_projects": "Strategic AI transformation where context determines success. Examples: Insurance conversion optimization (150% improvement), procurement acceleration (48 hours vs weeks), education transparency (LSA contract analysis), financial services fraud detection. What's your situation?",
+
+        "when_to_engage": "Best when you're evaluating AI options that worked elsewhere but need adapting to your specific context. When you want measurable ROI and honest implementation timelines, not sales pitches. When generic AI solutions haven't delivered expected value."
+      }
     },
 
-    "detailed": {
-      "content": "## What We Do\n\nWe work with mid-market organisations navigating strategic transitions - particularly in regulated industries and tech-enabled services.\n\n**Our approach is simple:** understand your context first, then adapt proven solutions to fit your reality.\n\n## Why Context Matters\n\nMost transformation projects fail because companies apply best practices without adaptation. What works brilliantly at Company A creates bottlenecks at Company B. Same solution, different context, opposite results.\n\nWe've seen this pattern across insurance, education, procurement, and professional services: **generic frameworks rarely fit**.\n\n## How We Work\n\n**1. Context Analysis**\nWe analyse how things actually work in your organisation - not how they should work in theory.\n\n**2. Pattern Recognition**\nWe look across sectors to find approaches that single-industry experience misses. Healthcare solutions can solve insurance problems. Education transparency methods can transform procurement.\n\n**3. Contextual Adaptation**\nWe adapt proven approaches to your specific situation, rather than forcing you into generic frameworks.\n\n## Real Examples\n\n**Insurance Brokerage:** 150% conversion improvement by eliminating 85% unnecessary complexity while preserving valuable logic. £200K+ annual savings.\n\n**Education Transparency:** LSA contract analysis revealing £3,600 student risk through forensic analysis of 75+ sources.\n\n**Procurement Acceleration:** Sports venue catering analysis - 48 hours instead of weeks, £200K+ hidden costs discovered.\n\n## Who We Help\n\nMid-market organisations where:\n• Proven approaches need adapting (not just copying)\n• Strategic transitions require contextual intelligence\n• Cross-sector insights reveal missed opportunities\n• Implementation dynamics determine success\n\n## Team Expertise\n\n**[Lindsay - CTO](javascript:void(0))**: Enterprise software veteran with 20+ years FinTech experience. Former CTO at Telrock (17 years), CTO at Kinverse. Technical innovation specialist - from traditional enterprise architecture to rapid delivery platforms. Bubble.io Ambassador & Certification Advisory Committee.\n\n**[Robbie MacIntosh - Operations Director](javascript:void(0))**: Crisis management and operational transformation. \"Is Everyone Safe\" co-founder. Large-scale operations specialist.\n\n**[Spencer - Strategy Director](javascript:void(0))**: AI strategy, brand positioning, cross-sector pattern recognition. Contextual adaptation specialist.\n\nWant to discuss your specific situation? **[Contact us](javascript:void(0))**",
-      "use_case": "Comprehensive overview for serious enquiries"
-    },
+    "keywords_for_seo": [
+      "AI consulting services",
+      "AI implementation consulting",
+      "AI ROI consulting",
+      "enterprise AI strategy",
+      "AI operational efficiency",
+      "reduce costs with AI",
+      "scale AI in enterprise",
+      "AI governance consulting",
+      "responsible AI implementation",
+      "AI integration strategy",
+      "context-aware AI",
+      "AI transformation consulting"
+    ],
 
-    "triage": {
-      "what_we_do": "We analyse how things actually work before suggesting solutions. Most companies fail by copying best practices without adapting them. We look across sectors to find approaches single-industry experts miss.",
+    "related_content": [
+      "insurance-brokerage-transformation",
+      "procurement-analysis",
+      "lsa-contract-analysis"
+    ],
 
-      "how_we_work": "Context-first: understand your situation, identify what matters, adapt proven approaches to fit your reality. Not generic frameworks.",
-
-      "who_we_help": "Mid-market organisations navigating strategic transitions, particularly in regulated industries and tech-enabled services. When proven approaches need adapting, not just copying.",
-
-      "typical_projects": "Strategic transformation where context determines success. Examples: Insurance conversion optimization (150% improvement), education transparency (LSA contract analysis), procurement acceleration (48 hours vs weeks). What's your situation?",
-
-      "when_to_engage": "Best when you're evaluating options that worked elsewhere but need adapting. When you want an honest take on implementation dynamics, not a sales pitch.",
-
-      "what_makes_us_different": "Cross-sector pattern recognition. We've seen insurance solutions solve education problems and procurement methods transform professional services. Single-industry consultants miss these connections."
-    }
-  },
-
-  "keywords": [
-    "what do you do",
-    "services",
-    "what you offer",
-    "capabilities",
-    "how you work",
-    "approach",
-    "methodology",
-    "who you help",
-    "typical projects",
-    "what makes you different",
-    "why choose you",
-    "your background",
-    "about you",
-    "tell me about"
-  ]
+    "sources": [
+      "MIT Sloan Management Review: Winning With AI",
+      "McKinsey Global Institute: The State of AI 2024-2025",
+      "Gartner Research: AI Project Failure Rates 2022",
+      "Accenture: AI Built to Scale",
+      "BCG: AI Readiness Survey 2024",
+      "Future Market Insights: AI Consulting Services Market August 2025",
+      "PwC Pulse Survey October 2024",
+      "O'Reilly: AI Adoption in the Enterprise 2024",
+      "Internal Case Studies: Verified project results"
+    ]
+  }
 }

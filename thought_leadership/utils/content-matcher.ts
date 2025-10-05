@@ -255,15 +255,24 @@ export function isThoughtLeadershipQuery(query: string): boolean {
 
 /**
  * Check if query is asking about core services/what we do
+ * Includes SEO keywords for organic search optimization
  */
 export function isServiceDescriptionQuery(query: string): boolean {
   const serviceKeywords = [
+    // General service queries
     'what do you do', 'what you do', 'services', 'what you offer',
     'capabilities', 'how you work', 'how do you work', 'your approach',
     'methodology', 'who you help', 'who do you help', 'typical projects',
     'what makes you different', 'why choose you', 'your background',
     'about you', 'tell me about', 'what is this', 'who are you',
-    'describe your', 'explain what you'
+    'describe your', 'explain what you',
+
+    // SEO keywords for AI consulting services
+    'ai consulting', 'ai implementation', 'ai roi', 'ai strategy',
+    'ai operational efficiency', 'reduce costs with ai', 'ai governance',
+    'scale ai', 'enterprise ai', 'responsible ai', 'ai integration',
+    'context-aware ai', 'ai transformation', 'ai project fail',
+    'ai adoption', 'ai readiness'
   ];
 
   const queryLower = query.toLowerCase();

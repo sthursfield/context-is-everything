@@ -584,7 +584,7 @@ export function debugContentServing(
 }
 
 /**
- * Serve service description content
+ * Serve service description content with visitor type optimization
  */
 export async function serveServiceDescription(
   visitorType: VisitorType,
@@ -598,50 +598,78 @@ export async function serveServiceDescription(
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const serviceData = JSON.parse(fileContent);
 
-    // Determine which version to serve based on query intent
-    let content: string;
-
+    // Access nested service_module structure
+    const module = serviceData.service_module;
     const queryLower = query.toLowerCase();
 
-    // Detailed version for comprehensive queries
-    if (queryLower.includes('detail') ||
-        queryLower.includes('more about') ||
-        queryLower.includes('tell me everything') ||
-        queryLower.includes('comprehensive')) {
-      content = serviceData.versions.detailed.content;
+    let content: string;
+    let version: 'bot' | 'human' | 'chat';
+
+    // Bot visitors get comprehensive SEO-optimized version
+    if (visitorType === 'bot') {
+      content = module.versions.bot.content;
+      version = 'bot';
     }
-    // Triage-specific responses for targeted questions
-    else if (queryLower.includes('how you work') || queryLower.includes('how do you work')) {
-      content = serviceData.versions.triage.how_we_work;
-    }
-    else if (queryLower.includes('who you help') || queryLower.includes('who do you help')) {
-      content = serviceData.versions.triage.who_we_help;
-    }
-    else if (queryLower.includes('typical project')) {
-      content = serviceData.versions.triage.typical_projects;
-    }
-    else if (queryLower.includes('when to') || queryLower.includes('when should')) {
-      content = serviceData.versions.triage.when_to_engage;
-    }
-    else if (queryLower.includes('different') || queryLower.includes('unique') || queryLower.includes('why choose')) {
-      content = serviceData.versions.triage.what_makes_us_different;
-    }
-    // Default to concise version
+    // Human visitors get version based on query specificity
     else {
-      content = serviceData.versions.concise.content;
+      // Check for specific chat chunk queries first
+      const chatChunks = module.versions.chat;
+
+      if (queryLower.includes('roi') || queryLower.includes('results') || queryLower.includes('proof')) {
+        content = chatChunks.roi_proof;
+        version = 'chat';
+      }
+      else if (queryLower.includes('how you work') || queryLower.includes('how do you work') || queryLower.includes('process') || queryLower.includes('methodology')) {
+        content = chatChunks.how_we_work;
+        version = 'chat';
+      }
+      else if (queryLower.includes('different') || queryLower.includes('unique') || queryLower.includes('why choose')) {
+        content = chatChunks.why_different;
+        version = 'chat';
+      }
+      else if (queryLower.includes('pricing') || queryLower.includes('cost') || queryLower.includes('engagement')) {
+        content = chatChunks.pricing_model;
+        version = 'chat';
+      }
+      else if (queryLower.includes('industry') || queryLower.includes('industries') || queryLower.includes('sector')) {
+        content = chatChunks.industries;
+        version = 'chat';
+      }
+      else if (queryLower.includes('governance') || queryLower.includes('responsible') || queryLower.includes('ethical')) {
+        content = chatChunks.governance;
+        version = 'chat';
+      }
+      else if (queryLower.includes('typical project') || queryLower.includes('examples')) {
+        content = chatChunks.typical_projects;
+        version = 'chat';
+      }
+      else if (queryLower.includes('when to') || queryLower.includes('when should')) {
+        content = chatChunks.when_to_engage;
+        version = 'chat';
+      }
+      // Comprehensive queries get human-optimized long version
+      else if (queryLower.includes('detail') || queryLower.includes('comprehensive') || queryLower.includes('everything')) {
+        content = module.versions.human.content;
+        version = 'human';
+      }
+      // Default to chat chunk for "what we do"
+      else {
+        content = chatChunks.what_we_do;
+        version = 'chat';
+      }
     }
 
     return {
       content,
-      version: visitorType === 'bot' ? 'bot' : 'chat',
+      version,
       source: 'service_description',
       metadata: {
-        serviceId: serviceData.id,
+        serviceId: module.id,
         followUpQuestions: [
+          'What ROI have you achieved?',
           'How do you work?',
-          'Who do you typically help?',
-          'What makes you different from other consultancies?',
-          'When should we engage with you?'
+          'What makes you different?',
+          'What industries do you serve?'
         ]
       }
     };
