@@ -504,6 +504,30 @@ Our approach centres on three core team members, each bringing distinct expertis
     return () => window.removeEventListener('headerButtonClick', handleHeaderButtonClick as EventListener)
   }, [])
 
+  // Convert markdown to HTML string for dangerouslySetInnerHTML
+  const markdownToHtml = (text: string): string => {
+    return text
+      // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+      .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+        return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-bold">${linkText}</button>`
+      })
+      // Handle regular contact links: [Contact Name](javascript:void(0))
+      .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+        return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
+      })
+      // Handle headers
+      .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #1f2937;">$1</h2>')
+      .replace(/^### (.+)/gm, '<h3 style="font-size: 14px; font-weight: 600; margin: 6px 0 3px 0; color: #1f2937;">$1</h3>')
+      // Handle remaining bold text
+      .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+      // Handle bullet points
+      .replace(/^• (.+)/gm, '<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>$1</div>')
+      // Handle regular external links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
+      // Handle line breaks
+      .replace(/\n/g, '<br>')
+  }
+
   const formatResponse = (text: string) => {
     // Special handling for Foundation responses with HTML structure
     if (text.includes('V7.3-HORIZONTAL-LAYOUT') && text.includes('<div style="display: flex;')) {
@@ -1158,7 +1182,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   >
                     <div className="text-sm leading-relaxed">
                       {message.type === 'assistant' ? (
-                        <div dangerouslySetInnerHTML={{ __html: message.content }} />
+                        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(message.content) }} />
                       ) : (
                         message.content
                       )}
