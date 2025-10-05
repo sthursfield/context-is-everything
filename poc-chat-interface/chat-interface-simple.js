@@ -13,6 +13,9 @@ class ChatInterfacePOC {
         this.init();
         this.setupInputHandlers();
         this.setupThemeDetection();
+
+        // Start with suggest-action glow
+        this.sendButton.classList.add('suggest-action');
     }
 
     init() {
@@ -49,16 +52,31 @@ class ChatInterfacePOC {
             console.log('💬 Input blurred');
         });
 
-        // Input change events
+        // Input change events - stop glow when user starts typing
         this.chatInput.addEventListener('input', (e) => {
             const hasValue = e.target.value.trim().length > 0;
             this.sendButton.classList.toggle('active', hasValue);
             this.updateButtonState(hasValue ? 'active' : 'inactive');
+
+            // Stop suggest-action glow when user starts typing
+            if (hasValue) {
+                this.sendButton.classList.remove('suggest-action');
+                this.chatInput.classList.remove('clickable-placeholder');
+            } else {
+                // Restore glow if input becomes empty
+                this.sendButton.classList.add('suggest-action');
+                this.chatInput.classList.add('clickable-placeholder');
+            }
         });
 
-        // Send button click
+        // Send button click - trigger "What do you do?" if empty, otherwise send message
         this.sendButton.addEventListener('click', () => {
-            if (this.chatInput.value.trim()) {
+            if (!this.chatInput.value.trim()) {
+                // Empty input: trigger "What do you do?"
+                this.sendButton.classList.remove('suggest-action');
+                this.handleQuickStartAction('whatwedo');
+            } else {
+                // Has text: send the message
                 this.handleSend();
             }
         });
@@ -73,6 +91,7 @@ class ChatInterfacePOC {
         // Handle quick start button clicks
         document.addEventListener('click', (e) => {
             if (e.target.dataset.action) {
+                this.sendButton.classList.remove('suggest-action');
                 this.handleQuickStartAction(e.target.dataset.action);
             }
         });

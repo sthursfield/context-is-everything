@@ -1247,12 +1247,12 @@ We apologize for the inconvenience and appreciate your patience.`)
           </div>
         )}
 
-        {/* Main Input Field - Theme Aware with Liquid Glass */}
+        {/* Main Input Field - Elegant Design with Team Link */}
         <div className="mt-6 mb-6 relative">
 
           <form onSubmit={handleInputSubmit}>
             <div
-              className={`relative rounded-[5px] transition-all duration-300 hover:shadow-xl ${
+              className={`relative rounded-[24px] transition-all duration-300 hover:shadow-xl ${
                 currentTheme === 'light'
                   ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
                   : 'bg-white shadow-lg'
@@ -1263,40 +1263,45 @@ We apologize for the inconvenience and appreciate your patience.`)
                   : `0 4px 20px rgba(0,0,0,0.1)`
               }}
             >
-              <div className="flex items-center px-4 md:px-6 py-3 md:py-4">
-                <div className="mr-4">
-                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </div>
+              <div className="flex items-center px-4 md:px-6 py-3 md:py-4 gap-3 md:gap-4">
+                {/* Team Link - Left Side */}
+                <button
+                  type="button"
+                  onClick={() => handleQuickStartAction('team')}
+                  className="text-sm text-gray-400 hover:text-[#BC302C] transition-colors duration-200 border-r border-gray-200 hover:border-[#BC302C] pr-3 md:pr-4 whitespace-nowrap"
+                  style={{ order: -1 }}
+                >
+                  Team
+                </button>
 
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  onClick={(e) => {
-                    // If input is empty and placeholder is clicked, trigger "What do you do?"
-                    if (!inputValue.trim()) {
-                      e.preventDefault()
-                      handleSubmit("What do you do?", true)
-                    }
-                  }}
-                  placeholder="What's all this about then...?"
-                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none cursor-text"
+                  placeholder="What do you do?"
+                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
                 />
 
                 <Button
-                  type="submit"
-                  disabled={isLoading || isAnimating || !inputValue.trim()}
-                  className={`ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  type="button"
+                  onClick={() => {
+                    if (!inputValue.trim()) {
+                      // Empty: trigger "What do you do?"
+                      handleSubmit("What do you do?", true)
+                    } else {
+                      // Has text: submit the form
+                      handleInputSubmit(new Event('submit') as any)
+                    }
+                  }}
+                  disabled={isLoading || isAnimating}
+                  className={`ml-2 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-110 active:scale-95 ${
                     isAnimating ? 'animate-button-press' : ''
-                  }`}
+                  } ${!inputValue.trim() && !isLoading && !isAnimating ? 'animate-slow-glow' : ''}`}
                   style={{
                     background: (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
-                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af',
-                    opacity: (inputValue.trim() || isAnimating) ? 1 : 0.6
+                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af'
                   }}
                 >
                   {isLoading ? (
@@ -1316,19 +1321,6 @@ We apologize for the inconvenience and appreciate your patience.`)
           </form>
         </div>
 
-        {/* Team Link Below Chat */}
-        <div className="text-center mt-4">
-          <button
-            className="text-sm underline transition-colors duration-200"
-            style={{ color: '#D0E9FE' }}
-            onClick={() => handleQuickStartAction('team')}
-            type="button"
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.color = '#747669'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.color = '#D0E9FE'}
-          >
-            Team
-          </button>
-        </div>
         </div>
       </div>
     </div>

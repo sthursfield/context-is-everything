@@ -36,7 +36,7 @@
 
         .chat-input-wrapper {
             position: relative;
-            border-radius: 5px;
+            border-radius: 24px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -70,10 +70,7 @@
         }
 
         .chat-icon {
-            width: 24px;
-            height: 24px;
-            color: #9ca3af;
-            flex-shrink: 0;
+            display: none; /* Remove chat bubble icon */
         }
 
         .chat-input {
@@ -85,10 +82,39 @@
             color: #1f2937;
             font-weight: 400;
             letter-spacing: -0.01em;
+            cursor: text;
+        }
+
+        .chat-input.clickable-placeholder {
+            cursor: pointer;
         }
 
         .chat-input::placeholder {
             color: #9ca3af;
+            cursor: pointer;
+        }
+
+        /* Team link inside chat box - left side with separator */
+        .inline-team-link {
+            background: none;
+            border: none;
+            border-right: 1px solid #e5e7eb;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            padding: 4px 16px;
+            padding-right: 16px;
+            margin-right: 12px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            white-space: nowrap;
+            order: -1; /* Position before input */
+        }
+
+        .inline-team-link:hover {
+            color: #BC302C;
+            border-right-color: #BC302C;
         }
 
         .send-button {
@@ -104,12 +130,32 @@
             cursor: pointer;
             transition: all 0.2s ease;
             flex-shrink: 0;
+            position: relative;
+        }
+
+        /* Slow glow animation for initial state - gray to solid red */
+        .send-button.suggest-action {
+            animation: slowGlow 3.5s ease-in-out infinite;
+        }
+
+        @keyframes slowGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(188, 48, 44, 0);
+                background: #e5e7eb;
+                color: #9ca3af;
+            }
+            50% {
+                box-shadow: 0 0 12px 3px rgba(188, 48, 44, 0.4);
+                background: #BC302C;
+                color: white;
+            }
         }
 
         .send-button.active {
             background: #BC302C;
             color: white;
             transform: scale(1.05);
+            animation: none;
         }
 
         .send-button:hover {
@@ -510,45 +556,18 @@
         .below-chat-link {
             background: none;
             border: none;
-            color: #F8F5E8; /* Default dark mode color */
-            font-size: 16px;
-            font-weight: 500;
+            color: #D0E9FE; /* Default color */
+            font-size: 14px;
+            font-weight: 400;
             cursor: pointer;
             padding: 8px 0;
             position: relative;
             transition: color 0.2s ease;
-        }
-
-        /* Light mode text color */
-        .below-chat-link.light-mode {
-            color: #611E45;
+            text-decoration: underline;
         }
 
         .below-chat-link:hover {
-            color: #BC302C;
-        }
-
-        .below-chat-link:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 2px; /* Raised underline: was 0, now 2px */
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #BC302C;
-            opacity: 1;
-        }
-
-        .below-chat-link::after {
-            content: '';
-            position: absolute;
-            bottom: 2px; /* Raised underline: was 0, now 2px */
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #BC302C;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            color: #747669;
         }
 
         /* Mobile Responsive Adjustments */
@@ -643,17 +662,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
 
-                    <!-- Option 1: Inline Pills -->
-                    <div class="quick-start-pills" id="inlinePills">
-                        <button class="quick-pill" data-action="team">Team</button>
-                        <button class="quick-pill" data-action="whatwedo">What we do</button>
-                    </div>
-
                     <input
                         type="text"
-                        class="chat-input"
+                        class="chat-input clickable-placeholder"
                         id="chatInput"
-                        placeholder="How can we help?"
+                        placeholder="What do you do?"
                         autocomplete="off"
                     >
 
@@ -663,18 +676,8 @@
                         <div class="typing-dot"></div>
                     </div>
 
-                    <!-- Option 5: Dropdown Menu (Hidden by default) -->
-                    <div class="dropdown-container" id="dropdownContainer" style="display: none;">
-                        <button class="dropdown-trigger" id="dropdownTrigger">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu" id="dropdownMenu">
-                            <button class="dropdown-item" data-action="team">Team</button>
-                            <button class="dropdown-item" data-action="whatwedo">What we do</button>
-                        </div>
-                    </div>
+                    <!-- Team link inside chat box -->
+                    <button class="inline-team-link" id="inlineTeamLink" data-action="team">Team</button>
 
                     <button class="send-button" id="sendButton" type="button">
                         <svg class="send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -684,11 +687,6 @@
                 </div>
             </div>
 
-            <!-- Below Chat Quick Start Links -->
-            <div class="below-chat-links" id="belowChatLinks">
-                <button class="below-chat-link" data-action="team">Team</button>
-                <button class="below-chat-link" data-action="whatwedo">What we do</button>
-            </div>
         </div>
     </div>
 
