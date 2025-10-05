@@ -503,6 +503,26 @@ Want me to dig deeper on any of this?
 
   // Convert markdown to HTML string for dangerouslySetInnerHTML
   const markdownToHtml = (text: string): string => {
+    // Check if text contains HTML div structures (team cards)
+    if (text.includes('<div style="display: flex')) {
+      // Preserve HTML structure - only process inline markdown, don't add <br> for newlines
+      return text
+        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle regular contact links: [Contact Name](javascript:void(0))
+        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle remaining bold text
+        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+        // Handle regular external links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
+        // DON'T convert newlines to <br> - preserve HTML structure
+    }
+
+    // Regular markdown processing for non-HTML content
     return text
       // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
       .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
