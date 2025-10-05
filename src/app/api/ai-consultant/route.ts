@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { identifyVisitorFromNextRequest } from '../../../../thought_leadership/utils/visitor-detection'
-import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, getCombinedMethodology, isServiceDescriptionQuery } from '../../../../thought_leadership/utils/content-matcher'
-import { serveArticleContent, serveCaseStudyContent, serveServiceDescription } from '../../../../thought_leadership/utils/content-server'
+import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, isServiceDescriptionQuery } from '../../../../thought_leadership/utils/content-matcher'
+import { serveArticleContent, serveCaseStudyContent, serveServiceDescription, serveMethodology } from '../../../../thought_leadership/utils/content-server'
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -112,27 +112,35 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Check for methodology queries (how do you work, your approach, etc.)
+      // Check for methodology queries (how do you work, why AI fails, etc.)
       if (isMethodologyQuery(sanitizedQuery)) {
-        // Log successful methodology match
-        console.log('CONTENT_MATCH:', JSON.stringify({
-          timestamp: trackingTimestamp,
-          query: sanitizedQuery,
-          matchedContent: 'methodology_overview',
-          confidence: 1.0,
-          visitorType: visitorContext.type,
-          source: 'methodology'
-        }))
+        const methodologyResponse = await serveMethodology(
+          visitorContext.type,
+          sanitizedQuery
+        )
 
-        return NextResponse.json({
-          answer: getCombinedMethodology(),
-          timestamp: new Date().toISOString(),
-          source: 'methodology',
-          metadata: {
-            contentType: 'methodology_overview',
-            visitorType: visitorContext.type
-          }
-        })
+        if (methodologyResponse) {
+          // Log successful methodology match
+          console.log('CONTENT_MATCH:', JSON.stringify({
+            timestamp: trackingTimestamp,
+            query: sanitizedQuery,
+            matchedContent: 'context-first-methodology',
+            confidence: 1.0,
+            visitorType: visitorContext.type,
+            source: 'methodology'
+          }))
+
+          return NextResponse.json({
+            answer: methodologyResponse.content,
+            timestamp: new Date().toISOString(),
+            source: 'methodology',
+            metadata: {
+              contentType: 'context-first-methodology',
+              visitorType: visitorContext.type,
+              followUpQuestions: methodologyResponse.metadata?.followUpQuestions
+            }
+          })
+        }
       }
 
       // Match query to thought leadership articles and case studies
@@ -212,7 +220,7 @@ Our approach centres on three core team members, each bringing distinct expertis
     <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
     <div style="width: 150px; height: 150px; border-radius: 8px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
     <div style="flex: 1; min-width: 0;">
-      <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Lindsay</h4>
+      <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Lindsay Smith</h4>
       <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
       <p style="margin: 0 0 2px 0; font-size: 15px; line-height: 1.4; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
       <p style="margin: 0; font-size: 15px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
@@ -232,7 +240,7 @@ Our approach centres on three core team members, each bringing distinct expertis
     <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
     <div style="width: 150px; height: 150px; border-radius: 8px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
     <div style="flex: 1; min-width: 0;">
-      <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Spencer</h4>
+      <h4 style="margin: 0 0 2px 0; font-size: 18px; font-weight: bold; color: #333;">Spencer Thursfield</h4>
       <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
       <p style="margin: 0 0 2px 0; font-size: 15px; line-height: 1.4; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
       <p style="margin: 0; font-size: 15px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>

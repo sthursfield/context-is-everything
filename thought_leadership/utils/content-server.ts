@@ -679,3 +679,100 @@ export async function serveServiceDescription(
     return null;
   }
 }
+
+/**
+ * Serve methodology content with visitor type optimization
+ */
+export async function serveMethodology(
+  visitorType: VisitorType,
+  query: string
+): Promise<ContentResponse | null> {
+  try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+
+    const filePath = path.join(process.cwd(), 'thought_leadership', 'content', 'methodology.json');
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const methodologyData = JSON.parse(fileContent);
+
+    // Access nested methodology_module structure
+    const module = methodologyData.methodology_module;
+    const queryLower = query.toLowerCase();
+
+    let content: string;
+    let version: 'bot' | 'human' | 'chat';
+
+    // Bot visitors get comprehensive SEO-optimized version
+    if (visitorType === 'bot') {
+      content = module.versions.bot.content;
+      version = 'bot';
+    }
+    // Human visitors get version based on query specificity
+    else {
+      // Check for specific chat chunk queries
+      const chatChunks = module.versions.chat;
+
+      if (queryLower.includes('what is context') || queryLower.includes('context-first')) {
+        content = chatChunks.what_is_context_first;
+        version = 'chat';
+      }
+      else if (queryLower.includes('how it works') || queryLower.includes('how does it work')) {
+        content = chatChunks.how_it_works;
+        version = 'chat';
+      }
+      else if (queryLower.includes('why context') || queryLower.includes('why matter')) {
+        content = chatChunks.why_context_matters;
+        version = 'chat';
+      }
+      else if (queryLower.includes('example') || queryLower.includes('case study')) {
+        content = chatChunks.examples;
+        version = 'chat';
+      }
+      else if (queryLower.includes('vs') || queryLower.includes('versus') || queryLower.includes('traditional') || queryLower.includes('different')) {
+        content = chatChunks.vs_traditional;
+        version = 'chat';
+      }
+      else if (queryLower.includes('getting started') || queryLower.includes('how to start') || queryLower.includes('begin')) {
+        content = chatChunks.getting_started;
+        version = 'chat';
+      }
+      else if (queryLower.includes('metric') || queryLower.includes('measure') || queryLower.includes('success')) {
+        content = chatChunks.success_metrics;
+        version = 'chat';
+      }
+      else if (queryLower.includes('why') && (queryLower.includes('fail') || queryLower.includes('failure'))) {
+        content = chatChunks.why_context_matters;
+        version = 'chat';
+      }
+      // Comprehensive queries get human-optimized long version
+      else if (queryLower.includes('detail') || queryLower.includes('comprehensive') || queryLower.includes('everything')) {
+        content = module.versions.human.content;
+        version = 'human';
+      }
+      // Default to "what is context-first"
+      else {
+        content = chatChunks.what_is_context_first;
+        version = 'chat';
+      }
+    }
+
+    return {
+      content,
+      version,
+      source: 'service_description',
+      metadata: {
+        serviceId: module.id,
+        followUpQuestions: [
+          'Why do AI projects fail?',
+          'How does Context-First work?',
+          'Can you show me examples?',
+          'How do I get started?'
+        ]
+      }
+    };
+
+  } catch (error) {
+    console.error('Error loading methodology:', error);
+    return null;
+  }
+}

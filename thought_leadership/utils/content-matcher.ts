@@ -332,11 +332,22 @@ export function generateFollowUpQuestions(match: QueryMatch): string[] {
 /**
  * Detect if query is asking about methodology/approach
  */
+/**
+ * Check if query is asking about methodology
+ * Enhanced with SEO keywords for methodology/implementation questions
+ */
 export function isMethodologyQuery(query: string): boolean {
   const methodologyKeywords = [
+    // General methodology queries
     'how do you', 'methodology', 'approach', 'process', 'framework',
     'how it works', 'implementation', 'strategy', 'technique', 'method',
-    'how you work', 'your process', 'your approach'
+    'how you work', 'your process', 'your approach',
+
+    // SEO keywords for AI methodology
+    'why ai fail', 'why ai projects fail', 'ai failure', 'ai implementation',
+    'context-first', 'contextual ai', 'context aware', 'ai best practices',
+    'successful ai', 'ai strategy framework', 'how to implement ai',
+    'ai methodology', 'domain-driven ai', 'situated ai'
   ];
 
   const queryLower = query.toLowerCase();
@@ -344,36 +355,12 @@ export function isMethodologyQuery(query: string): boolean {
 }
 
 /**
- * Get combined methodology explanation
+ * DEPRECATED: Legacy function - now using serveMethodology() from content-server.ts
+ * Keeping for backwards compatibility but will be removed in future version
  */
 export function getCombinedMethodology(): string {
-  return `Our **Context-First Methodology** adapts to each unique situation:
-
-**For Operational Transformation** (Insurance):
-- Map actual business context and requirements
-- Identify valuable vs. unnecessary complexity
-- Design intelligent automation preserving valuable logic
-- Implement with risk mitigation strategies
-- Result: 150% conversion improvement, £200K+ annual savings
-
-**For Transparency Creation** (Education):
-- Forensic document analysis and translation
-- Multi-tier verification across 75+ sources
-- Risk identification and quantification
-- Public publication with complete transparency
-- Result: Students empowered with £3,600 risk visibility
-
-**For Strategic Acceleration** (Procurement):
-- Build intelligence context through automated research
-- Process multi-format documents into standardised data
-- Apply multi-lens analysis for comprehensive evaluation
-- Create enterprise-grade audit trails
-- Result: 95% time reduction, £200K+ hidden costs discovered
-
-**Pattern Recognition Across Sectors:**
-Understanding context FIRST reveals which approaches work. Generic "best practices" fail because they ignore what makes each organisation different.
-
-Observable pattern: When technology understands business context, it transforms operations rather than just digitising broken processes.`;
+  console.warn('getCombinedMethodology() is deprecated - use serveMethodology() instead');
+  return `Our **Context-First Methodology** adapts to each unique situation - see methodology content for details.`;
 }
 
 /**
