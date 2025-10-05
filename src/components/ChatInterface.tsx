@@ -1270,30 +1270,19 @@ We apologize for the inconvenience and appreciate your patience.`)
                   </svg>
                 </div>
 
-                {/* Inline Pills Quick Start (Desktop) */}
-                <div className={`quick-start-pills ${integrationStyle === 'inline-pills' ? 'active' : ''}`}>
-                  <button
-                    className="quick-pill"
-                    onClick={() => handleQuickStartAction('team')}
-                    type="button"
-                  >
-                    Team
-                  </button>
-                  <button
-                    className="quick-pill"
-                    onClick={() => handleQuickStartAction('whatwedo')}
-                    type="button"
-                  >
-                    What we do
-                  </button>
-                </div>
-
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  placeholder="How can we help?"
-                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
+                  onClick={(e) => {
+                    // If input is empty and placeholder is clicked, trigger "What do you do?"
+                    if (!inputValue.trim()) {
+                      e.preventDefault()
+                      handleSubmit("What do you do?", true)
+                    }
+                  }}
+                  placeholder="What's all this about then...?"
+                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none cursor-text"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
                 />
@@ -1327,25 +1316,19 @@ We apologize for the inconvenience and appreciate your patience.`)
           </form>
         </div>
 
-        {/* Below Chat Quick Start Links (Mobile) */}
-        {integrationStyle === 'below-chat' && (
-          <div className="below-chat-links">
-            <button
-              className={`below-chat-link ${currentTheme === 'light' ? 'light-mode' : ''}`}
-              onClick={() => handleQuickStartAction('team')}
-              type="button"
-            >
-              Team
-            </button>
-            <button
-              className={`below-chat-link ${currentTheme === 'light' ? 'light-mode' : ''}`}
-              onClick={() => handleQuickStartAction('whatwedo')}
-              type="button"
-            >
-              What we do
-            </button>
-          </div>
-        )}
+        {/* Team Link Below Chat */}
+        <div className="text-center mt-4">
+          <button
+            className="text-sm underline transition-colors duration-200"
+            style={{ color: '#D0E9FE' }}
+            onClick={() => handleQuickStartAction('team')}
+            type="button"
+            onMouseOver={(e) => (e.target as HTMLButtonElement).style.color = '#747669'}
+            onMouseOut={(e) => (e.target as HTMLButtonElement).style.color = '#D0E9FE'}
+          >
+            Team
+          </button>
+        </div>
         </div>
       </div>
     </div>
