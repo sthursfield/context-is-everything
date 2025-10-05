@@ -411,9 +411,8 @@ Want me to dig deeper on any of this?
 
       if (action === 'team') {
         // Trigger Foundation/Team content directly without user message bubble
-        const teamContent = `<p><strong>Strategic Approach & Team Expertise</strong></p>
-
-Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges.
+        const teamContent = `<p style="margin: 0 0 5px 0;"><strong>Strategic Approach & Team Expertise</strong></p>
+<p style="margin: 0 0 8px 0;">Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges.</p>
 
 <div style="display: flex; flex-direction: column; gap: 3px; margin: 4px 0;">
   <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
@@ -1285,15 +1284,23 @@ We apologize for the inconvenience and appreciate your patience.`)
                 />
 
                 <Button
-                  type="submit"
-                  disabled={isLoading || isAnimating || !inputValue.trim()}
+                  type="button"
+                  onClick={() => {
+                    if (!inputValue.trim()) {
+                      // Empty: trigger default "What do you do?" question
+                      handleSubmit("What do you do?", true)
+                    } else {
+                      // Has text: submit the user's custom question
+                      handleInputSubmit(new Event('submit') as any)
+                    }
+                  }}
+                  disabled={isLoading || isAnimating}
                   className={`ml-2 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-110 active:scale-95 ${
                     isAnimating ? 'animate-button-press' : ''
                   }`}
                   style={{
-                    background: '#BC302C',
-                    color: 'white',
-                    opacity: (!inputValue.trim() && !isAnimating) ? 0.5 : 1
+                    background: (!inputValue.trim() && !isLoading && !isAnimating) ? '#BC302C' : (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
+                    color: (!inputValue.trim() && !isLoading && !isAnimating) ? 'white' : (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af'
                   }}
                 >
                   {isLoading ? (
