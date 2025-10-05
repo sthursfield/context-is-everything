@@ -564,4 +564,24 @@ canvas {
     }
   }
 }
+/* Contact link and hyperlink styling */
+.contact-link {
+  color: #D0E9FE !important;
+}
+
+.contact-link:hover,
+.contact-link:visited {
+  color: #747669 !important;
+}
+
+/* All links in assistant messages */
+a {
+  color: #D0E9FE;
+}
+
+a:hover,
+a:visited {
+  color: #747669;
+}
+
 /* CACHE BUSTER Wed Sep 24 20:49:39 BST 2025 */

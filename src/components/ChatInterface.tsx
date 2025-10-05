@@ -509,11 +509,11 @@ Our approach centres on three core team members, each bringing distinct expertis
     return text
       // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
       .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
-        return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-bold">${linkText}</button>`
+        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
       })
       // Handle regular contact links: [Contact Name](javascript:void(0))
       .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
-        return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
+        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
       })
       // Handle headers
       .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #1f2937;">$1</h2>')
@@ -523,7 +523,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       // Handle bullet points
       .replace(/^• (.+)/gm, '<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>$1</div>')
       // Handle regular external links
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
       // Handle line breaks
       .replace(/\n/g, '<br>')
   }
