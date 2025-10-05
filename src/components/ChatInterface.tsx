@@ -858,7 +858,7 @@ This isn't about faster analysis. It's about smarter strategy.
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           type: 'assistant',
-          content: researchResponse
+          content: formatResponse(researchResponse) // Convert markdown to HTML
         }
         setMessages(prev => [...prev, assistantMessage])
       } catch (error) {
@@ -866,7 +866,7 @@ This isn't about faster analysis. It's about smarter strategy.
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
           type: 'assistant',
-          content: `I'm having trouble accessing research data right now. Please try again in a moment, or let me know if you'd like to explore a different topic.`
+          content: formatResponse(`I'm having trouble accessing research data right now. Please try again in a moment, or let me know if you'd like to explore a different topic.`) // Convert markdown to HTML
         }
         setMessages(prev => [...prev, errorMessage])
       }
@@ -891,7 +891,7 @@ This isn't about faster analysis. It's about smarter strategy.
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       type: 'assistant',
-      content: apiResponse
+      content: formatResponse(apiResponse) // Convert markdown to HTML
     }
 
     if (isFromThreeFs && !hasUserInteracted) {
