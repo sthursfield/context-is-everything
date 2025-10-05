@@ -504,6 +504,28 @@ Our approach centres on three core team members, each bringing distinct expertis
 
   // Convert markdown to HTML string for dangerouslySetInnerHTML
   const markdownToHtml = (text: string): string => {
+    // Check if content contains HTML blocks (team cards)
+    if (text.includes('<div style="display: flex;')) {
+      // Preserve HTML structure - just process inline markdown
+      return text
+        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (_, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle regular contact links: [Contact Name](javascript:void(0))
+        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (_, linkText) => {
+          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
+        })
+        // Handle remaining bold text
+        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+        // Handle regular external links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
+        // Preserve line breaks in regular text
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>')
+    }
+
+    // Regular markdown processing for non-HTML content
     // Split into lines and wrap each paragraph with proper spacing
     const lines = text.split('\n').filter(line => line.trim())
 
@@ -1312,24 +1334,14 @@ We apologize for the inconvenience and appreciate your patience.`)
                     }
                   }}
                   disabled={isLoading || isAnimating}
-                  className={`ml-2 rounded-full h-10 w-10 p-0 flex items-center justify-center border-0 cursor-pointer hover:scale-110 active:scale-95 ${
-                    !inputValue.trim() && !isLoading && !isAnimating
-                      ? 'suggest-action'
-                      : 'transition-transform duration-200'
-                  }`}
-                  style={{
-                    background: (inputValue.trim() || isAnimating) ? '#BC302C' : undefined,
-                    color: (inputValue.trim() || isAnimating) ? 'white' : undefined
-                  }}
+                  className={`send-button ${
+                    !inputValue.trim() && !isLoading && !isAnimating ? 'suggest-action' : ''
+                  } ${inputValue.trim() || isAnimating ? 'active' : ''}`}
                 >
                   {isLoading ? (
                     <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
-                  ) : isAnimating ? (
-                    <svg className="w-4 h-4 transition-transform duration-200 animate-pulse" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
                   ) : (
-                    <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                   )}

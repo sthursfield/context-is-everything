@@ -572,7 +572,29 @@ a:visited {
   color: #747669;
 }
 
-/* Slow glow animation for send button - copied exactly from POC */
+/* Send button styles - copied exactly from POC */
+.send-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e7eb;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  position: relative;
+  margin-left: 0.5rem;
+}
+
+/* Slow glow animation for initial state - gray to solid red */
+.send-button.suggest-action {
+  animation: slowGlow 3.5s ease-in-out infinite;
+}
+
 @keyframes slowGlow {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(188, 48, 44, 0);
@@ -586,8 +608,25 @@ a:visited {
   }
 }
 
-.suggest-action {
-  animation: slowGlow 3.5s ease-in-out infinite;
+.send-button.active {
+  background: #BC302C;
+  color: white;
+  transform: scale(1.05);
+  animation: none;
+}
+
+.send-button:hover {
+  transform: scale(1.1);
+}
+
+.send-button:active {
+  transform: scale(0.95);
+}
+
+.send-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
 }
 
 /* CACHE BUSTER - TEAM CARD HORIZONTAL FIX - Wed Sep 24 21:30:00 BST 2025 */
