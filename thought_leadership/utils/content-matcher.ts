@@ -254,6 +254,23 @@ export function isThoughtLeadershipQuery(query: string): boolean {
 }
 
 /**
+ * Check if query is asking about core services/what we do
+ */
+export function isServiceDescriptionQuery(query: string): boolean {
+  const serviceKeywords = [
+    'what do you do', 'what you do', 'services', 'what you offer',
+    'capabilities', 'how you work', 'how do you work', 'your approach',
+    'methodology', 'who you help', 'who do you help', 'typical projects',
+    'what makes you different', 'why choose you', 'your background',
+    'about you', 'tell me about', 'what is this', 'who are you',
+    'describe your', 'explain what you'
+  ];
+
+  const queryLower = query.toLowerCase();
+  return serviceKeywords.some(keyword => queryLower.includes(keyword));
+}
+
+/**
  * Generate contextual follow-up questions based on matched article or case study
  */
 export function generateFollowUpQuestions(match: QueryMatch): string[] {

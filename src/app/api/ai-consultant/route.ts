@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { identifyVisitorFromNextRequest } from '../../../../thought_leadership/utils/visitor-detection'
-import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, getCombinedMethodology } from '../../../../thought_leadership/utils/content-matcher'
-import { serveArticleContent, serveCaseStudyContent } from '../../../../thought_leadership/utils/content-server'
+import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, getCombinedMethodology, isServiceDescriptionQuery } from '../../../../thought_leadership/utils/content-matcher'
+import { serveArticleContent, serveCaseStudyContent, serveServiceDescription } from '../../../../thought_leadership/utils/content-server'
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -81,7 +81,38 @@ export async function POST(request: NextRequest) {
       // Detect visitor type for contextual content serving
       const visitorContext = identifyVisitorFromNextRequest(request)
 
-      // Check for methodology queries first (how do you work, your approach, etc.)
+      // Check for service description queries first (what do you do, etc.)
+      if (isServiceDescriptionQuery(sanitizedQuery)) {
+        const serviceResponse = await serveServiceDescription(
+          visitorContext.type,
+          sanitizedQuery
+        )
+
+        if (serviceResponse) {
+          // Log successful service description match
+          console.log('CONTENT_MATCH:', JSON.stringify({
+            timestamp: trackingTimestamp,
+            query: sanitizedQuery,
+            matchedContent: 'service_description',
+            confidence: 1.0,
+            visitorType: visitorContext.type,
+            source: 'service_description'
+          }))
+
+          return NextResponse.json({
+            answer: serviceResponse.content,
+            timestamp: new Date().toISOString(),
+            source: 'service_description',
+            metadata: {
+              contentType: 'service_description',
+              visitorType: visitorContext.type,
+              followUpQuestions: serviceResponse.metadata?.followUpQuestions
+            }
+          })
+        }
+      }
+
+      // Check for methodology queries (how do you work, your approach, etc.)
       if (isMethodologyQuery(sanitizedQuery)) {
         // Log successful methodology match
         console.log('CONTENT_MATCH:', JSON.stringify({

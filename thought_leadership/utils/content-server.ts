@@ -79,9 +79,10 @@ export interface ChatSection {
 export interface ContentResponse {
   content: string;
   version: 'bot' | 'human' | 'chat';
-  source: 'article' | 'generated';
+  source: 'article' | 'generated' | 'service_description';
   metadata?: {
     articleId?: string;
+    serviceId?: string;
     confidence?: number;
     followUpQuestions?: string[];
     relatedArticles?: string[];
@@ -580,4 +581,73 @@ export function debugContentServing(
       matchedKeywords: queryContext.matchedKeywords.slice(0, 3)
     } : 'none'
   });
+}
+
+/**
+ * Serve service description content
+ */
+export async function serveServiceDescription(
+  visitorType: VisitorType,
+  query: string
+): Promise<ContentResponse | null> {
+  try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+
+    const filePath = path.join(process.cwd(), 'thought_leadership', 'content', 'service-description.json');
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const serviceData = JSON.parse(fileContent);
+
+    // Determine which version to serve based on query intent
+    let content: string;
+
+    const queryLower = query.toLowerCase();
+
+    // Detailed version for comprehensive queries
+    if (queryLower.includes('detail') ||
+        queryLower.includes('more about') ||
+        queryLower.includes('tell me everything') ||
+        queryLower.includes('comprehensive')) {
+      content = serviceData.versions.detailed.content;
+    }
+    // Triage-specific responses for targeted questions
+    else if (queryLower.includes('how you work') || queryLower.includes('how do you work')) {
+      content = serviceData.versions.triage.how_we_work;
+    }
+    else if (queryLower.includes('who you help') || queryLower.includes('who do you help')) {
+      content = serviceData.versions.triage.who_we_help;
+    }
+    else if (queryLower.includes('typical project')) {
+      content = serviceData.versions.triage.typical_projects;
+    }
+    else if (queryLower.includes('when to') || queryLower.includes('when should')) {
+      content = serviceData.versions.triage.when_to_engage;
+    }
+    else if (queryLower.includes('different') || queryLower.includes('unique') || queryLower.includes('why choose')) {
+      content = serviceData.versions.triage.what_makes_us_different;
+    }
+    // Default to concise version
+    else {
+      content = serviceData.versions.concise.content;
+    }
+
+    return {
+      content,
+      version: visitorType === 'bot' ? 'bot' : 'chat',
+      source: 'service_description',
+      metadata: {
+        serviceId: serviceData.id,
+        followUpQuestions: [
+          'How do you work?',
+          'Who do you typically help?',
+          'What makes you different from other consultancies?',
+          'When should we engage with you?'
+        ]
+      }
+    };
+
+  } catch (error) {
+    console.error('Error loading service description:', error);
+    return null;
+  }
 }
