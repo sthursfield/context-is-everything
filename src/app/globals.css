@@ -266,17 +266,19 @@ canvas {
     backdrop-filter: none !important;
   }
 
-  /* Very small mobile screens - stack team cards vertically */
-  @media (max-width: 480px) {
+  /* Mobile screens - stack team cards vertically with centered images and left-aligned text */
+  @media (max-width: 768px) {
     [style*="display: flex"][style*="align-items: flex-start"] {
       flex-direction: column !important;
       align-items: center !important;
       text-align: center !important;
     }
 
-    [style*="flex: 1; min-width: 0"] {
+    [style*="flex: 1; min-width: 0"],
+    [style*="flex: 1"] {
       text-align: left !important;
       margin-top: 8px !important;
+      width: 100% !important;
     }
   }
 
