@@ -414,7 +414,7 @@ Want me to dig deeper on any of this?
         const teamContent = `<p><strong>Strategic Approach & Team Expertise</strong></p>
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges.
-<br><br>
+
 <div style="display: flex; flex-direction: column; gap: 3px; margin: 4px 0;">
   <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
     <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -1278,13 +1278,6 @@ We apologize for the inconvenience and appreciate your patience.`)
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  onClick={(e) => {
-                    // If input is empty and placeholder is clicked, trigger "What do you do?"
-                    if (!inputValue.trim()) {
-                      e.preventDefault()
-                      handleSubmit("What do you do?", true)
-                    }
-                  }}
                   placeholder="What do you do?"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
@@ -1292,23 +1285,15 @@ We apologize for the inconvenience and appreciate your patience.`)
                 />
 
                 <Button
-                  type="button"
-                  onClick={() => {
-                    if (!inputValue.trim()) {
-                      // Empty: trigger "What do you do?"
-                      handleSubmit("What do you do?", true)
-                    } else {
-                      // Has text: submit the form
-                      handleInputSubmit(new Event('submit') as any)
-                    }
-                  }}
-                  disabled={isLoading || isAnimating}
+                  type="submit"
+                  disabled={isLoading || isAnimating || !inputValue.trim()}
                   className={`ml-2 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-110 active:scale-95 ${
                     isAnimating ? 'animate-button-press' : ''
                   }`}
                   style={{
-                    background: (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
-                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af'
+                    background: '#BC302C',
+                    color: 'white',
+                    opacity: (!inputValue.trim() && !isAnimating) ? 0.5 : 1
                   }}
                 >
                   {isLoading ? (
