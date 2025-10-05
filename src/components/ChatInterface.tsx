@@ -423,7 +423,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
       <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
     </div>
   </div>
   <br>
@@ -434,7 +434,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
       <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Robbie →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
     </div>
   </div>
   <br>
@@ -445,7 +445,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
       <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
     </div>
   </div>
 </div>
@@ -747,7 +747,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
       <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Lindsay →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
     </div>
   </div>
 
@@ -758,7 +758,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
       <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Robbie →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
     </div>
   </div>
 
@@ -769,7 +769,7 @@ Our approach centres on three core team members, each bringing distinct expertis
       <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
       <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
       <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
-      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #0066cc; text-decoration: none;">Contact Spencer →</a></strong></p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
     </div>
   </div>
 </div>
