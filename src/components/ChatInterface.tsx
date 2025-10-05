@@ -1298,11 +1298,15 @@ We apologize for the inconvenience and appreciate your patience.`)
                   disabled={isLoading || isAnimating}
                   className={`ml-2 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-110 active:scale-95 ${
                     isAnimating ? 'animate-button-press' : ''
-                  } ${!inputValue.trim() && !isLoading && !isAnimating ? 'animate-slow-glow' : ''}`}
-                  style={{
-                    background: (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
-                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af'
-                  }}
+                  } ${!inputValue.trim() && !isLoading && !isAnimating ? 'animate-slow-glow' : ''} ${
+                    (inputValue.trim() || isAnimating) ? 'bg-[#BC302C] text-white' : ''
+                  }`}
+                  style={
+                    (!inputValue.trim() && !isLoading && !isAnimating) ? {} : {
+                      background: (inputValue.trim() || isAnimating) ? '#BC302C' : undefined,
+                      color: (inputValue.trim() || isAnimating) ? 'white' : undefined
+                    }
+                  }
                 >
                   {isLoading ? (
                     <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
