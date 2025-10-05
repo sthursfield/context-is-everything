@@ -414,37 +414,39 @@ Want me to dig deeper on any of this?
         const teamContent = `<p><strong>Strategic Approach & Team Expertise</strong></p>
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges.
-
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">L</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
+<br><br>
+<div style="display: flex; flex-direction: column; gap: 3px; margin: 4px 0;">
+  <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
+    <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
+      <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
+    </div>
   </div>
-</div>
-
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">R</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
+  <br>
+  <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
+    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
+      <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
+    </div>
   </div>
-</div>
-
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">S</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
+  <br>
+  <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
+    <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 1px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
+      <p style="margin: 0 0 1px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
+    </div>
   </div>
 </div>
 
@@ -504,68 +506,26 @@ Our approach centres on three core team members, each bringing distinct expertis
 
   // Convert markdown to HTML string for dangerouslySetInnerHTML
   const markdownToHtml = (text: string): string => {
-    // Check if content contains HTML blocks (team cards)
-    if (text.includes('<div style="display: flex;')) {
-      // Preserve HTML structure - just process inline markdown
-      return text
-        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
-        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (_, linkText) => {
-          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
-        })
-        // Handle regular contact links: [Contact Name](javascript:void(0))
-        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (_, linkText) => {
-          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
-        })
-        // Handle remaining bold text
-        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
-        // Handle regular external links
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
-        // Preserve line breaks in regular text
-        .replace(/\n\n/g, '<br><br>')
-        .replace(/\n/g, '<br>')
-    }
-
-    // Regular markdown processing for non-HTML content
-    // Split into lines and wrap each paragraph with proper spacing
-    const lines = text.split('\n').filter(line => line.trim())
-
-    return lines.map(line => {
-      const trimmedLine = line.trim()
-
-      // Process the line with markdown replacements
-      let processedLine = trimmedLine
-        // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
-        .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (_, linkText) => {
-          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
-        })
-        // Handle regular contact links: [Contact Name](javascript:void(0))
-        .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (_, linkText) => {
-          return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
-        })
-        // Handle remaining bold text
-        .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
-        // Handle regular external links
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
-
-      // Wrap based on content type with proper spacing (mb-3 = 12px)
-      if (trimmedLine.startsWith('## ')) {
-        const headerText = processedLine.replace(/^## /, '')
-        return `<h2 style="font-size: 16px; font-weight: 600; margin: 24px 0 12px 0; color: #1f2937;">${headerText}</h2>`
-      }
-
-      if (trimmedLine.startsWith('### ')) {
-        const headerText = processedLine.replace(/^### /, '')
-        return `<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px 0; color: #1f2937;">${headerText}</h3>`
-      }
-
-      if (trimmedLine.startsWith('• ')) {
-        const bulletContent = processedLine.replace(/^• /, '')
-        return `<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>${bulletContent}</div>`
-      }
-
-      // Regular paragraph with mb-3 spacing (12px)
-      return `<div style="margin-bottom: 12px; line-height: 1.625;">${processedLine}</div>`
-    }).join('')
+    return text
+      // Handle contact links with bold formatting first: **[Contact Name](javascript:void(0))**
+      .replace(/\*\*\[([^\]]+)\]\(javascript:void\(0\)\)\*\*/g, (match, linkText) => {
+        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-bold" style="color: #D0E9FE;">${linkText}</button>`
+      })
+      // Handle regular contact links: [Contact Name](javascript:void(0))
+      .replace(/\[([^\]]+)\]\(javascript:void\(0\)\)/g, (match, linkText) => {
+        return `<button data-contact-type="${linkText}" class="contact-link underline cursor-pointer bg-transparent border-none p-0 font-inherit" style="color: #D0E9FE;">${linkText}</button>`
+      })
+      // Handle headers
+      .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #1f2937;">$1</h2>')
+      .replace(/^### (.+)/gm, '<h3 style="font-size: 14px; font-weight: 600; margin: 6px 0 3px 0; color: #1f2937;">$1</h3>')
+      // Handle remaining bold text
+      .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+      // Handle bullet points
+      .replace(/^• (.+)/gm, '<div style="margin-left: 16px; margin-bottom: 8px;"><span style="display: inline-block; width: 8px; margin-right: 8px;">•</span>$1</div>')
+      // Handle regular external links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline" style="color: #D0E9FE;" target="_blank" rel="noopener">$1</a>')
+      // Handle line breaks
+      .replace(/\n/g, '<br>')
   }
 
   const formatResponse = (text: string) => {
@@ -779,36 +739,38 @@ Our approach centres on three core team members, each bringing distinct expertis
 
 Our approach centres on three core team members, each bringing distinct expertise to solve your business challenges:
 
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">L</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
+<div style="display: flex; flex-direction: column; gap: 10px; margin: 16px 0;">
+  <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
+    <img src="/uploads/lindsay-headshot.jpg" alt="Lindsay" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">L</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Lindsay</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">CTO (Technical Leadership)</p>
+      <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Software company building specialist with pragmatic "whatever it takes" approach. Code → Teams → DevOps → FinTech → CTO progression.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
+    </div>
   </div>
-</div>
 
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">R</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
+  <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
+    <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Robbie MacIntosh</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Operations Director (Operational Leadership)</p>
+      <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Large-scale operations and crisis management specialist. "Connecting people when it really matters" across complex global operations.</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
+    </div>
   </div>
-</div>
 
-<div style="display: flex; align-items: flex-start; gap: 16px; margin: 20px 0;">
-  <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-  <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; flex-shrink: 0;">S</div>
-  <div style="flex: 1;">
-    <h4 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
-    <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
-    <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 1.4; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
-    <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
+  <div style="display: flex; align-items: flex-start; padding: 12px; border: 1px solid #e0e0e0; border-radius: 6px; background: white; gap: 12px;">
+    <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
+    <div style="flex: 1; min-width: 0;">
+      <h4 style="margin: 0 0 2px 0; font-size: 16px; font-weight: bold; color: #333;">Spencer</h4>
+      <p style="margin: 0 0 1px 0; font-size: 13px; font-weight: 600; color: #666;">Brand Strategy Director | AI Strategy Consultant (Strategic Leadership)</p>
+      <p style="margin: 0 0 2px 0; font-size: 13px; line-height: 1.3; color: #555;">Cross-sector pattern recognition specialist. "Real advantage comes from asking the right questions of your unique data."</p>
+      <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Spencer - Brand Strategy Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Spencer →</a></strong></p>
+    </div>
   </div>
 </div>
 
@@ -1285,12 +1247,12 @@ We apologize for the inconvenience and appreciate your patience.`)
           </div>
         )}
 
-        {/* Main Input Field - Elegant Design with Team Link */}
+        {/* Main Input Field - Theme Aware with Liquid Glass */}
         <div className="mt-6 mb-6 relative">
 
           <form onSubmit={handleInputSubmit}>
             <div
-              className={`relative rounded-[24px] transition-all duration-300 hover:shadow-xl ${
+              className={`relative rounded-[5px] transition-all duration-300 hover:shadow-xl ${
                 currentTheme === 'light'
                   ? 'bg-white/90 backdrop-blur-xl border border-gray/20 shadow-lg'
                   : 'bg-white shadow-lg'
@@ -1301,56 +1263,72 @@ We apologize for the inconvenience and appreciate your patience.`)
                   : `0 4px 20px rgba(0,0,0,0.1)`
               }}
             >
-              <div className="flex items-center px-4 md:px-6 py-3 md:py-4 gap-3 md:gap-4">
-                {/* Team Link - Left Side */}
-                <button
-                  type="button"
-                  onClick={() => handleQuickStartAction('team')}
-                  className="text-sm text-gray-400 hover:text-[#BC302C] transition-colors duration-200 border-r border-gray-200 hover:border-[#BC302C] pr-3 md:pr-4 whitespace-nowrap"
-                  style={{ order: -1 }}
-                >
-                  Team
-                </button>
+              <div className="flex items-center px-4 md:px-6 py-3 md:py-4">
+                <div className="mr-4">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
 
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  placeholder="What do you do?"
-                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
+                  onClick={(e) => {
+                    // If input is empty and placeholder is clicked, trigger "What do you do?"
+                    if (!inputValue.trim()) {
+                      e.preventDefault()
+                      handleSubmit("What do you do?", true)
+                    }
+                  }}
+                  placeholder="What's all this about then...?"
+                  className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none cursor-text"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
                 />
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (!inputValue.trim()) {
-                      // Empty: trigger "What do you do?"
-                      handleSubmit("What do you do?", true)
-                    } else {
-                      // Has text: submit the form
-                      handleInputSubmit(new Event('submit') as any)
-                    }
+                <Button
+                  type="submit"
+                  disabled={isLoading || isAnimating || !inputValue.trim()}
+                  className={`ml-4 rounded-full h-10 w-10 p-0 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    isAnimating ? 'animate-button-press' : ''
+                  }`}
+                  style={{
+                    background: (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
+                    color: (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af',
+                    opacity: (inputValue.trim() || isAnimating) ? 1 : 0.6
                   }}
-                  disabled={isLoading || isAnimating}
-                  className={`send-button ${
-                    !inputValue.trim() && !isLoading && !isAnimating ? 'suggest-action' : ''
-                  } ${inputValue.trim() || isAnimating ? 'active' : ''}`}
                 >
                   {isLoading ? (
                     <div className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                  ) : isAnimating ? (
+                    <svg className="w-4 h-4 transition-transform duration-200 animate-pulse" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
                   ) : (
-                    <svg className="send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                   )}
-                </button>
+                </Button>
               </div>
             </div>
           </form>
         </div>
 
+        {/* Team Link Below Chat */}
+        <div className="text-center mt-4">
+          <button
+            className="text-sm underline transition-colors duration-200"
+            style={{ color: '#D0E9FE' }}
+            onClick={() => handleQuickStartAction('team')}
+            type="button"
+            onMouseOver={(e) => (e.target as HTMLButtonElement).style.color = '#747669'}
+            onMouseOut={(e) => (e.target as HTMLButtonElement).style.color = '#D0E9FE'}
+          >
+            Team
+          </button>
+        </div>
         </div>
       </div>
     </div>
