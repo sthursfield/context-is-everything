@@ -425,7 +425,6 @@ Want me to dig deeper on any of this?
       <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Lindsay - CTO'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Lindsay →</a></strong></p>
     </div>
   </div>
-  <br>
   <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
     <img src="/uploads/robbie-macintosh-headshot.jpg" alt="Robbie MacIntosh" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
     <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">R</div>
@@ -436,7 +435,6 @@ Want me to dig deeper on any of this?
       <p style="margin: 0; font-size: 13px;"><strong><a href="javascript:void(0)" onclick="window.parent.postMessage({type:'contact', member:'Robbie MacIntosh - Operations Director'}, '*')" style="color: #D0E9FE; text-decoration: none;">Contact Robbie →</a></strong></p>
     </div>
   </div>
-  <br>
   <div style="display: flex !important; align-items: flex-start; padding: 6px; gap: 12px;">
     <img src="/uploads/spencer-headshot.jpg" alt="Spencer" style="width: 150px; height: 150px; border-radius: 6px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
     <div style="width: 150px; height: 150px; border-radius: 6px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: none; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; border: 1px solid #ddd; flex-shrink: 0;">S</div>
@@ -1299,8 +1297,8 @@ We apologize for the inconvenience and appreciate your patience.`)
                     isAnimating ? 'animate-button-press' : ''
                   }`}
                   style={{
-                    background: (!inputValue.trim() && !isLoading && !isAnimating) ? '#BC302C' : (inputValue.trim() || isAnimating) ? '#BC302C' : '#e5e7eb',
-                    color: (!inputValue.trim() && !isLoading && !isAnimating) ? 'white' : (inputValue.trim() || isAnimating) ? 'white' : '#9ca3af'
+                    background: (inputValue.trim() || isAnimating || (!inputValue.trim() && messages.length === 0)) ? '#BC302C' : '#e5e7eb',
+                    color: (inputValue.trim() || isAnimating || (!inputValue.trim() && messages.length === 0)) ? 'white' : '#9ca3af'
                   }}
                 >
                   {isLoading ? (
