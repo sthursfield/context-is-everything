@@ -266,8 +266,8 @@ canvas {
     backdrop-filter: none !important;
   }
 
-  /* Mobile screens - stack team cards vertically with centered images and left-aligned text */
-  @media (max-width: 768px) {
+  /* Mobile only - stack team cards vertically with centered images and left-aligned text */
+  @media (max-width: 480px) {
     [style*="display: flex"][style*="align-items: flex-start"] {
       flex-direction: column !important;
       align-items: center !important;
