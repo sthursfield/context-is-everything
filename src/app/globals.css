@@ -584,24 +584,22 @@ a:visited {
   color: #747669;
 }
 
-/* Slow glow animation for send button */
-@keyframes slow-glow {
+/* Slow glow animation for send button - copied exactly from POC */
+@keyframes slowGlow {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(188, 48, 44, 0);
-    background-color: #e5e7eb;
+    background: #e5e7eb;
     color: #9ca3af;
   }
   50% {
     box-shadow: 0 0 12px 3px rgba(188, 48, 44, 0.4);
-    background-color: #BC302C;
+    background: #BC302C;
     color: white;
   }
 }
 
-.animate-slow-glow {
-  animation: slow-glow 3.5s ease-in-out infinite;
-  background-color: #e5e7eb;
-  color: #9ca3af;
+.suggest-action {
+  animation: slowGlow 3.5s ease-in-out infinite;
 }
 
 /* CACHE BUSTER Wed Sep 24 20:49:39 BST 2025 */
