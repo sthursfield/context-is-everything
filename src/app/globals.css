@@ -266,19 +266,7 @@ canvas {
     backdrop-filter: none !important;
   }
 
-  /* Very small mobile screens - stack team cards vertically */
-  @media (max-width: 480px) {
-    [style*="display: flex"][style*="align-items: flex-start"] {
-      flex-direction: column !important;
-      align-items: center !important;
-      text-align: center !important;
-    }
-
-    [style*="flex: 1; min-width: 0"] {
-      text-align: left !important;
-      margin-top: 8px !important;
-    }
-  }
+  /* Team cards maintain horizontal business card layout on all screen sizes */
 
   /* Mobile logo optimizations - ULTRA AGGRESSIVE */
   @media (max-width: 768px) {
