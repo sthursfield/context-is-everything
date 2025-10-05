@@ -1316,10 +1316,10 @@ We apologize for the inconvenience and appreciate your patience.`)
                     }
                   }}
                   disabled={isLoading || isAnimating}
-                  className={`ml-2 rounded-full h-10 w-10 p-0 flex items-center justify-center border-0 cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 ${
+                  className={`ml-2 rounded-full h-10 w-10 p-0 flex items-center justify-center border-0 cursor-pointer hover:scale-110 active:scale-95 ${
                     !inputValue.trim() && !isLoading && !isAnimating
                       ? 'suggest-action'
-                      : ''
+                      : 'transition-transform duration-200'
                   }`}
                   style={{
                     background: (inputValue.trim() || isAnimating) ? '#BC302C' : undefined,
