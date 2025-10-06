@@ -878,11 +878,14 @@ This isn't about faster analysis. It's about smarter strategy.
       content: query.trim()
     }
 
+    // Add user message and show loading indicator
+    setMessages(prev => [...prev, userMessage])
+    setInputValue('')
+    setIsLoading(true)
+
     const apiResponse = await getApiResponse(query.trim())
 
     if (apiResponse === "SHOW_CONTACT_FORM") {
-      setMessages(prev => [...prev, userMessage])
-      setInputValue('')
       setIsLoading(false)
       return
     }
@@ -890,9 +893,6 @@ This isn't about faster analysis. It's about smarter strategy.
     // Handle research requests
     if (apiResponse.startsWith('RESEARCH_REQUEST|')) {
       const researchData = JSON.parse(apiResponse.substring(17))
-      setMessages(prev => [...prev, userMessage])
-      setInputValue('')
-      setIsLoading(true)
 
       try {
         const researchResponse = await generateResearchResponse(researchData.sector, researchData.query)
@@ -918,15 +918,9 @@ This isn't about faster analysis. It's about smarter strategy.
 
     // Single F conversation: replace previous F answers if user hasn't interacted
     if (isFromThreeFs && !hasUserInteracted) {
-      // Replace all messages with this F conversation
+      // Replace all messages with this F conversation (user message already added above)
       setMessages([userMessage])
-    } else {
-      // Normal conversation flow
-      setMessages(prev => [...prev, userMessage])
     }
-
-    setInputValue('')
-    setIsLoading(true)
 
     // Create assistant response immediately since API call is already complete
     const assistantMessage: Message = {
