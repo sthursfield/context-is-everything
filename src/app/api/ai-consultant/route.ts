@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { identifyVisitorFromNextRequest } from '../../../../thought_leadership/utils/visitor-detection'
-import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, isServiceDescriptionQuery } from '../../../../thought_leadership/utils/content-matcher'
-import { serveArticleContent, serveCaseStudyContent, serveServiceDescription, serveMethodology } from '../../../../thought_leadership/utils/content-server'
+import { matchQueryToArticles, getBestArticleMatch, isMethodologyQuery, isServiceDescriptionQuery, isFAQQuery } from '../../../../thought_leadership/utils/content-matcher'
+import { serveArticleContent, serveCaseStudyContent, serveServiceDescription, serveMethodology, serveFAQ } from '../../../../thought_leadership/utils/content-server'
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -107,6 +107,38 @@ export async function POST(request: NextRequest) {
               contentType: 'service_description',
               visitorType: visitorContext.type,
               followUpQuestions: serviceResponse.metadata?.followUpQuestions
+            }
+          })
+        }
+      }
+
+      // Check for FAQ queries (pricing, objections, comparisons, etc.)
+      if (isFAQQuery(sanitizedQuery)) {
+        const faqResponse = await serveFAQ(
+          visitorContext.type,
+          sanitizedQuery
+        )
+
+        if (faqResponse) {
+          // Log successful FAQ match
+          console.log('CONTENT_MATCH:', JSON.stringify({
+            timestamp: trackingTimestamp,
+            query: sanitizedQuery,
+            matchedContent: faqResponse.metadata?.faqId || 'faq',
+            confidence: 1.0,
+            visitorType: visitorContext.type,
+            source: 'faq'
+          }))
+
+          return NextResponse.json({
+            answer: faqResponse.content,
+            timestamp: new Date().toISOString(),
+            source: 'faq',
+            metadata: {
+              contentType: 'faq',
+              faqId: faqResponse.metadata?.faqId,
+              visitorType: visitorContext.type,
+              followUpQuestions: faqResponse.metadata?.followUpQuestions
             }
           })
         }

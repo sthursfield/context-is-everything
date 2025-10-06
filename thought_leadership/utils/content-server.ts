@@ -79,10 +79,11 @@ export interface ChatSection {
 export interface ContentResponse {
   content: string;
   version: 'bot' | 'human' | 'chat';
-  source: 'article' | 'generated' | 'service_description';
+  source: 'article' | 'generated' | 'service_description' | 'faq';
   metadata?: {
     articleId?: string;
     serviceId?: string;
+    faqId?: string;
     confidence?: number;
     followUpQuestions?: string[];
     relatedArticles?: string[];
@@ -773,6 +774,149 @@ export async function serveMethodology(
 
   } catch (error) {
     console.error('Error loading methodology:', error);
+    return null;
+  }
+}
+
+/**
+ * Serve FAQ content with visitor type optimization
+ * Matches specific objections and concerns to FAQ answers
+ */
+export async function serveFAQ(
+  visitorType: VisitorType,
+  query: string
+): Promise<ContentResponse | null> {
+  try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+
+    const filePath = path.join(process.cwd(), 'thought_leadership', 'content', 'faq.json');
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const faqData = JSON.parse(fileContent);
+
+    const module = faqData.faq_module;
+    const queryLower = query.toLowerCase();
+
+    let content: string;
+    let version: 'bot' | 'human' | 'chat';
+    let matchedFaqId: string | undefined;
+
+    // Bot visitors get comprehensive SEO-optimized version
+    if (visitorType === 'bot') {
+      content = module.versions.bot.comprehensive_faq;
+      version = 'bot';
+    }
+    // Human visitors get version based on query specificity
+    else {
+      const chatFAQs = module.versions.chat;
+
+      // Match query to specific FAQ
+      if (queryLower.includes('pricing') || queryLower.includes('price') || queryLower.includes('cost') || queryLower.includes('how much')) {
+        content = chatFAQs.pricing.answer;
+        matchedFaqId = 'pricing';
+        version = 'chat';
+      }
+      else if (queryLower.includes('accenture') || queryLower.includes('mckinsey') || queryLower.includes('big 4') ||
+               (queryLower.includes('different') && (queryLower.includes('big') || queryLower.includes('consultant')))) {
+        content = chatFAQs.vs_big_consulting.answer;
+        matchedFaqId = 'vs_big_consulting';
+        version = 'chat';
+      }
+      else if (queryLower.includes('guarantee') || queryLower.includes('results')) {
+        content = chatFAQs.guarantee.answer;
+        matchedFaqId = 'guarantee';
+        version = 'chat';
+      }
+      else if (queryLower.includes('data') && (queryLower.includes('not ready') || queryLower.includes('not clean') || queryLower.includes('messy'))) {
+        content = chatFAQs.data_not_ready.answer;
+        matchedFaqId = 'data_not_ready';
+        version = 'chat';
+      }
+      else if (queryLower.includes('already have') || queryLower.includes('existing vendor') || queryLower.includes('current tool')) {
+        content = chatFAQs.already_have_vendor.answer;
+        matchedFaqId = 'already_have_vendor';
+        version = 'chat';
+      }
+      else if (queryLower.includes('how long') || queryLower.includes('timeline') || queryLower.includes('timeframe') || queryLower.includes('duration')) {
+        content = chatFAQs.timeline.answer;
+        matchedFaqId = 'timeline';
+        version = 'chat';
+      }
+      else if (queryLower.includes('too complex') || queryLower.includes('too unique') || queryLower.includes('business is unique')) {
+        content = chatFAQs.too_complex.answer;
+        matchedFaqId = 'too_complex';
+        version = 'chat';
+      }
+      else if (queryLower.includes('failed before') || queryLower.includes('tried before') || queryLower.includes('didn\'t work')) {
+        content = chatFAQs.failed_before.answer;
+        matchedFaqId = 'failed_before';
+        version = 'chat';
+      }
+      else if (queryLower.includes('roi') || queryLower.includes('return') || queryLower.includes('prove')) {
+        content = chatFAQs.roi_skeptical.answer;
+        matchedFaqId = 'roi_skeptical';
+        version = 'chat';
+      }
+      else if (queryLower.includes('build internal') || queryLower.includes('build ourselves') || queryLower.includes('do it ourselves')) {
+        content = chatFAQs.internal_team.answer;
+        matchedFaqId = 'internal_team';
+        version = 'chat';
+      }
+      else if (queryLower.includes('security') || queryLower.includes('privacy') || queryLower.includes('data protection')) {
+        content = chatFAQs.security_concerns.answer;
+        matchedFaqId = 'security_concerns';
+        version = 'chat';
+      }
+      else if (queryLower.includes('experience in') || queryLower.includes('industry experience') || queryLower.includes('worked in')) {
+        content = chatFAQs.industry_experience.answer;
+        matchedFaqId = 'industry_experience';
+        version = 'chat';
+      }
+      else if (queryLower.includes('scale') || queryLower.includes('organization-wide') || queryLower.includes('enterprise')) {
+        content = chatFAQs.scale_concern.answer;
+        matchedFaqId = 'scale_concern';
+        version = 'chat';
+      }
+      else if (queryLower.includes('after') || queryLower.includes('maintenance') || queryLower.includes('ongoing')) {
+        content = chatFAQs.maintenance.answer;
+        matchedFaqId = 'maintenance';
+        version = 'chat';
+      }
+      else if (queryLower.includes('why now') || queryLower.includes('urgent') || queryLower.includes('when should we')) {
+        content = chatFAQs.why_now.answer;
+        matchedFaqId = 'why_now';
+        version = 'chat';
+      }
+      // Comprehensive queries get human-optimized summary
+      else if (queryLower.includes('common question') || queryLower.includes('faq') || queryLower.includes('frequently asked')) {
+        content = module.versions.human.summary;
+        version = 'human';
+      }
+      // Default to pricing as it's the most common objection
+      else {
+        content = chatFAQs.pricing.answer;
+        matchedFaqId = 'pricing';
+        version = 'chat';
+      }
+    }
+
+    return {
+      content,
+      version,
+      source: 'faq',
+      metadata: {
+        faqId: matchedFaqId || module.id,
+        followUpQuestions: [
+          'What about pricing?',
+          'How are you different from big consultancies?',
+          'Do you guarantee results?',
+          'What if our data isn\'t ready?'
+        ]
+      }
+    };
+
+  } catch (error) {
+    console.error('Error loading FAQ:', error);
     return null;
   }
 }

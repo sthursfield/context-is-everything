@@ -364,6 +364,45 @@ export function getCombinedMethodology(): string {
 }
 
 /**
+ * Check if query is asking FAQ/objection-related questions
+ * Targets pricing, differentiation, ROI, timeline, concerns
+ */
+export function isFAQQuery(query: string): boolean {
+  const faqKeywords = [
+    // Pricing queries
+    'pricing', 'price', 'cost', 'how much', 'investment', 'budget', 'fee', 'charge',
+
+    // Comparison/differentiation queries
+    'vs', 'versus', 'different from', 'compare', 'accenture', 'mckinsey', 'big 4',
+    'why choose', 'what makes you different', 'unique', 'advantage',
+
+    // ROI and results queries
+    'roi', 'return', 'guarantee', 'results', 'prove', 'success rate', 'track record',
+    'proof', 'evidence',
+
+    // Timeline queries
+    'how long', 'timeline', 'when', 'timeframe', 'duration', 'fast',
+
+    // Concerns and objections
+    'data not ready', 'already have', 'failed before', 'tried before',
+    'too complex', 'too unique', 'can we build', 'build internally',
+    'security', 'privacy', 'risk', 'concern',
+
+    // Experience queries
+    'experience in', 'worked with', 'industry experience', 'expertise',
+
+    // Implementation queries
+    'scale', 'after implementation', 'maintenance', 'support',
+
+    // Urgency queries
+    'why now', 'urgent', 'when should we start'
+  ];
+
+  const queryLower = query.toLowerCase();
+  return faqKeywords.some(keyword => queryLower.includes(keyword));
+}
+
+/**
  * Debug helper for development
  */
 export function debugQueryMatching(query: string): void {
