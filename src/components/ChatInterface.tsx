@@ -1203,19 +1203,25 @@ We apologize for the inconvenience and appreciate your patience.`)
               ))}
 
               {isLoading && (
-                <div className="flex justify-start">
+                <div className="flex justify-start animate-fadeIn">
                   <div className="rounded-2xl p-4" style={{
                     background: 'rgba(255, 255, 255, 0.4)',
                     backdropFilter: 'blur(8px)',
                     WebkitBackdropFilter: 'blur(8px)'
                   }}>
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor }} />
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.2s' }} />
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentColor, animationDelay: '0.4s' }} />
-                      </div>
-                      <span className="text-sm text-gray-600 italic">Thinking...</span>
+                    <div className="flex space-x-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full animate-bounce-dot" style={{
+                        backgroundColor: currentColor,
+                        animationDelay: '0s'
+                      }} />
+                      <div className="w-2.5 h-2.5 rounded-full animate-bounce-dot" style={{
+                        backgroundColor: currentColor,
+                        animationDelay: '0.2s'
+                      }} />
+                      <div className="w-2.5 h-2.5 rounded-full animate-bounce-dot" style={{
+                        backgroundColor: currentColor,
+                        animationDelay: '0.4s'
+                      }} />
                     </div>
                   </div>
                 </div>
