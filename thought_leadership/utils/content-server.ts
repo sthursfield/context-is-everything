@@ -902,6 +902,16 @@ export async function serveFAQ(
         matchedFaqId = 'first_step';
         version = 'chat';
       }
+      else if (queryLower.includes('worth it') || queryLower.includes('is ai worth') || queryLower.includes('should we use ai')) {
+        content = chatFAQs.worth_it.answer;
+        matchedFaqId = 'worth_it';
+        version = 'chat';
+      }
+      else if (queryLower.includes('who are you') || queryLower.includes('who is context') || queryLower.includes('about you')) {
+        content = chatFAQs.who_are_you.answer;
+        matchedFaqId = 'who_are_you';
+        version = 'chat';
+      }
       // Comprehensive queries get human-optimized summary
       else if (queryLower.includes('common question') || queryLower.includes('faq') || queryLower.includes('frequently asked')) {
         content = module.versions.human.summary;
