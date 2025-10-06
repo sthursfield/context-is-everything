@@ -887,6 +887,21 @@ export async function serveFAQ(
         matchedFaqId = 'why_now';
         version = 'chat';
       }
+      else if (queryLower.includes('what problem') || queryLower.includes('which problem') || queryLower.includes('what types') || queryLower.includes('what kind')) {
+        content = chatFAQs.which_problems.answer;
+        matchedFaqId = 'which_problems';
+        version = 'chat';
+      }
+      else if (queryLower.includes('what makes') && (queryLower.includes('different') || queryLower.includes('unique')) || queryLower.includes('how different')) {
+        content = chatFAQs.how_different.answer;
+        matchedFaqId = 'how_different';
+        version = 'chat';
+      }
+      else if (queryLower.includes('first step') || queryLower.includes('how to start') || queryLower.includes('where to start') || queryLower.includes('get started')) {
+        content = chatFAQs.first_step.answer;
+        matchedFaqId = 'first_step';
+        version = 'chat';
+      }
       // Comprehensive queries get human-optimized summary
       else if (queryLower.includes('common question') || queryLower.includes('faq') || queryLower.includes('frequently asked')) {
         content = module.versions.human.summary;
