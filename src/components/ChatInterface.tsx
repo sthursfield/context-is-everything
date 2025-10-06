@@ -1295,7 +1295,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  placeholder="What do you do?"
+                  placeholder="Ask me, or hit the red button"
                   className="flex-1 border-0 border-none bg-transparent text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
