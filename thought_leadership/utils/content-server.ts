@@ -7,21 +7,25 @@ import { VisitorType, VisitorContext } from './visitor-detection';
 import { QueryMatch } from './content-matcher';
 
 export interface ArticleContent {
-  id: string;
-  title: string;
-  slug: string;
-  metadata: {
-    publishedDate: string;
-    lastUpdated: string;
-    author: string;
-    readingTime: number;
-    tags: string[];
-    seoKeywords: string[];
-  };
-  versions: {
-    bot: ArticleVersion;
-    human: ArticleVersion;
-    chat: ChatVersion;
+  article: {
+    id: string;
+    title: string;
+    slug: string;
+    metadata: {
+      publishedDate: string;
+      lastUpdated: string;
+      author: string;
+      readingTime: number;
+      tags: string[];
+      seoKeywords: string[];
+    };
+    versions: {
+      bot: ArticleVersion;
+      human: ArticleVersion;
+      chat?: ChatVersion; // Optional for backwards compatibility
+    };
+    keywords_for_matching?: string[];
+    related_content?: string[];
   };
 }
 
@@ -168,10 +172,11 @@ async function loadCaseStudy(caseStudyId: string): Promise<CaseStudyContent | nu
  * Generate schema markup for SEO bots
  */
 function generateSchemaMarkup(article: ArticleContent): string {
+  const articleData = article.article;
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": article.title,
+    "headline": articleData.title,
     "author": {
       "@type": "Organization",
       "name": "Context is Everything"
@@ -184,12 +189,12 @@ function generateSchemaMarkup(article: ArticleContent): string {
         "url": "https://contextiseverything.ai/logo.png"
       }
     },
-    "datePublished": article.metadata.publishedDate,
-    "dateModified": article.metadata.lastUpdated,
-    "description": article.versions.bot.excerpt,
-    "keywords": article.metadata.seoKeywords.join(", "),
-    "wordCount": article.versions.bot.wordCount,
-    "timeRequired": `PT${article.metadata.readingTime}M`,
+    "datePublished": articleData.metadata.publishedDate,
+    "dateModified": articleData.metadata.lastUpdated,
+    "description": articleData.versions.bot.excerpt,
+    "keywords": articleData.metadata.seoKeywords.join(", "),
+    "wordCount": articleData.versions.bot.wordCount,
+    "timeRequired": `PT${articleData.metadata.readingTime}M`,
     "about": {
       "@type": "Thing",
       "name": "AI Consulting"
@@ -221,7 +226,12 @@ function extractRelevantSection(
   article: ArticleContent,
   queryContext: QueryMatch
 ): ChatSection | null {
-  const chatVersion = article.versions.chat;
+  const chatVersion = article.article.versions.chat;
+
+  // If no chat version exists, return null
+  if (!chatVersion) {
+    return null;
+  }
 
   // Score sections based on keyword matching
   const scoredSections = chatVersion.sections.map(section => {
@@ -257,8 +267,8 @@ function enhanceWithIndustryContext(
   // Extract industry from referrer or UTM data
   const industry = detectIndustryFromContext(visitorContext);
 
-  if (industry && article.versions.chat.industryExamples[industry]) {
-    const industryExample = article.versions.chat.industryExamples[industry];
+  if (industry && article.article.versions.chat?.industryExamples?.[industry]) {
+    const industryExample = article.article.versions.chat.industryExamples[industry];
     return `${content}
 
 **${industry.charAt(0).toUpperCase() + industry.slice(1)} Context:**
@@ -431,17 +441,21 @@ export async function serveArticleContent(
   queryContext?: QueryMatch,
   visitorContext?: VisitorContext
 ): Promise<ContentResponse | null> {
-  const article = await loadArticle(articleId);
+  const articleData = await loadArticle(articleId);
 
-  if (!article) {
+  if (!articleData || !articleData.article) {
     return null;
   }
+
+  const article = articleData.article;
 
   switch (visitorType) {
     case 'bot': {
       // Serve comprehensive content for SEO
       const content = article.versions.bot.content;
-      const schemaMarkup = generateSchemaMarkup(article);
+      const schemaMarkup = article.versions.bot.structuredData
+        ? `<script type="application/ld+json">${JSON.stringify(article.versions.bot.structuredData, null, 2)}</script>`
+        : generateSchemaMarkup(articleData);
 
       return {
         content: `${content}\n\n${schemaMarkup}`,
@@ -471,42 +485,41 @@ export async function serveArticleContent(
     }
 
     case 'chat': {
-      // Serve contextual section with enhancements
-      if (!queryContext) {
-        // Fallback to excerpt if no query context
-        return {
-          content: article.versions.human.excerpt,
-          version: 'chat',
-          source: 'article',
-          metadata: {
-            articleId,
-            confidence: 0.7,
-            followUpQuestions: article.versions.chat.followUpQuestions.slice(0, 2)
+      // For new article format (human/bot only), serve human version for chat
+      // For old format with chat sections, use extractRelevantSection
+      if (article.versions.chat && queryContext) {
+        const relevantSection = extractRelevantSection(articleData, queryContext);
+
+        if (relevantSection) {
+          let content = relevantSection.content;
+          if (visitorContext) {
+            content = enhanceWithIndustryContext(content, articleData, visitorContext);
           }
-        };
+
+          return {
+            content,
+            version: 'chat',
+            source: 'article',
+            metadata: {
+              articleId,
+              confidence: queryContext.confidence,
+              followUpQuestions: article.versions.chat.followUpQuestions?.slice(0, 3) || [],
+              relatedArticles: article.related_content || []
+            }
+          };
+        }
       }
 
-      const relevantSection = extractRelevantSection(article, queryContext);
-
-      if (!relevantSection) {
-        return null;
-      }
-
-      // Enhance with industry context if available
-      let content = relevantSection.content;
-      if (visitorContext) {
-        content = enhanceWithIndustryContext(content, article, visitorContext);
-      }
-
+      // Fallback: serve human version for chat
       return {
-        content,
+        content: article.versions.human.content,
         version: 'chat',
         source: 'article',
         metadata: {
           articleId,
-          confidence: queryContext.confidence,
-          followUpQuestions: article.versions.chat.followUpQuestions.slice(0, 3),
-          relatedArticles: [] // Could be populated with related content
+          confidence: queryContext?.confidence || 0.8,
+          followUpQuestions: ['Want to know more?', 'How could this apply to your situation?'],
+          relatedArticles: article.related_content || []
         }
       };
     }

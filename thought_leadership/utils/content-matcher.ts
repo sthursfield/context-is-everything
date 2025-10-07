@@ -14,18 +14,18 @@ export interface QueryMatch {
  * Article keyword mapping for query matching
  */
 const ARTICLE_KEYWORDS = {
-  'ai-project-failures': {
+  'article-01-ai-projects-fail': {
     primary: [
-      'ai project fail', 'ai failure', 'why ai fails', 'ai implementation',
-      'ai project challenges', 'machine learning fail', 'ai adoption issues'
+      'ai fail', 'ai failure', 'why ai fail', 'ai project fail',
+      'ai implementation', 'ai pilot', 'ai success', 'enterprise ai'
     ],
     secondary: [
-      'ai strategy', 'ai transformation', 'digital transformation',
-      'technology implementation', 'change management', 'ai roi'
+      'mit ai study', 'ai 95%', 'generative ai roi', 'ai adoption',
+      'build vs buy ai', 'ai strategy', 'ai best practices'
     ],
     concepts: [
-      'lack of data strategy', 'insufficient change management',
-      'unrealistic expectations', 'technical debt', 'stakeholder alignment'
+      'ai implementation failure', 'enterprise ai success', 'context-aware ai',
+      'ai vendor selection', 'ai integration', 'distributed ai adoption'
     ]
   },
   'contextual-ai-adoption': {
