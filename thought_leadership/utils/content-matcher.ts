@@ -28,6 +28,21 @@ const ARTICLE_KEYWORDS = {
       'ai vendor selection', 'ai integration', 'distributed ai adoption'
     ]
   },
+  'article-02-worthless-technology-stack': {
+    primary: [
+      'middleware', 'technology stack', 'worthless complexity',
+      'system simplification', 'technical debt', 'architecture'
+    ],
+    secondary: [
+      'esb', 'enterprise service bus', 'integration', 'legacy system',
+      'complexity reduction', 'architecture optimization', 'stack audit'
+    ],
+    concepts: [
+      'architectural bloat', 'worthless middleware', 'valuable complexity',
+      'direct connection', 'integration simplification', 'cost reduction',
+      'performance optimization', 'system modernization'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
