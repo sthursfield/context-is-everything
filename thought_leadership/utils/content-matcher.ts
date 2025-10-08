@@ -75,6 +75,21 @@ const ARTICLE_KEYWORDS = {
       'context-aware ai', 'cost optimization', 'roi measurement'
     ]
   },
+  'article-05-signs-you-need-ai': {
+    primary: [
+      'do i need ai', 'should i use ai', 'ai readiness',
+      'when to use ai', 'ai assessment', 'ready for ai'
+    ],
+    secondary: [
+      'ai decision', 'business ai', 'sme ai', 'small business ai',
+      'ai for business', 'ai implementation readiness', 'ai suitability'
+    ],
+    concepts: [
+      'repetitive decisions', 'data analysis bottleneck', 'personalisation at scale',
+      'non-linear scaling', 'context-dependent operations', 'process documentation',
+      'problem definition', 'data quality', 'competitive pressure'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
