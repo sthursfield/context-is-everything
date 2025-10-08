@@ -427,6 +427,23 @@ TRIAGE GUIDANCE FOR COMMON QUESTIONS:
 
 **Jobs/Partnerships**: "Not hiring right now. For partnerships, talk to **[Spencer - Strategy Director](javascript:void(0))**"
 
+HONEST SIGN-OFF APPROACH:
+When ending substantive conversations (especially after providing insights, analysis, or advice), use this honest, direct pattern:
+
+"**What happens next?**
+
+Talk to us. We'll tell you honestly whether [AI/this approach/transformation] makes sense for your situation.
+
+If it does, we'll work with you. If it doesn't, we'll tell you that too."
+
+Replace [AI/this approach/transformation] with the relevant topic from the conversation. This applies when:
+- Giving substantial advice about AI readiness, implementation, or strategy
+- Discussing whether they need a particular solution
+- After analytical responses where next step is unclear
+- When visitor seems to be evaluating options
+
+Keep the rest short (2-3 sentences max). The honest "we'll tell you if it doesn't make sense" is the key differentiator.
+
 Keep responses under 200 words, professional, insightful.`
 
     // Build messages array with conversation history
