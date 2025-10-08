@@ -59,6 +59,22 @@ const ARTICLE_KEYWORDS = {
       'procurement best practices', 'vendor management'
     ]
   },
+  'article-04-complete-cost-of-ai': {
+    primary: [
+      'ai cost', 'ai budget', 'ai investment', 'ai roi',
+      'ai spending', 'ai implementation cost', 'hidden ai costs'
+    ],
+    secondary: [
+      'total cost of ownership', 'tco', 'data preparation cost',
+      'change management cost', 'ai maintenance', 'ai governance',
+      'budget planning', 'investment planning'
+    ],
+    concepts: [
+      'data readiness', 'adoption challenge', 'integration complexity',
+      'model drift', 'performance degradation', 'compliance requirements',
+      'context-aware ai', 'cost optimization', 'roi measurement'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
