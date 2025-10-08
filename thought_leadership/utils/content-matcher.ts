@@ -43,6 +43,22 @@ const ARTICLE_KEYWORDS = {
       'performance optimization', 'system modernization'
     ]
   },
+  'article-03-hidden-vendor-costs': {
+    primary: [
+      'vendor costs', 'hidden costs', 'procurement', 'rfp',
+      'vendor proposal', 'contract analysis', 'vendor evaluation'
+    ],
+    secondary: [
+      'vendor selection', 'total cost of ownership', 'tco',
+      'procurement analysis', 'cost discovery', 'vendor comparison',
+      'contract negotiation', 'proposal evaluation'
+    ],
+    concepts: [
+      'responsibility shifting', 'unrealistic assumptions', 'missing inclusions',
+      'baseline establishment', 'proposal standardisation', 'anomaly detection',
+      'procurement best practices', 'vendor management'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
