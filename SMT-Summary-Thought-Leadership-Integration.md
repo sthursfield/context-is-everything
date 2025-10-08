@@ -2,7 +2,7 @@
 
 ## What We Built
 
-Integrated 4 thought leadership articles into the AI concierge system with intelligent content serving based on visitor type.
+Integrated 5 thought leadership articles into the AI concierge system with intelligent content serving based on visitor type.
 
 ## Article Library
 
@@ -12,6 +12,7 @@ Integrated 4 thought leadership articles into the AI concierge system with intel
 | **Article 2** | Worthless Technology Stack | 700 words | 2,500 words |
 | **Article 3** | Hidden Vendor Costs | 700 words | 2,500 words |
 | **Article 4** | Complete Cost of AI | 700 words | 2,500 words |
+| **Article 5** | Signs You Need AI | 800 words | 2,000 words |
 
 ## How It Works
 
@@ -26,6 +27,7 @@ graph TD
     F -->|"middleware, tech stack"| H[Article 2: Technology Stack]
     F -->|"procurement, RFP"| I[Article 3: Vendor Costs]
     F -->|"AI cost, budget"| J[Article 4: AI Investment]
+    F -->|"do I need AI, readiness"| K[Article 5: AI Readiness]
 
     style C fill:#e1f5ff
     style D fill:#fff5e1
@@ -33,6 +35,7 @@ graph TD
     style H fill:#e8f5e9
     style I fill:#e8f5e9
     style J fill:#e8f5e9
+    style K fill:#e8f5e9
 ```
 
 ## Key Features
@@ -54,9 +57,9 @@ graph TD
 ## Business Impact
 
 ### Content Reach
-- **4 core topics** covering AI implementation, technology optimization, procurement, and investment planning
+- **5 core topics** covering AI implementation, technology optimization, procurement, investment planning, and readiness assessment
 - **Dual-format strategy** maximises both SEO visibility and human engagement
-- **10,000+ words** of searchable, bot-optimised content for organic discovery
+- **14,300+ words** of searchable, bot-optimised content for organic discovery
 
 ### Competitive Positioning
 - Establishes thought leadership across key client pain points
@@ -87,7 +90,7 @@ graph LR
 
 ## Status
 
-✅ **All 4 articles deployed to production**
+✅ **All 5 articles deployed to production**
 ✅ **Content matching system operational**
 ✅ **Multi-version serving active**
 ✅ **SEO optimization complete**
@@ -102,5 +105,5 @@ graph LR
 ---
 
 **Deployment Date**: January 2025
-**Production URL**: https://context-is-everything-o84o6ihqt-sthursfields-projects.vercel.app
-**Total Content**: 12,800+ words across 8 versions (4 human + 4 bot)
+**Production URL**: https://context-is-everything-mkuod5xku-sthursfields-projects.vercel.app
+**Total Content**: 14,300+ words across 10 versions (5 human + 5 bot)
