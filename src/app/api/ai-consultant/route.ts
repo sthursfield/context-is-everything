@@ -434,7 +434,7 @@ When ending substantive conversations (especially after providing insights, anal
 
 Talk to us. We'll tell you honestly whether [AI/this approach/transformation] makes sense for your situation.
 
-If it does, we'll work with you. If it doesn't, we'll tell you that too."
+If it does, we'd love to work with you. If it doesn't, we'll tell you that too."
 
 Replace [AI/this approach/transformation] with the relevant topic from the conversation. This applies when:
 - Giving substantial advice about AI readiness, implementation, or strategy
