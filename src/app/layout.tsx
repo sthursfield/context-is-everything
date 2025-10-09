@@ -11,44 +11,43 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Context is Everything - AI Consultancy | Strategic AI Implementation",
-  description: "Expert AI consultancy specializing in contextual solutions. We build intelligent systems that adapt, understand context, and scale with your business. Strategic AI implementation for modern enterprises.",
+  title: "Context is Everything - AI Strategy & Implementation",
+  description: "AI consultancy focused on context-first implementation. We analyse how things actually work before suggesting solutions. Led by enterprise software and operations specialists.",
   keywords: [
     "AI consultancy",
-    "artificial intelligence consulting", 
-    "contextual AI",
-    "AI strategy",
-    "machine learning consulting",
+    "AI strategy consulting",
+    "context-first AI",
     "AI implementation",
-    "business AI solutions",
-    "AI transformation",
-    "intelligent systems",
-    "AI architecture"
+    "business transformation",
+    "enterprise AI",
+    "operational AI",
+    "AI analysis",
+    "strategic AI planning"
   ],
   authors: [{ name: "Context is Everything Team" }],
   creator: "Context is Everything",
   publisher: "Context is Everything",
-  metadataBase: new URL('https://contextiseverything.ai'),
+  metadataBase: new URL('https://www.context-is-everything.com'),
   viewport: {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
   },
-  
+
   // OpenGraph for social sharing
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://contextiseverything.ai',
-    title: 'Context is Everything - AI Consultancy',
-    description: 'Expert AI consultancy specializing in contextual solutions that adapt and scale with your business.',
+    locale: 'en_GB',
+    url: 'https://www.context-is-everything.com',
+    title: 'Context is Everything - AI Strategy & Implementation',
+    description: 'AI consultancy focused on context-first implementation. We analyse how things work before suggesting solutions.',
     siteName: 'Context is Everything',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Context is Everything - 3D geometric logo with contextual branding',
+        alt: 'Context is Everything - Strategic AI consultancy',
       }
     ],
   },
@@ -56,10 +55,8 @@ export const metadata: Metadata = {
   // Twitter Cards
   twitter: {
     card: 'summary_large_image',
-    site: '@contextiseverything',
-    creator: '@contextiseverything',
-    title: 'Context is Everything - AI Consultancy',
-    description: 'Expert AI consultancy specializing in contextual solutions that adapt and scale.',
+    title: 'Context is Everything - AI Strategy & Implementation',
+    description: 'Context-first AI consultancy. We analyse how things work before suggesting solutions.',
     images: ['/og-image.png'],
   },
 
@@ -75,10 +72,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
-  verification: {
-    google: 'your-google-verification-code',
-  },
 
   category: 'Technology',
   classification: 'Business Services',
@@ -93,61 +86,50 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Context is Everything",
-    "description": "AI consultancy specializing in contextual solutions that adapt and understand business context.",
-    "url": "https://contextiseverything.ai",
-    "logo": "https://contextiseverything.ai/logo.png",
+    "description": "AI consultancy focused on context-first implementation. We analyse how things actually work before suggesting solutions.",
+    "url": "https://www.context-is-everything.com",
+    "logo": "https://www.context-is-everything.com/assets/CIE_stacked_cropped.png",
     "foundingDate": "2024",
     "industry": "Artificial Intelligence Consulting",
-    "numberOfEmployees": "10-50",
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "US"
+      "addressCountry": "GB"
     },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+1-555-CONTEXT",
-      "contactType": "customer service",
-      "availableLanguage": ["English"]
-    },
-    "sameAs": [
-      "https://linkedin.com/company/contextiseverything",
-      "https://twitter.com/contextiseverything"
-    ],
     "service": [
       {
         "@type": "Service",
-        "name": "AI Strategy Consulting",
-        "description": "Strategic planning and roadmap development for AI implementation"
-      },
-      {
-        "@type": "Service", 
-        "name": "Contextual AI Development",
-        "description": "Custom AI solutions that understand and adapt to business context"
+        "name": "Context-First AI Strategy",
+        "description": "We analyse your actual operational context before recommending AI solutions"
       },
       {
         "@type": "Service",
-        "name": "AI System Architecture",
-        "description": "Scalable architecture design for intelligent business systems"
+        "name": "AI Implementation Analysis",
+        "description": "Cross-sector pattern recognition to identify what works in your specific context"
+      },
+      {
+        "@type": "Service",
+        "name": "Operational Transformation",
+        "description": "Business transformation guided by understanding how things actually work"
       }
     ],
     "team": [
       {
         "@type": "Person",
-        "name": "Sarah Chen",
+        "name": "Lindsay Smith",
         "jobTitle": "Chief Technology Officer",
-        "description": "Leading technology strategy with 15+ years in scalable architecture and AI integration."
-      },
-      {
-        "@type": "Person", 
-        "name": "Marcus Rodriguez",
-        "jobTitle": "Chief Operating Officer",
-        "description": "Operations excellence focused on sustainable growth and team development."
+        "description": "Enterprise software veteran with 20+ years FinTech experience. Former CTO at Telrock (17 years), technical innovation specialist."
       },
       {
         "@type": "Person",
-        "name": "Elena Kowalski", 
-        "jobTitle": "Chief Marketing Officer",
-        "description": "Brand strategist with expertise in contextual marketing and digital transformation."
+        "name": "Robbie MacIntosh",
+        "jobTitle": "Operations Director",
+        "description": "Crisis management and operational transformation specialist. Co-founder of Is Everyone Safe."
+      },
+      {
+        "@type": "Person",
+        "name": "Spencer Thursfield",
+        "jobTitle": "Strategy Director",
+        "description": "AI strategy and brand positioning specialist with cross-sector pattern recognition expertise."
       }
     ]
   };
@@ -202,26 +184,32 @@ export default function RootLayout({
 
         {/* Hidden content for SEO crawlers */}
         <div className="sr-only">
-          <h1>Context is Everything - Premier AI Consultancy</h1>
+          <h1>Context is Everything - AI Strategy & Implementation Consultancy</h1>
           <p>
-            We are a leading artificial intelligence consultancy specializing in contextual AI solutions. 
-            Our expert team helps businesses implement intelligent systems that understand context, 
-            adapt to changing environments, and scale efficiently.
+            AI consultancy focused on context-first implementation. We analyse how things actually work
+            before suggesting solutions. Our team combines enterprise software expertise, operational
+            transformation experience, and strategic AI analysis.
           </p>
           <nav aria-label="Main services">
             <ul>
-              <li>AI Strategy Consulting and Planning</li>
-              <li>Contextual AI System Development</li>
-              <li>Machine Learning Implementation</li>
-              <li>AI Architecture and Scaling</li>
-              <li>Business Intelligence Solutions</li>
+              <li>Context-First AI Strategy - analysing operational reality before recommending solutions</li>
+              <li>AI Implementation Analysis - cross-sector pattern recognition for your context</li>
+              <li>Operational Transformation - guided by understanding how things work</li>
+              <li>Strategic AI Planning - honest evaluation of whether AI makes sense</li>
             </ul>
           </nav>
-          <address>
-            Contact us for AI consultation and strategic planning services.
-            Email: hello@contextiseverything.ai
-            Phone: +1-555-CONTEXT
-          </address>
+          <section aria-label="Team expertise">
+            <h2>Our Team</h2>
+            <ul>
+              <li>Lindsay Smith, CTO - Enterprise software veteran, 20+ years FinTech, former CTO at Telrock</li>
+              <li>Robbie MacIntosh, Operations Director - Crisis management and operational transformation specialist</li>
+              <li>Spencer Thursfield, Strategy Director - AI strategy and cross-sector pattern recognition</li>
+            </ul>
+          </section>
+          <p>
+            Visit our conversational AI interface to discuss your specific situation and explore whether
+            AI implementation makes sense for your context.
+          </p>
         </div>
 
         
