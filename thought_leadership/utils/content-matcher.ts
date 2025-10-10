@@ -90,6 +90,21 @@ const ARTICLE_KEYWORDS = {
       'problem definition', 'data quality', 'competitive pressure'
     ]
   },
+  'article-06-faster-cheaper-better': {
+    primary: [
+      'faster cheaper better', 'ai value', 'ai roi', 'ai business value',
+      'ai outcomes', 'ai results', 'what does ai deliver'
+    ],
+    secondary: [
+      'ai trade-offs', 'pick two', 'ai benefits', 'ai performance',
+      'ai value delivery', 'business outcomes', 'ai expectations'
+    ],
+    concepts: [
+      'speed cost quality', 'implementation trade-offs', 'jackpot scenario',
+      'two out of three', 'outcome prioritisation', 'realistic expectations',
+      'value realisation', 'scale economics'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
