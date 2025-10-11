@@ -1,0 +1,57 @@
+# humanstxt.org
+
+/* TEAM */
+
+Chief Technology Officer: Lindsay Smith
+Role: Enterprise Software & Technical Architecture
+Experience: 20+ years FinTech, former CTO at Telrock (17 years)
+Expertise: Enterprise software development, system architecture, technical innovation
+Location: United Kingdom
+
+Operations Director: Robbie MacIntosh
+Role: Operational Transformation & Crisis Management
+Experience: Operational excellence, crisis response systems
+Expertise: Business transformation, operational efficiency, systems thinking
+Co-founder: Is Everyone Safe
+Location: United Kingdom
+
+Strategy Director: Spencer Thursfield
+Role: AI Strategy & Brand Positioning
+Experience: Cross-sector pattern recognition, strategic AI analysis
+Expertise: AI implementation strategy, business analysis, organisational dynamics
+Location: United Kingdom
+
+/* SITE */
+
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: React, Next.js 15, TypeScript, Tailwind CSS, Three.js
+Software: VS Code, Git, Node.js, Vercel
+Language: British English (en-GB)
+Doctype: HTML5
+IDE: VS Code, Claude Code
+
+/* THANKS */
+
+To all the organisations who trust us with their AI strategy
+To the open source community
+To the researchers publishing honest analysis of AI implementation challenges
+To Claude Code by Anthropic for development assistance
+
+/* PHILOSOPHY */
+
+Context is Everything - we believe AI needs to understand your specific business reality to deliver value. Generic solutions applied to specific problems produce generic results.
+
+We'll tell you honestly whether AI makes sense for your situation. If it does, we'd love to work with you. If it doesn't, we'll tell you that too.
+
+Identity emerges through perspective - demonstrated through our adaptive contextual theming and interactive 3D branding.
+
+/* SITE */
+
+Last update: 2025-10-11
+Architecture: Next.js 15 with App Router, TypeScript, Tailwind CSS
+Performance: Optimised for Core Web Vitals
+Accessibility: WCAG 2.1 AA compliant
+SEO: Complete Schema.org structured data, OpenGraph, Twitter Cards
+Design: Clean geometric 3D branding with contextual adaptive theming
+Hosting: Vercel
+Repository: GitHub (private)

@@ -1,0 +1,94 @@
+# Context is Everything
+
+> AI consultancy focused on context-first implementation. We analyse how things actually work before suggesting solutions.
+
+## Overview
+
+Context is Everything is an AI strategy and implementation consultancy based in the United Kingdom. We specialise in helping organisations understand whether AI makes sense for their specific situation, and if it does, implementing it successfully.
+
+Our team combines:
+- **Lindsay Smith, CTO**: 20+ years enterprise software and FinTech experience, former CTO at Telrock
+- **Robbie MacIntosh, Operations Director**: Crisis management and operational transformation specialist
+- **Spencer Thursfield, Strategy Director**: AI strategy and cross-sector pattern recognition expertise
+
+## Core Philosophy
+
+Most AI implementations fail because they apply generic solutions to specific contexts. We start by analysing your actual operational reality before recommending solutions.
+
+**Context-First Approach**: We believe AI needs to understand your specific business context - regulations, operations, culture, history, and domain knowledge - to deliver measurable value.
+
+## Services
+
+### Context-First AI Strategy
+We analyse your actual operational context before recommending AI solutions. Our approach focuses on understanding how things work in your organisation, not theoretical best practices.
+
+### AI Implementation Analysis
+Cross-sector pattern recognition to identify what works in your specific context. We leverage experience across multiple industries to spot implementation patterns that succeed.
+
+### Operational Transformation
+Business transformation guided by understanding how things actually work. We help organisations change effectively by starting with operational reality.
+
+## Thought Leadership
+
+We publish detailed analysis on AI implementation challenges and success patterns:
+
+### Why Most AI Projects Fail (And What the 5% Do Differently)
+MIT's Project NANDA found 95% of enterprise AI projects deliver zero return despite £30-40 billion in investment. We analyse the root causes and identify what successful implementations do differently.
+
+**Key Insights**: The difference isn't technology capability - it's implementation approach. Successful projects focus on specific pain points, partner strategically, integrate deeply, and empower distributed ownership.
+
+Full article: https://www.context-is-everything.com/insights/why-ai-projects-fail
+
+### Why Most of Your Technology Stack Adds No Value
+Analysis of how organisations accumulate technology debt through solutions that create dependencies without delivering value. Explores the hidden costs of SaaS sprawl and integration complexity.
+
+**Key Insights**: Technology that doesn't understand your context requires constant translation layers, creating ongoing maintenance burden without strategic value.
+
+Full article: https://www.context-is-everything.com/insights/worthless-technology-stack
+
+### The Hidden Costs in Your Vendor Proposals
+Vendors present attractive headline costs, but implementation, integration, training, and ongoing maintenance often exceed initial estimates by 3-5x. We analyse what gets omitted from proposals.
+
+**Key Insights**: True cost of ownership includes opportunity cost, context-switching overhead, and organisational change management - rarely accounted for in vendor proposals.
+
+Full article: https://www.context-is-everything.com/insights/hidden-vendor-costs
+
+### The Complete Cost of AI
+Comprehensive framework for calculating total cost of AI implementation, including data infrastructure, model training, integration, monitoring, and organisational change.
+
+**Key Insights**: Most organisations underestimate AI costs by 70-80% by focusing only on model licensing or development costs while ignoring infrastructure, integration, and operational overhead.
+
+Full article: https://www.context-is-everything.com/insights/complete-cost-of-ai
+
+### 5 Signs Your Business Actually Needs AI (And 5 Signs It Doesn't)
+Decision framework for determining AI readiness. Not every problem needs an AI solution - we identify when AI delivers value and when simpler approaches work better.
+
+**Key Insights**: AI makes sense when you have repetitive decisions at scale, data analysis bottlenecks, or need personalisation beyond human capacity. It doesn't make sense when problems are poorly defined, data quality is insufficient, or simpler solutions haven't been tried.
+
+Full article: https://www.context-is-everything.com/insights/signs-you-need-ai
+
+### Faster, Cheaper, Better: How AI Actually Delivers Value
+The "pick two" framework for AI value delivery. AI rarely delivers all three simultaneously - organisations must prioritise which two outcomes matter most.
+
+**Key Insights**: Understanding trade-offs in AI implementation helps set realistic expectations. Speed vs quality vs cost - context determines which combination makes sense.
+
+Full article: https://www.context-is-everything.com/insights/faster-cheaper-better-ai
+
+## Our Honest Approach
+
+We'll tell you honestly whether AI makes sense for your situation. If it does, we'd love to work with you. If it doesn't, we'll tell you that too.
+
+This honest evaluation sets us apart - we're more interested in right solutions than any solutions.
+
+## Contact
+
+Website: https://www.context-is-everything.com
+Location: United Kingdom
+
+Use our conversational AI interface to discuss your specific situation and explore whether AI implementation makes sense for your context.
+
+---
+
+# Extended Content
+
+For comprehensive article library with full content, see: https://www.context-is-everything.com/llms-full.txt

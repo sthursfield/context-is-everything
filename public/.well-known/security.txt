@@ -1,0 +1,28 @@
+Contact: mailto:security@context-is-everything.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://www.context-is-everything.com/.well-known/security.txt
+Policy: https://www.context-is-everything.com/security-policy
+Acknowledgments: https://www.context-is-everything.com/security-acknowledgments
+
+# Security Disclosure
+
+Context is Everything takes security seriously. If you discover a security vulnerability, please report it responsibly.
+
+# Scope
+
+This security policy applies to:
+- www.context-is-everything.com
+- All subdomains of context-is-everything.com
+
+# Out of Scope
+
+- Third-party services and integrations
+- Issues already publicly disclosed
+- Social engineering attacks
+
+# Response Time
+
+We aim to acknowledge security reports within 48 hours and provide a detailed response within 7 days.
+
+Thank you for helping keep Context is Everything secure.
