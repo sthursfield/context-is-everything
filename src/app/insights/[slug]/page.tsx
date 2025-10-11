@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+import Link from 'next/link'
 
 // Article slug mapping
 const ARTICLE_SLUGS: Record<string, string> = {
@@ -170,9 +171,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="max-w-5xl mx-auto px-6 py-12">
             <img
               src={heroImage}
-              alt={article.title}
+              alt={`${article.title} - Thought leadership article by Context is Everything on AI implementation`}
+              title={article.title}
               className="w-full h-auto rounded-lg shadow-lg"
               style={{ maxHeight: '600px', objectFit: 'contain' }}
+              loading="eager"
             />
           </div>
         </div>
@@ -183,9 +186,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <div className="max-w-4xl mx-auto px-6 py-4">
           <ol className="flex items-center space-x-2 text-sm text-gray-600">
             <li>
-              <a href="/" className="hover:text-gray-900 transition-colors">
+              <Link href="/" className="hover:text-gray-900 transition-colors underline-offset-4 hover:underline">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="flex items-center">
               <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
@@ -243,11 +246,22 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </div>
         </header>
 
-        {/* Full article content */}
+        {/* Full article content - HUMAN version (LinkedIn/Newsletter) */}
         <div
-          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900"
+          className="prose prose-lg max-w-none
+            prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight
+            prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12
+            prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10
+            prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
+            prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6
+            prose-a:text-blue-600 prose-a:underline-offset-4 hover:prose-a:text-blue-700
+            prose-strong:text-gray-900 prose-strong:font-semibold
+            prose-ul:my-6 prose-ul:space-y-2
+            prose-ol:my-6 prose-ol:space-y-2
+            prose-li:text-gray-700 prose-li:leading-relaxed
+            prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600"
           dangerouslySetInnerHTML={{
-            __html: renderMarkdown(article.versions.bot.content)
+            __html: renderMarkdown(article.versions.human.content)
           }}
         />
 

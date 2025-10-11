@@ -257,57 +257,31 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
           )}
         </header>
 
-        {/* Executive Summary */}
-        <div className="mb-12">
-          <div
-            className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900"
-            dangerouslySetInnerHTML={{
-              __html: renderMarkdown(caseStudy.versions.human.executive_summary)
-            }}
-          />
-        </div>
-
-        {/* Key Metrics Section */}
-        {caseStudy.versions.human.key_metrics && (
-          <div className="mb-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Metrics & Impact</h2>
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700"
-              dangerouslySetInnerHTML={{
-                __html: renderMarkdown(caseStudy.versions.human.key_metrics)
-              }}
-            />
-          </div>
-        )}
-
-        {/* Lessons Learned */}
-        {caseStudy.lessons && caseStudy.lessons.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Key Lessons</h2>
-            <div className="space-y-3">
-              {caseStudy.lessons.map((lesson, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <p className="text-gray-700">{lesson}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Additional Details from Human Version */}
-        {caseStudy.versions.human.lessons_learned && (
-          <div className="mb-12">
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700"
-              dangerouslySetInnerHTML={{
-                __html: renderMarkdown(caseStudy.versions.human.lessons_learned)
-              }}
-            />
-          </div>
-        )}
+        {/* Full Comprehensive Case Study - BOT Version */}
+        <div
+          className="prose prose-lg max-w-none
+            prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight
+            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight
+            prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-10 prose-h2:leading-snug
+            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8
+            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6
+            prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6
+            prose-a:text-blue-600 prose-a:underline-offset-4 hover:prose-a:text-blue-700
+            prose-strong:text-gray-900 prose-strong:font-semibold
+            prose-em:text-gray-600 prose-em:italic
+            prose-ul:my-6 prose-ul:space-y-3
+            prose-ol:my-6 prose-ol:space-y-3
+            prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2
+            prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-8
+            prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
+            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:p-6 prose-pre:rounded-lg
+            prose-table:my-8 prose-table:border-collapse
+            prose-th:bg-gray-100 prose-th:p-4 prose-th:text-left prose-th:font-semibold
+            prose-td:p-4 prose-td:border-t prose-td:border-gray-200"
+          dangerouslySetInnerHTML={{
+            __html: renderMarkdown(caseStudy.versions.bot.comprehensive_version)
+          }}
+        />
 
         {/* CTA Section */}
         <footer className="mt-16 pt-8 border-t border-gray-200">
