@@ -113,7 +113,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
     return content
       .replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold text-gray-900 mt-16 mb-6 leading-tight">$1</h1>')
       .replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-gray-900 mt-14 mb-5 leading-snug">$1</h2>')
-      .replace(/^### (.*$)/gim, '<h3 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">$3</h3>')
+      .replace(/^### (.*$)/gim, '<h3 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">$1</h3>')
       .replace(/^#### (.*$)/gim, '<h4 class="text-xl font-semibold text-gray-800 mt-8 mb-3">$1</h4>')
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="italic text-gray-600">$1</em>')
