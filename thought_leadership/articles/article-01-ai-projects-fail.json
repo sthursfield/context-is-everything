@@ -8,7 +8,12 @@
       "lastUpdated": "2025-01-15",
       "author": "Context is Everything",
       "readingTime": 7,
-      "tags": ["AI Implementation", "Digital Transformation", "Enterprise AI", "Project Management"],
+      "tags": [
+        "AI Implementation",
+        "Digital Transformation",
+        "Enterprise AI",
+        "Project Management"
+      ],
       "seoKeywords": [
         "AI implementation failure",
         "enterprise AI success rates",
@@ -45,15 +50,39 @@
             "name": "Context is Everything"
           },
           "datePublished": "2025-01-15",
-          "keywords": "AI implementation failure, enterprise AI, MIT AI study, AI success rates"
+          "keywords": "AI implementation failure, enterprise AI, MIT AI study, AI success rates",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Context is Everything",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.context-is-everything.com/assets/CIE_stacked_cropped.png"
+            }
+          },
+          "dateModified": "2025-01-15",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.context-is-everything.com/insights/why-ai-projects-fail"
+          }
         }
       }
     },
     "keywords_for_matching": [
-      "ai fail", "ai failure", "why ai fail", "ai project fail",
-      "ai implementation", "ai pilot", "ai success", "enterprise ai",
-      "mit ai study", "ai 95%", "generative ai roi", "ai adoption",
-      "build vs buy ai", "ai strategy", "ai best practices"
+      "ai fail",
+      "ai failure",
+      "why ai fail",
+      "ai project fail",
+      "ai implementation",
+      "ai pilot",
+      "ai success",
+      "enterprise ai",
+      "mit ai study",
+      "ai 95%",
+      "generative ai roi",
+      "ai adoption",
+      "build vs buy ai",
+      "ai strategy",
+      "ai best practices"
     ],
     "related_content": [
       "context-first-methodology",

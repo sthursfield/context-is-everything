@@ -8,7 +8,13 @@
       "lastUpdated": "2025-01-15",
       "author": "Context is Everything",
       "readingTime": 7,
-      "tags": ["Technology Stack", "Middleware", "Enterprise Architecture", "Technical Debt", "System Simplification"],
+      "tags": [
+        "Technology Stack",
+        "Middleware",
+        "Enterprise Architecture",
+        "Technical Debt",
+        "System Simplification"
+      ],
       "seoKeywords": [
         "technology stack simplification",
         "middleware elimination",
@@ -41,11 +47,19 @@
           },
           "publisher": {
             "@type": "Organization",
-            "name": "Context is Everything"
+            "name": "Context is Everything",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.context-is-everything.com/assets/CIE_stacked_cropped.png"
+            }
           },
           "datePublished": "2025-01-15",
           "dateModified": "2025-01-15",
-          "keywords": "technology stack simplification, middleware elimination, enterprise architecture optimization, system complexity reduction, IT cost reduction, integration simplification, legacy system modernisation, technical debt reduction"
+          "keywords": "technology stack simplification, middleware elimination, enterprise architecture optimization, system complexity reduction, IT cost reduction, integration simplification, legacy system modernisation, technical debt reduction",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.context-is-everything.com/insights/worthless-technology-stack"
+          }
         }
       }
     },
