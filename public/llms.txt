@@ -74,6 +74,47 @@ The "pick two" framework for AI value delivery. AI rarely delivers all three sim
 
 Full article: https://www.context-is-everything.com/insights/faster-cheaper-better-ai
 
+## Case Studies
+
+Real client results demonstrating our context-first approach:
+
+### Insurance Brokerage Transformation: 150% Conversion Increase
+**Industry**: Insurance Technology / Medical Aesthetics Insurance
+**Challenge**: Sub-20% lead conversion rate with 700-800 monthly qualified leads due to complex manual processes
+
+**Solution**: Built intelligent questioning system that adapts like a human agent, eliminated 85% of unnecessary middleware complexity, automated document generation
+
+**Results**:
+- **Conversion Rate**: 20% → 50%+ (150% increase)
+- **Processing Time**: Hours → 20 minutes (95% faster)
+- **Cost Savings**: $200,000+ annually
+- **Agent Productivity**: 70% admin → 15% admin
+- **Scalability**: 10x capacity without hiring
+
+**Key Lesson**: Most "complex" systems are just complicated. Understanding actual business context (state regulations, service types, risk profiles) enables simple solutions that work brilliantly.
+
+Full case study: https://www.context-is-everything.com/case-studies/insurance-brokerage-transformation
+
+### London School of Architecture: Contract Analysis Transformation
+**Industry**: Education / Architecture
+**Challenge**: Manual contract review and analysis creating bottlenecks in procurement and vendor management
+
+**Solution**: Context-aware contract analysis system understanding education sector regulations, architecture-specific requirements, and institutional procurement standards
+
+**Results**: Streamlined procurement processes, improved compliance, reduced contract review time
+
+Full case study: https://www.context-is-everything.com/case-studies/london-school-of-architecture
+
+### Procurement Analysis: Strategic Vendor Evaluation
+**Industry**: Procurement & Supply Chain
+**Challenge**: Complex vendor selection requiring analysis of multiple factors including cost, capability, and strategic fit
+
+**Solution**: Comprehensive procurement analysis framework incorporating total cost of ownership, vendor capability assessment, and strategic alignment evaluation
+
+**Results**: Improved vendor selection accuracy, reduced procurement cycle time, better strategic alignment
+
+Full case study: https://www.context-is-everything.com/case-studies/procurement-analysis
+
 ## Our Honest Approach
 
 We'll tell you honestly whether AI makes sense for your situation. If it does, we'd love to work with you. If it doesn't, we'll tell you that too.

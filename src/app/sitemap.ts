@@ -47,5 +47,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Case studies
+    {
+      url: `${baseUrl}/case-studies/insurance-brokerage-transformation`,
+      lastModified: new Date('2025-10-11'),
+      changeFrequency: 'yearly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/case-studies/london-school-of-architecture`,
+      lastModified: new Date('2025-10-11'),
+      changeFrequency: 'yearly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/case-studies/procurement-analysis`,
+      lastModified: new Date('2025-10-11'),
+      changeFrequency: 'yearly',
+      priority: 0.9,
+    },
   ]
 }
