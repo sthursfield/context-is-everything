@@ -47,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/insights/where-to-start-with-ai`,
+      lastModified: new Date('2025-10-11'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     // Case studies
     {
       url: `${baseUrl}/case-studies/insurance-brokerage-transformation`,

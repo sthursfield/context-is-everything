@@ -74,6 +74,20 @@ The "pick two" framework for AI value delivery. AI rarely delivers all three sim
 
 Full article: https://www.context-is-everything.com/insights/faster-cheaper-better-ai
 
+### Where to Start with AI: The First Steps Every Business Should Take
+Comprehensive implementation guide for businesses ready to begin AI. Covers three foundational questions and systematic preparation steps before vendor engagement.
+
+**Key Insights**: Successful AI implementation begins with rigorous problem definition, context assessment, and organisational preparation - not technology selection. Businesses investing 4-8 weeks in pre-implementation groundwork achieve substantially higher success rates than those proceeding directly to vendor engagement.
+
+**Three Foundational Questions**:
+1. What specific problem are you solving? (with quantified metrics)
+2. Does context matter in your situation? (regulatory, operational, competitive factors)
+3. How would you know if it worked? (measurable success criteria)
+
+**Preparation Framework**: Process documentation, data reality assessment, business case development, advisor selection, pilot methodology.
+
+Full article: https://www.context-is-everything.com/insights/where-to-start-with-ai
+
 ## Case Studies
 
 Real client results demonstrating our context-first approach:

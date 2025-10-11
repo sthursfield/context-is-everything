@@ -10,7 +10,8 @@ const ARTICLE_SLUGS: Record<string, string> = {
   'hidden-vendor-costs': 'article-03-hidden-vendor-costs',
   'complete-cost-of-ai': 'article-04-complete-cost-of-ai',
   'signs-you-need-ai': 'article-05-signs-you-need-ai',
-  'faster-cheaper-better-ai': 'article-06-faster-cheaper-better'
+  'faster-cheaper-better-ai': 'article-06-faster-cheaper-better',
+  'where-to-start-with-ai': 'article-07-where-to-start-with-ai'
 }
 
 // Hero image mapping (LinkedIn illustrations)
@@ -20,7 +21,8 @@ const ARTICLE_IMAGES: Record<string, string> = {
   'hidden-vendor-costs': '/assets/The Hidden Costs in Vendor Proposals.png',
   'complete-cost-of-ai': '/assets/Do you Kow what your AI costs?.png',
   'signs-you-need-ai': '/assets/5 Signs.png',
-  'faster-cheaper-better-ai': '/assets/Fast_Cheap_Good.png'
+  'faster-cheaper-better-ai': '/assets/Fast_Cheap_Good.png',
+  'where-to-start-with-ai': '/assets/Where to Start with AI.png'
 }
 
 interface ArticleData {
