@@ -90,37 +90,45 @@ export default function RootLayout({
     "url": "https://www.context-is-everything.com",
     "logo": "https://www.context-is-everything.com/assets/CIE_stacked_cropped.png",
     "foundingDate": "2024",
-    "industry": "Artificial Intelligence Consulting",
+    "knowsAbout": ["Artificial Intelligence", "AI Strategy", "Business Transformation", "Context-First Implementation"],
     "areaServed": {
       "@type": "Country",
       "name": "United Kingdom"
     },
-    "serviceType": "AI Consulting",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "GB"
     },
-    "service": [
+    "makesOffer": [
       {
-        "@type": "Service",
-        "name": "Context-First AI Strategy",
-        "description": "We analyse your actual operational context before recommending AI solutions",
-        "serviceType": "AI Strategy Consulting"
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Context-First AI Strategy",
+          "description": "We analyse your actual operational context before recommending AI solutions",
+          "serviceType": "AI Strategy Consulting"
+        }
       },
       {
-        "@type": "Service",
-        "name": "AI Implementation Analysis",
-        "description": "Cross-sector pattern recognition to identify what works in your specific context",
-        "serviceType": "AI Implementation Consulting"
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI Implementation Analysis",
+          "description": "Cross-sector pattern recognition to identify what works in your specific context",
+          "serviceType": "AI Implementation Consulting"
+        }
       },
       {
-        "@type": "Service",
-        "name": "Operational Transformation",
-        "description": "Business transformation guided by understanding how things actually work",
-        "serviceType": "Business Transformation Consulting"
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Operational Transformation",
+          "description": "Business transformation guided by understanding how things actually work",
+          "serviceType": "Business Transformation Consulting"
+        }
       }
     ],
-    "team": [
+    "employee": [
       {
         "@type": "Person",
         "name": "Lindsay Smith",
