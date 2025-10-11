@@ -138,7 +138,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   // Enhanced markdown renderer
   const renderMarkdown = (content: string) => {
-    return content
+    // Remove the first H1 title since it's already in the page header
+    const contentWithoutTitle = content.replace(/^# .*$/m, '').trim()
+
+    return contentWithoutTitle
       .replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold text-gray-900 mt-16 mb-6 leading-tight">$1</h1>')
       .replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-gray-900 mt-14 mb-5 leading-snug">$1</h2>')
       .replace(/^### (.*$)/gim, '<h3 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">$1</h3>')
