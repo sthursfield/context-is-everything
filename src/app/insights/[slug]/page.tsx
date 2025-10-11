@@ -11,6 +11,16 @@ const ARTICLE_SLUGS: Record<string, string> = {
   'faster-cheaper-better-ai': 'article-06-faster-cheaper-better'
 }
 
+// Hero image mapping (LinkedIn illustrations)
+const ARTICLE_IMAGES: Record<string, string> = {
+  'why-ai-projects-fail': '/assets/Why Most Projects Fail.png',
+  'worthless-technology-stack': '/assets/Why Most of Your Technology Stack Adds No Value.png',
+  'hidden-vendor-costs': '/assets/The Hidden Costs in Vendor Proposals.png',
+  'complete-cost-of-ai': '/assets/Do you Kow what your AI costs?.png',
+  'signs-you-need-ai': '/assets/5 Signs.png',
+  'faster-cheaper-better-ai': '/assets/Fast_Cheap_Good.png'
+}
+
 interface ArticleData {
   article: {
     id: string
@@ -74,6 +84,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   const article = articleData.article
+  const heroImage = ARTICLE_IMAGES[params.slug]
+  const imageUrl = heroImage ? `https://www.context-is-everything.com${heroImage}` : 'https://www.context-is-everything.com/og-image.png'
 
   return {
     title: `${article.title} | Context is Everything`,
@@ -88,11 +100,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       modifiedTime: article.metadata.lastUpdated,
       authors: [article.metadata.author],
       tags: article.metadata.tags,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        }
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.versions.bot.excerpt,
+      images: [imageUrl],
     },
   }
 }
@@ -111,6 +132,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   }
 
   const article = articleData.article
+  const heroImage = ARTICLE_IMAGES[params.slug]
 
   // Convert markdown to HTML (basic conversion)
   const renderMarkdown = (content: string) => {
@@ -142,10 +164,49 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         />
       )}
 
+      {/* Hero Image Section */}
+      {heroImage && (
+        <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 border-b border-gray-200">
+          <div className="max-w-5xl mx-auto px-6 py-12">
+            <img
+              src={heroImage}
+              alt={article.title}
+              className="w-full h-auto rounded-lg shadow-lg"
+              style={{ maxHeight: '600px', objectFit: 'contain' }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Breadcrumb Navigation */}
+      <nav className="bg-white border-b border-gray-200" aria-label="Breadcrumb">
+        <div className="max-w-4xl mx-auto px-6 py-4">
+          <ol className="flex items-center space-x-2 text-sm text-gray-600">
+            <li>
+              <a href="/" className="hover:text-gray-900 transition-colors">
+                Home
+              </a>
+            </li>
+            <li className="flex items-center">
+              <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-gray-400">Insights</span>
+            </li>
+            <li className="flex items-center">
+              <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-gray-900 font-medium truncate max-w-xs">{article.title.substring(0, 50)}{article.title.length > 50 ? '...' : ''}</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
       {/* Article Content - Full Bot Version for SEO */}
       <article className="max-w-4xl mx-auto px-6 py-16">
         <header className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
             {article.title}
           </h1>
 
@@ -163,15 +224,22 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <span>{article.versions.bot.wordCount} words</span>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-8">
             {article.metadata.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium"
               >
                 {tag}
               </span>
             ))}
+          </div>
+
+          {/* Excerpt / Summary */}
+          <div className="bg-gray-50 border-l-4 border-blue-500 p-6 rounded-r-lg mb-8">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              {article.versions.bot.excerpt}
+            </p>
           </div>
         </header>
 
