@@ -81,73 +81,28 @@ export async function POST(request: NextRequest) {
       // Detect visitor type for contextual content serving
       const visitorContext = identifyVisitorFromNextRequest(request)
 
-      // DISABLED: Service/FAQ/Methodology matchers were too broad and intercepting natural conversation
-      // They prevented the AI from asking clarifying questions and building rapport
-      // Now only explicit article requests (0.85+ confidence) trigger canned responses
+      // DISABLED ALL MATCHERS: The content matching system was still intercepting natural conversation
+      // Even at 0.85 threshold, general questions were triggering article dumps
+      // Solution: Let the sophisticated AI handle ALL responses naturally
+      // The AI can reference articles/case studies conversationally when appropriate
 
-      // Match query to thought leadership articles and case studies
+      // Article/case study matching completely disabled - AI handles everything
+      // All content matching code commented out - sophisticated AI handles responses naturally
+
+      /*
       const contentMatch = getBestArticleMatch(sanitizedQuery)
-
-      // If we have a VERY high-confidence match (explicit article request), serve appropriate content
-      // Lower threshold prevents regurgitation on general questions
       if (contentMatch && contentMatch.confidence > 0.85) {
-        // Determine if this is a case study or article
-        const isCaseStudy = contentMatch.articleId.includes('transformation') ||
-                            contentMatch.articleId.includes('insurance') ||
-                            contentMatch.articleId.includes('brokerage') ||
-                            contentMatch.articleId.includes('lsa-contract-analysis') ||
-                            contentMatch.articleId.includes('procurement-analysis')
-
-        const contentResponse = isCaseStudy
-          ? await serveCaseStudyContent(
-              contentMatch.articleId,
-              visitorContext.type,
-              sanitizedQuery,
-              contentMatch
-            )
-          : await serveArticleContent(
-              contentMatch.articleId,
-              visitorContext.type,
-              contentMatch,
-              visitorContext
-            )
-
-        if (contentResponse) {
-          // Log successful content match
-          console.log('CONTENT_MATCH:', JSON.stringify({
-            timestamp: trackingTimestamp,
-            query: sanitizedQuery,
-            matchedContent: contentMatch.articleId,
-            confidence: contentMatch.confidence,
-            visitorType: visitorContext.type,
-            source: isCaseStudy ? 'case_study' : 'thought_leadership'
-          }))
-
-          return NextResponse.json({
-            answer: contentResponse.content,
-            timestamp: new Date().toISOString(),
-            source: isCaseStudy ? 'case_study' : 'thought_leadership',
-            metadata: {
-              contentId: contentMatch.articleId,
-              confidence: contentMatch.confidence,
-              visitorType: visitorContext.type,
-              followUpQuestions: contentResponse.metadata?.followUpQuestions
-            }
-          })
-        }
+        // Content serving logic disabled
       }
+      */
 
-      // Log unmatched query (no content found)
-      if (!contentMatch || contentMatch.confidence <= 0.85) {
-        console.log('CONTENT_MATCH:', JSON.stringify({
-          timestamp: trackingTimestamp,
-          query: sanitizedQuery,
-          matchedContent: null,
-          confidence: contentMatch?.confidence || 0,
-          visitorType: visitorContext.type,
-          source: 'unmatched'
-        }))
-      }
+      // Log that all queries now go to AI (for analytics)
+      console.log('AI_HANDLING:', JSON.stringify({
+        timestamp: trackingTimestamp,
+        query: sanitizedQuery,
+        visitorType: visitorContext.type,
+        handler: 'sophisticated_ai'
+      }))
     } catch (error) {
       // Log error but continue to fallback AI response
       console.error('Content serving system error:', error)
@@ -282,6 +237,17 @@ CASE STUDIES (Real examples only - NEVER invent others):
 1. **Insurance Brokerage**: 150% conversion increase, £200K+ savings, medical aesthetics context
 2. **LSA Contract Analysis**: London School of Architecture transparency, student contract risk
 3. **Procurement Analysis**: Sports venue catering, 48-hour turnaround, £200K+ hidden costs
+
+THOUGHT LEADERSHIP ARTICLES (Reference conversationally when relevant):
+1. **Why AI Projects Fail**: MIT study showing 95% failure rate, what the 5% do differently
+2. **Worthless Technology Stack**: How organisations accumulate technology debt
+3. **Hidden Vendor Costs**: Implementation costs exceed proposals by 3-5x
+4. **Complete Cost of AI**: Total cost framework (data, integration, maintenance)
+5. **Signs You Need AI**: Decision framework for AI readiness (5 signs yes, 5 signs no)
+6. **Faster, Cheaper, Better AI**: "Pick two" framework, trade-offs in AI delivery
+7. **Where to Start with AI**: Three foundational questions before implementation
+
+NOTE: NEVER dump full article content. Reference insights conversationally. If they want details, mention the article exists.
 
 GREETING RESPONSE:
 "Hi, how can I help?"
