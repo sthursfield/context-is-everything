@@ -105,6 +105,21 @@ const ARTICLE_KEYWORDS = {
       'value realisation', 'scale economics'
     ]
   },
+  'article-08-information-asymmetry': {
+    primary: [
+      'information asymmetry', 'lemon market', 'ai consulting', 'ia vs ai',
+      'intelligence augmentation', 'buying ai', 'vendor selection', 'consultant selection'
+    ],
+    secondary: [
+      'akerlof', 'market for lemons', 'generic ai', 'contextual ai',
+      'ai commodity', 'strategic asset', 'proof of value', 'adverse selection'
+    ],
+    concepts: [
+      'quality uncertainty', 'consultant evaluation', 'implementation failure',
+      'generic vs contextual', 'context encoding', 'competitive advantage',
+      'risk shifting', 'outcome-based metrics', 'contextual understanding'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
