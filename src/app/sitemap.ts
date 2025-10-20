@@ -53,6 +53,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/insights/information-asymmetry-buying-ia-vs-ai`,
+      lastModified: new Date('2025-10-14'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/insights/7-ai-mistakes-costing-uk-businesses`,
+      lastModified: new Date('2025-10-15'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/insights/ai-native-buyers-marketing-gap`,
+      lastModified: new Date('2025-10-20'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     // Case studies
     {
       url: `${baseUrl}/case-studies/insurance-brokerage-transformation`,
