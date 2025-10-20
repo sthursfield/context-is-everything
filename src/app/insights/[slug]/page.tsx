@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import RelatedArticles from '@/components/RelatedArticles'
 
 // Article slug mapping
 const ARTICLE_SLUGS: Record<string, string> = {
@@ -57,6 +58,7 @@ interface ArticleData {
         excerpt: string
       }
     }
+    related_content?: string[]
   }
 }
 
@@ -143,6 +145,24 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   const article = articleData.article
   const heroImage = ARTICLE_IMAGES[params.slug]
+
+  // Load related articles
+  const relatedArticles = []
+  if (article.related_content && article.related_content.length > 0) {
+    for (const relatedId of article.related_content) {
+      const relatedData = await loadArticle(relatedId)
+      if (relatedData) {
+        relatedArticles.push({
+          id: relatedData.article.id,
+          title: relatedData.article.title,
+          slug: relatedData.article.slug,
+          excerpt: relatedData.article.versions.human.excerpt,
+          readingTime: relatedData.article.metadata.readingTime,
+          tags: relatedData.article.metadata.tags
+        })
+      }
+    }
+  }
 
   // Enhanced markdown renderer
   const renderMarkdown = (content: string) => {
@@ -329,6 +349,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             </div>
           </aside>
         </div>
+
+        {/* Related Articles */}
+        {relatedArticles.length > 0 && (
+          <RelatedArticles articles={relatedArticles} />
+        )}
 
         {/* CTA Section */}
         <footer className="mt-20 pt-12 border-t border-gray-200">
