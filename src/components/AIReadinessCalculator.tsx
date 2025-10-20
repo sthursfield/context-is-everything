@@ -39,7 +39,8 @@ const questions: Question[] = [
       { text: 'No - data is trapped in separate systems that don\'t talk to each other', score: 1, insight: 'Data silos will significantly limit AI effectiveness' },
       { text: 'Sometimes - but it requires manual work to combine information', score: 2, insight: 'Some foundation exists but requires significant effort' },
       { text: 'Yes - our systems connect well and data flows between them', score: 3, insight: 'Strong foundation for AI implementation' },
-      { text: 'Absolutely - data is unified and updates in real-time across all systems', score: 4, insight: 'Excellent infrastructure ready for advanced AI' }
+      { text: 'Absolutely - data is unified and updates in real-time across all systems', score: 4, insight: 'Excellent infrastructure ready for advanced AI' },
+      { text: 'Not sure / Don\'t know enough to answer', score: 2, insight: 'A data audit would reveal integration opportunities' }
     ]
   },
   {
@@ -50,18 +51,8 @@ const questions: Question[] = [
       { text: 'Often inconsistent or contains errors that need manual correction', score: 1, insight: 'Data quality must be addressed before AI adoption' },
       { text: 'Generally reliable, but we know certain areas have quality issues', score: 2, insight: 'Targeted data quality improvements needed' },
       { text: 'High quality with clear standards for how data should be entered', score: 3, insight: 'Data quality supports AI implementation' },
-      { text: 'Excellent - we automatically monitor and fix data quality issues', score: 4, insight: 'Premium data foundation for AI excellence' }
-    ]
-  },
-  {
-    id: 'data-3',
-    category: 'data',
-    question: 'How confident are you in your data security and privacy controls?',
-    options: [
-      { text: 'Basic security in place, but no formal policies or oversight', score: 1, insight: 'Governance gaps create significant AI risks' },
-      { text: 'We have written policies, but implementation varies across teams', score: 2, insight: 'Governance foundation needs strengthening' },
-      { text: 'Strong controls with regular monitoring and compliance checks', score: 3, insight: 'Solid governance supports responsible AI' },
-      { text: 'World-class security with automated compliance and privacy protection', score: 4, insight: 'Governance excellence enables advanced AI' }
+      { text: 'Excellent - we automatically monitor and fix data quality issues', score: 4, insight: 'Premium data foundation for AI excellence' },
+      { text: 'Not sure / Don\'t know enough to answer', score: 2, insight: 'Understanding your data landscape is a good first step' }
     ]
   },
   {
@@ -72,7 +63,8 @@ const questions: Question[] = [
       { text: 'No - we mainly run older systems with limited capacity', score: 1, insight: 'Infrastructure modernisation required for AI' },
       { text: 'Mixed - some modern systems but also legacy technology', score: 2, insight: 'Infrastructure investments needed for scale' },
       { text: 'Yes - we use modern cloud-based systems that can scale up', score: 3, insight: 'Infrastructure ready for AI implementation' },
-      { text: 'Absolutely - we have enterprise-grade platforms built for AI', score: 4, insight: 'Premium infrastructure for AI at scale' }
+      { text: 'Absolutely - we have enterprise-grade platforms built for AI', score: 4, insight: 'Premium infrastructure for AI at scale' },
+      { text: 'Not sure / Don\'t know enough to answer', score: 2, insight: 'A technical audit would clarify your infrastructure readiness' }
     ]
   },
 

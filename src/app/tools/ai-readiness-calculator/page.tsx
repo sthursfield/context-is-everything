@@ -50,14 +50,14 @@ export default function AIReadinessCalculatorPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-12 sm:py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">
+      <section className="py-8 sm:py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
             AI Readiness Calculator
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover your organisation's AI readiness level across 5 critical dimensions.
-            Get personalised insights and actionable recommendations in under 7 minutes.
+            Get personalised insights and actionable recommendations in ~5 minutes.
           </p>
           <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-600">
             <div className="flex items-center">
@@ -88,8 +88,13 @@ export default function AIReadinessCalculatorPage() {
         </div>
       </section>
 
-      {/* Assessment Dimensions */}
-      <section className="py-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Calculator Component - Brought Higher */}
+      <section className="pb-20">
+        <AIReadinessCalculator />
+      </section>
+
+      {/* Assessment Dimensions - Moved Below */}
+      <section className="py-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 hidden">
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-center mb-8">What We'll Assess</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -149,11 +154,6 @@ export default function AIReadinessCalculatorPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Calculator Component */}
-      <section className="pb-20">
-        <AIReadinessCalculator />
       </section>
 
       {/* Footer */}
