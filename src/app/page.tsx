@@ -130,6 +130,11 @@ export default function HomePage() {
               <div className="block md:inline" style={{ color: '#C2C2C2' }}>Copyright © 2025 Context-is-Everything</div>
               <div className="block md:inline md:ml-2" style={{ color: '#C2C2C2' }}>All rights reserved</div>
               <div className="flex justify-center md:hidden gap-4 mt-1">
+                <a href="/tools/ai-readiness-calculator"
+                   className="hover:opacity-70 transition-opacity duration-200 underline"
+                   style={{ color: '#747071' }}>
+                  AI Calculator
+                </a>
                 <a href="/privacy"
                    className="hover:opacity-70 transition-opacity duration-200 underline"
                    style={{ color: '#747071' }}>
@@ -143,6 +148,11 @@ export default function HomePage() {
               </div>
             </div>
             <div className="hidden md:flex gap-6">
+              <a href="/tools/ai-readiness-calculator"
+                 className="hover:opacity-70 transition-opacity duration-200 underline"
+                 style={{ color: '#747071' }}>
+                AI Readiness Calculator
+              </a>
               <a href="/privacy"
                  className="hover:opacity-70 transition-opacity duration-200 underline"
                  style={{ color: '#747071' }}>
