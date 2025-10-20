@@ -135,6 +135,21 @@ const ARTICLE_KEYWORDS = {
       'starting too broad', 'underestimating costs', 'ai abandonment rate'
     ]
   },
+  'article-10-ai-native-buyers': {
+    primary: [
+      'b2b buyers ai', 'marketing ai readiness', 'ai native buyers', 'forrester ai research',
+      'b2b marketing ai', 'ai buying journey', '90 20 gap', 'buyer ai adoption'
+    ],
+    secondary: [
+      'marketing ai gap', 'b2b marketing transformation', 'ai readiness framework',
+      'marketing ai implementation', 'forrester research', 'ai content scrutiny'
+    ],
+    concepts: [
+      'buyer seller mismatch', 'ai assisted research', 'content consistency ai',
+      'messaging stress test', 'five pillars readiness', 'governance frameworks',
+      'change fatigue', 'strategic pilots', 'amplification risk'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',

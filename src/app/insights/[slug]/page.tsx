@@ -13,7 +13,8 @@ const ARTICLE_SLUGS: Record<string, string> = {
   'faster-cheaper-better-ai': 'article-06-faster-cheaper-better',
   'where-to-start-with-ai': 'article-07-where-to-start-with-ai',
   'information-asymmetry-buying-ia-vs-ai': 'article-08-information-asymmetry',
-  '7-ai-mistakes-costing-uk-businesses': 'article-09-7-ai-mistakes'
+  '7-ai-mistakes-costing-uk-businesses': 'article-09-7-ai-mistakes',
+  'ai-native-buyers-marketing-gap': 'article-10-ai-native-buyers'
 }
 
 // Hero image mapping (LinkedIn illustrations)
@@ -26,7 +27,8 @@ const ARTICLE_IMAGES: Record<string, string> = {
   'faster-cheaper-better-ai': '/assets/Fast_Cheap_Good.png',
   'where-to-start-with-ai': '/assets/Where to Start with AI.png',
   'information-asymmetry-buying-ia-vs-ai': '/assets/Information_Asymmetry.png',
-  '7-ai-mistakes-costing-uk-businesses': '/assets/7-ai-mistakes-carousel/1_The Boom.png'
+  '7-ai-mistakes-costing-uk-businesses': '/assets/7-ai-mistakes-carousel/1_The Boom.png',
+  'ai-native-buyers-marketing-gap': '/assets/AI_Native_Buyers.png'
 }
 
 interface ArticleData {
