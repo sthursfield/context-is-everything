@@ -28,7 +28,7 @@ const ARTICLE_IMAGES: Record<string, string> = {
   'where-to-start-with-ai': '/assets/Where to Start with AI.png',
   'information-asymmetry-buying-ia-vs-ai': '/assets/Information_Asymmetry.png',
   '7-ai-mistakes-costing-uk-businesses': '/assets/7-ai-mistakes-carousel/1_The Boom.png',
-  'ai-native-buyers-marketing-gap': '/assets/AI_Native_Buyers.png'
+  'ai-native-buyers-marketing-gap': '/assets/Your Buyers Are AI-Native..png'
 }
 
 interface ArticleData {
