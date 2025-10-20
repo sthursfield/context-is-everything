@@ -120,6 +120,21 @@ const ARTICLE_KEYWORDS = {
       'risk shifting', 'outcome-based metrics', 'contextual understanding'
     ]
   },
+  'article-09-7-ai-mistakes': {
+    primary: [
+      'ai mistakes', 'ai implementation mistakes', '7 ai mistakes', 'ai failures',
+      'ai abandonment', 'ai project failure', 'uk small business ai', 'ai experiment'
+    ],
+    secondary: [
+      'ai costs uk', 'ai project costs', 'why ai fails', 'ai adoption decline',
+      'ai implementation costs', 'cast ai experiments', 'ai experimentation'
+    ],
+    concepts: [
+      'implementation vs experiment', 'ai cost reality', 'human oversight ai',
+      'forcing adoption', 'perfect data myth', 'set and forget', 'measuring wrong things',
+      'starting too broad', 'underestimating costs', 'ai abandonment rate'
+    ]
+  },
   'contextual-ai-adoption': {
     primary: [
       'contextual ai', 'ai adoption', 'ai strategy', 'ai planning',
