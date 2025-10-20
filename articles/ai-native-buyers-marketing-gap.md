@@ -44,7 +44,7 @@ Perhaps most importantly, they're accepting that this shift requires fixing some
 
 ## The Shift Required
 
-The 90/20 gap suggests we're at an inflection point. Buyers have moved faster than sellers expected. The question isn't whether to close the gap, but how quickly it's possible to do so without creating new problems in the process.
+The 90/20 gap suggests we're at an inflection point. Buyers have moved faster than sellers expected. The question isn't whether to update your navigation tools, but how quickly it's possible to do so without losing your way in the process.
 
 This probably isn't about matching buyers' AI sophistication tool-for-tool. It's more likely about ensuring your content, positioning, and value proposition can withstand AI-assisted scrutiny. That your differentiation is clear enough to survive algorithmic comparison. That your claims are consistent enough to hold up under cross-referencing.
 
