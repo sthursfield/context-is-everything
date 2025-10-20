@@ -30,64 +30,53 @@ interface Results {
 }
 
 const questions: Question[] = [
-  // DATA INFRASTRUCTURE (5 questions)
+  // DATA INFRASTRUCTURE (3 questions)
   {
     id: 'data-1',
     category: 'data',
-    question: 'How accessible is your data across different departments and systems?',
+    question: 'Can your teams easily access and share data across different departments?',
     options: [
-      { text: 'Fragmented across siloed systems with limited integration', score: 1, insight: 'Data silos will significantly limit AI effectiveness' },
-      { text: 'Partially integrated with manual bridging between key systems', score: 2, insight: 'Some foundation exists but requires significant effort' },
-      { text: 'Well-integrated with standardised APIs and data pipelines', score: 3, insight: 'Strong foundation for AI implementation' },
-      { text: 'Fully unified with real-time data synchronisation and governance', score: 4, insight: 'Excellent infrastructure ready for advanced AI' }
+      { text: 'No - data is trapped in separate systems that don\'t talk to each other', score: 1, insight: 'Data silos will significantly limit AI effectiveness' },
+      { text: 'Sometimes - but it requires manual work to combine information', score: 2, insight: 'Some foundation exists but requires significant effort' },
+      { text: 'Yes - our systems connect well and data flows between them', score: 3, insight: 'Strong foundation for AI implementation' },
+      { text: 'Absolutely - data is unified and updates in real-time across all systems', score: 4, insight: 'Excellent infrastructure ready for advanced AI' }
     ]
   },
   {
     id: 'data-2',
     category: 'data',
-    question: 'What is the quality and consistency of your data across systems?',
+    question: 'How accurate and reliable is the data in your systems?',
     options: [
-      { text: 'Inconsistent formats, frequent errors, significant cleaning required', score: 1, insight: 'Data quality must be addressed before AI adoption' },
-      { text: 'Generally reliable with known quality issues in specific areas', score: 2, insight: 'Targeted data quality improvements needed' },
-      { text: 'High quality with established standards and validation processes', score: 3, insight: 'Data quality supports AI implementation' },
-      { text: 'Enterprise-grade with automated quality monitoring and remediation', score: 4, insight: 'Premium data foundation for AI excellence' }
+      { text: 'Often inconsistent or contains errors that need manual correction', score: 1, insight: 'Data quality must be addressed before AI adoption' },
+      { text: 'Generally reliable, but we know certain areas have quality issues', score: 2, insight: 'Targeted data quality improvements needed' },
+      { text: 'High quality with clear standards for how data should be entered', score: 3, insight: 'Data quality supports AI implementation' },
+      { text: 'Excellent - we automatically monitor and fix data quality issues', score: 4, insight: 'Premium data foundation for AI excellence' }
     ]
   },
   {
     id: 'data-3',
     category: 'data',
-    question: 'How would you describe your data governance and security practices?',
+    question: 'How confident are you in your data security and privacy controls?',
     options: [
-      { text: 'Informal or inconsistent governance with basic security', score: 1, insight: 'Governance gaps create significant AI risks' },
-      { text: 'Documented policies with partial implementation and monitoring', score: 2, insight: 'Governance foundation needs strengthening' },
-      { text: 'Comprehensive framework with active monitoring and compliance', score: 3, insight: 'Solid governance supports responsible AI' },
-      { text: 'World-class governance with automated compliance and privacy controls', score: 4, insight: 'Governance excellence enables advanced AI' }
+      { text: 'Basic security in place, but no formal policies or oversight', score: 1, insight: 'Governance gaps create significant AI risks' },
+      { text: 'We have written policies, but implementation varies across teams', score: 2, insight: 'Governance foundation needs strengthening' },
+      { text: 'Strong controls with regular monitoring and compliance checks', score: 3, insight: 'Solid governance supports responsible AI' },
+      { text: 'World-class security with automated compliance and privacy protection', score: 4, insight: 'Governance excellence enables advanced AI' }
     ]
   },
   {
-    id: 'data-4',
+    id: 'data-3',
     category: 'data',
-    question: 'What volume and variety of relevant data do you have available?',
+    question: 'Are your technology systems modern enough to handle new AI capabilities?',
     options: [
-      { text: 'Limited data or highly fragmented across unconnected sources', score: 1, insight: 'Data volume may limit AI effectiveness' },
-      { text: 'Adequate data in key areas but gaps in coverage or history', score: 2, insight: 'Sufficient for initial AI projects with targeted scope' },
-      { text: 'Rich datasets across most business functions with good history', score: 3, insight: 'Strong data foundation for diverse AI applications' },
-      { text: 'Comprehensive multi-year datasets across all key business areas', score: 4, insight: 'Exceptional data assets for sophisticated AI' }
-    ]
-  },
-  {
-    id: 'data-5',
-    category: 'data',
-    question: 'How prepared is your infrastructure to handle AI workloads?',
-    options: [
-      { text: 'Legacy systems with limited processing capacity or cloud access', score: 1, insight: 'Infrastructure modernisation required for AI' },
-      { text: 'Mix of legacy and modern with some cloud capabilities', score: 2, insight: 'Infrastructure investments needed for scale' },
-      { text: 'Modern cloud-based infrastructure with scalable compute resources', score: 3, insight: 'Infrastructure ready for AI implementation' },
-      { text: 'Enterprise AI platform with specialised compute and MLOps capabilities', score: 4, insight: 'Premium infrastructure for AI at scale' }
+      { text: 'No - we mainly run older systems with limited capacity', score: 1, insight: 'Infrastructure modernisation required for AI' },
+      { text: 'Mixed - some modern systems but also legacy technology', score: 2, insight: 'Infrastructure investments needed for scale' },
+      { text: 'Yes - we use modern cloud-based systems that can scale up', score: 3, insight: 'Infrastructure ready for AI implementation' },
+      { text: 'Absolutely - we have enterprise-grade platforms built for AI', score: 4, insight: 'Premium infrastructure for AI at scale' }
     ]
   },
 
-  // ORGANISATIONAL CULTURE (5 questions)
+  // ORGANISATIONAL CULTURE (3 questions)
   {
     id: 'culture-1',
     category: 'culture',
@@ -121,72 +110,38 @@ const questions: Question[] = [
       { text: 'Data-driven culture with technical talent and continuous learning', score: 4, insight: 'Workforce primed for sophisticated AI collaboration' }
     ]
   },
-  {
-    id: 'culture-4',
-    category: 'culture',
-    question: 'How do different departments collaborate on cross-functional initiatives?',
-    options: [
-      { text: 'Siloed departments with minimal collaboration or shared goals', score: 1, insight: 'Organisational alignment needed before AI projects' },
-      { text: 'Some collaboration but challenged by competing priorities', score: 2, insight: 'Cross-functional sponsorship critical for AI success' },
-      { text: 'Regular cross-functional work with established collaboration models', score: 3, insight: 'Collaboration patterns support AI implementation' },
-      { text: 'Deeply integrated teams with shared metrics and agile practices', score: 4, insight: 'Exceptional collaboration enables AI excellence' }
-    ]
-  },
-  {
-    id: 'culture-5',
-    category: 'culture',
-    question: 'How does your organisation handle change and transformation?',
-    options: [
-      { text: 'Struggles with change initiatives; low adoption rates', score: 1, insight: 'Change management must precede AI adoption' },
-      { text: 'Mixed results with change depending on leadership and communication', score: 2, insight: 'Structured change management essential for AI' },
-      { text: 'Generally successful with established change frameworks', score: 3, insight: 'Change capabilities support AI transformation' },
-      { text: 'Continuous transformation mindset with high adaptation rates', score: 4, insight: 'Change excellence accelerates AI adoption' }
-    ]
-  },
-
-  // TECHNICAL CAPABILITIES (4 questions)
+  // TECHNICAL CAPABILITIES (3 questions)
   {
     id: 'technical-1',
     category: 'technical',
-    question: 'What technical talent do you have available for AI projects?',
+    question: 'Do you have people in-house with AI or data science skills?',
     options: [
-      { text: 'No in-house AI/ML expertise; dependent on external support', score: 1, insight: 'Partner ecosystem critical for AI success' },
-      { text: 'Limited technical skills; could hire or partner for AI projects', score: 2, insight: 'Build vs buy decisions needed for AI capabilities' },
-      { text: 'Some data science/engineering talent with AI potential', score: 3, insight: 'Upskilling and targeted hiring will accelerate AI' },
-      { text: 'Dedicated AI/ML team with proven delivery track record', score: 4, insight: 'Strong technical foundation for AI innovation' }
+      { text: 'No - we would need to bring in external help for AI projects', score: 1, insight: 'Partner ecosystem critical for AI success' },
+      { text: 'Not currently, but we could hire or partner for AI expertise', score: 2, insight: 'Build vs buy decisions needed for AI capabilities' },
+      { text: 'Yes - we have some data or technical people who could learn AI', score: 3, insight: 'Upskilling and targeted hiring will accelerate AI' },
+      { text: 'Yes - we have a dedicated AI/data science team with proven results', score: 4, insight: 'Strong technical foundation for AI innovation' }
     ]
   },
   {
     id: 'technical-2',
     category: 'technical',
-    question: 'How mature are your software development and DevOps practices?',
+    question: 'Can your existing systems easily integrate with new AI tools and services?',
     options: [
-      { text: 'Manual processes with limited automation or version control', score: 1, insight: 'DevOps maturity required for sustainable AI' },
-      { text: 'Basic CI/CD with some automation but inconsistent practices', score: 2, insight: 'MLOps foundation needs development' },
-      { text: 'Mature DevOps with automated testing and deployment pipelines', score: 3, insight: 'DevOps practices support AI operations' },
-      { text: 'Advanced DevOps with observability, security, and MLOps integration', score: 4, insight: 'Excellent technical practices for AI at scale' }
+      { text: 'No - our systems are quite rigid and difficult to connect to new tools', score: 1, insight: 'System modernisation required before AI integration' },
+      { text: 'Possible but requires significant custom development work', score: 2, insight: 'Integration layer needed for AI adoption' },
+      { text: 'Yes - our systems have modern APIs and can connect to new services', score: 3, insight: 'Architecture ready for AI integration' },
+      { text: 'Absolutely - we have enterprise platforms designed for easy integration', score: 4, insight: 'Exceptional architecture for AI ecosystem' }
     ]
   },
   {
     id: 'technical-3',
     category: 'technical',
-    question: 'What is your experience with deploying and maintaining production systems?',
+    question: 'How confident are you in deploying and maintaining business-critical systems?',
     options: [
-      { text: 'Limited production experience; rely on vendors for critical systems', score: 1, insight: 'Operational capabilities needed for AI ownership' },
-      { text: 'Some production systems with basic monitoring and support', score: 2, insight: 'Operational maturity required for AI responsibility' },
-      { text: 'Robust production operations with SLAs and incident management', score: 3, insight: 'Strong operations foundation for AI deployment' },
-      { text: 'World-class site reliability with automated ops and observability', score: 4, insight: 'Operational excellence enables AI at scale' }
-    ]
-  },
-  {
-    id: 'technical-4',
-    category: 'technical',
-    question: 'How capable are your existing systems at integrating new technologies?',
-    options: [
-      { text: 'Tightly coupled legacy systems with difficult integration', score: 1, insight: 'System modernisation required before AI integration' },
-      { text: 'Some integration capability but requires significant custom work', score: 2, insight: 'Integration layer needed for AI adoption' },
-      { text: 'Modern architecture with API-first design and standard integrations', score: 3, insight: 'Architecture ready for AI integration' },
-      { text: 'Microservices with event-driven architecture and API management', score: 4, insight: 'Exceptional architecture for AI ecosystem' }
+      { text: 'Limited - we rely heavily on vendors for critical systems', score: 1, insight: 'Operational capabilities needed for AI ownership' },
+      { text: 'Some capability - we run systems but with basic monitoring', score: 2, insight: 'Operational maturity required for AI responsibility' },
+      { text: 'Strong - we run production systems with SLAs and incident processes', score: 3, insight: 'Strong operations foundation for AI deployment' },
+      { text: 'World-class - automated operations with comprehensive monitoring', score: 4, insight: 'Operational excellence enables AI at scale' }
     ]
   },
 
@@ -335,11 +290,11 @@ export default function AIReadinessCalculator() {
       categories.governance * categoryWeights.governance +
       categories.strategy * categoryWeights.strategy;
 
-    // Determine readiness level
+    // Determine readiness level (adjusted thresholds for better distribution)
     let readinessLevel: Results['readinessLevel'];
-    if (overall < 35) readinessLevel = 'exploring';
-    else if (overall < 60) readinessLevel = 'emerging';
-    else if (overall < 80) readinessLevel = 'advancing';
+    if (overall < 40) readinessLevel = 'exploring';
+    else if (overall < 65) readinessLevel = 'emerging';
+    else if (overall < 85) readinessLevel = 'advancing';
     else readinessLevel = 'leading';
 
     // Identify strengths and opportunities
@@ -415,6 +370,28 @@ export default function AIReadinessCalculator() {
     setShowResults(false);
   };
 
+  const getShareText = (score: number, level: string) => {
+    const levelText = level === 'exploring' ? 'Exploring AI Potential' :
+                      level === 'emerging' ? 'Emerging AI Capabilities' :
+                      level === 'advancing' ? 'Advancing AI Maturity' :
+                      'Leading with AI';
+    return `I scored ${score}/100 (${levelText}) on the AI Readiness Calculator. Discover your organisation's AI readiness: https://www.context-is-everything.com/tools/ai-readiness-calculator`;
+  };
+
+  const shareOnLinkedIn = () => {
+    if (!results) return;
+    const text = getShareText(results.overall, results.readinessLevel);
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://www.context-is-everything.com/tools/ai-readiness-calculator')}&summary=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'width=600,height=400');
+  };
+
+  const shareOnTwitter = () => {
+    if (!results) return;
+    const text = getShareText(results.overall, results.readinessLevel);
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'width=600,height=400');
+  };
+
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   if (showResults && results) {
@@ -467,11 +444,33 @@ export default function AIReadinessCalculator() {
               </h3>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 {results.readinessLevel === 'exploring' && 'You\'re in the early stages of understanding AI\'s potential for your organisation. Focus on building foundational capabilities and organisational alignment.'}
-                {results.readinessLevel === 'emerging' && 'You have some AI foundations in place and are ready to begin pilot projects. Strategic focus on capability building will accelerate your progress.'}
+                {results.readinessLevel === 'emerging' && 'You\'re in a strong position to begin meaningful AI adoption. You have critical foundations in place - now it\'s about strategic prioritisation and targeted capability building in specific areas. This is exactly where most successful AI transformations begin.'}
                 {results.readinessLevel === 'advancing' && 'You\'re actively implementing AI with measurable results. Continue scaling successful initiatives while strengthening remaining capability gaps.'}
                 {results.readinessLevel === 'leading' && 'You\'re demonstrating AI leadership with mature capabilities across all dimensions. Focus on innovation and ecosystem development.'}
               </p>
             </div>
+          </div>
+
+          {/* Social Sharing */}
+          <div className="flex gap-3 justify-center flex-wrap">
+            <button
+              onClick={shareOnLinkedIn}
+              className="flex items-center gap-2 bg-[#0077B5] hover:bg-[#006399] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              Share on LinkedIn
+            </button>
+            <button
+              onClick={shareOnTwitter}
+              className="flex items-center gap-2 bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Share on X
+            </button>
           </div>
 
           {/* Category Breakdown */}
@@ -606,27 +605,27 @@ export default function AIReadinessCalculator() {
             {question.question}
           </h2>
 
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {question.options.map((option, idx) => (
               <button
                 key={idx}
                 onClick={() => handleAnswer(question.id, option.score)}
-                className="w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group"
+                className="text-left p-4 rounded-lg border-2 border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group"
               >
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 group-hover:bg-blue-100 flex items-center justify-center mr-3 mt-0.5">
-                    <span className="text-sm font-semibold text-gray-600 group-hover:text-blue-600">
-                      {idx + 1}
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-gray-900 group-hover:text-blue-900">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 group-hover:bg-blue-100 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-gray-600 group-hover:text-blue-600">
+                        {idx + 1}
+                      </span>
+                    </div>
+                    <p className="font-medium text-gray-900 group-hover:text-blue-900 text-sm">
                       {option.text}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1 group-hover:text-blue-700">
-                      {option.insight}
-                    </p>
                   </div>
+                  <p className="text-xs text-gray-500 group-hover:text-blue-700 pl-8">
+                    {option.insight}
+                  </p>
                 </div>
               </button>
             ))}
