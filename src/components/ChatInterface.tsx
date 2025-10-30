@@ -867,10 +867,8 @@ This isn't about faster analysis. It's about smarter strategy.
   const handleSubmit = async (query: string, isFromThreeFs = false) => {
     if (!query.trim()) return
 
-    // Mark user as having interacted if this is a manual query
-    if (!isFromThreeFs) {
-      setHasUserInteracted(true)
-    }
+    // Mark user as having interacted - always set to true when they submit anything
+    setHasUserInteracted(true)
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -1302,7 +1300,7 @@ We apologize for the inconvenience and appreciate your patience.`)
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onFocus={() => {}}
-                  placeholder="Ask me, or hit the red button"
+                  placeholder={hasUserInteracted ? "Ask me something" : "Ask me, or hit the red button"}
                   className="flex-1 border-0 border-none bg-transparent text-base md:text-lg py-0 px-0 focus:ring-0 focus:ring-offset-0 focus:border-0 focus:outline-none focus:shadow-none placeholder:text-gray-400 text-gray-900 shadow-none"
                   style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                   disabled={isLoading || isAnimating}
