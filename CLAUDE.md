@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🔑 CRITICAL: Anthropic API Configuration
+
+**IMPORTANT - READ THIS FIRST:**
+- The `ANTHROPIC_API_KEY` in `.env.local` **ONLY works with `claude-3-haiku-20240307`**
+- DO NOT change the model to Sonnet, Opus, or any other model - they will fail with 404 errors
+- The API route at `src/app/api/ai-consultant/route.ts` must use: `model: 'claude-3-haiku-20240307'`
+- This has been an issue multiple times - always check the model name before making changes
+
 ## Version History
 
 ### V6.8 (Current) - Proper Team Headshot Images with Smart Fallback System ✨

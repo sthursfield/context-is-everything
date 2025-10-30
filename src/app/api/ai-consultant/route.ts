@@ -293,6 +293,7 @@ Keep responses under 50 words. Be direct, insightful, professional.`
     ]
 
     // Call Anthropic API
+    // IMPORTANT: API key only works with claude-3-haiku-20240307 - do NOT change to Sonnet/Opus
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -301,7 +302,7 @@ Keep responses under 50 words. Be direct, insightful, professional.`
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-haiku-20240307',
+        model: 'claude-3-haiku-20240307', // CRITICAL: Do not change - only this model works with our API key
         max_tokens: 300,
         system: systemPrompt,
         messages: messages
