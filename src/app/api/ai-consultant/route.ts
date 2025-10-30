@@ -301,8 +301,8 @@ Keep responses under 50 words. Be direct, insightful, professional.`
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
-        max_tokens: 200,
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 300,
         system: systemPrompt,
         messages: messages
       })
