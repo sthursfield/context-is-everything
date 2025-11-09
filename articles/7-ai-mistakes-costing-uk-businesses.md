@@ -1,4 +1,4 @@
-# 7 AI Mistakes Costing UK Small Businesses £50K+
+# The Great AI Retreat: A Story in Four Acts
 
 ## The AI Experiment: What We're Learning From the Quiet Retreat
 
