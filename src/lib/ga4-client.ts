@@ -14,20 +14,39 @@ export const GA4_PROPERTY_ID = '506980538'
  * Initialize GA4 client with service account credentials
  */
 export function getGA4Client() {
-  // Get credentials from environment
-  const credentials = process.env.GA4_SERVICE_ACCOUNT_KEY
-
-  if (!credentials) {
-    throw new Error('GA4_SERVICE_ACCOUNT_KEY environment variable is not set')
-  }
-
-  // Parse base64-encoded JSON credentials
+  // For development: read from file
+  // For production: use environment variable
   let credentialsJson
-  try {
-    const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf-8')
-    credentialsJson = JSON.parse(decodedCredentials)
-  } catch (error) {
-    throw new Error('Failed to parse GA4 service account credentials')
+
+  if (process.env.NODE_ENV === 'production' || process.env.GA4_SERVICE_ACCOUNT_KEY) {
+    // Production: use base64-encoded environment variable
+    const credentials = process.env.GA4_SERVICE_ACCOUNT_KEY
+
+    if (!credentials) {
+      throw new Error('GA4_SERVICE_ACCOUNT_KEY environment variable is not set')
+    }
+
+    try {
+      const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf-8')
+      credentialsJson = JSON.parse(decodedCredentials)
+    } catch (error) {
+      console.error('GA4 credentials parse error:', error)
+      throw new Error(`Failed to parse GA4 service account credentials: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    }
+  } else {
+    // Development: read from JSON file
+    const fs = require('fs')
+    const path = require('path')
+    const credentialsPath = path.join(process.cwd(), 'ga4-service-account.json')
+
+    try {
+      const fileContents = fs.readFileSync(credentialsPath, 'utf8')
+      credentialsJson = JSON.parse(fileContents)
+      console.log('✅ Loaded GA4 credentials from file')
+    } catch (error) {
+      console.error('Failed to read GA4 credentials file:', error)
+      throw new Error(`Failed to read GA4 service account file: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    }
   }
 
   // Initialize client with credentials
