@@ -64,7 +64,7 @@ This guide will walk you through setting up Google Analytics 4 (GA4) API access 
 6. Click "+" (Add users)
 7. Paste the service account email from the JSON file
    - It looks like: `ga4-analytics-reader@your-project.iam.gserviceaccount.com`
-8. Select role: **Viewer** (read-only access)
+8. Select role: **Editor** (allows setting up dashboards in GA4)
 9. Uncheck "Notify new users by email"
 10. Click "Add"
 
@@ -114,7 +114,7 @@ Once credentials are added, we'll test the connection by:
 
 ## Security Notes
 
-- ✅ Service account has read-only access (Viewer role)
+- ✅ Service account has Editor access (allows dashboard setup in GA4)
 - ✅ JSON key should NEVER be committed to git
 - ✅ We'll use environment variables for production (Vercel)
 - ✅ Local JSON file will be gitignored for development
