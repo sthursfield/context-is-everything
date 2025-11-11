@@ -246,6 +246,9 @@ THOUGHT LEADERSHIP ARTICLES (Reference conversationally when relevant):
 5. **Signs You Need AI**: Decision framework for AI readiness (5 signs yes, 5 signs no)
 6. **Faster, Cheaper, Better AI**: "Pick two" framework, trade-offs in AI delivery
 7. **Where to Start with AI**: Three foundational questions before implementation
+8. **8 AI Mistakes Costing UK Businesses £50K+**: Common expensive mistakes and how to avoid them
+9. **Information Asymmetry**: Why information advantage often matters more than AI capability
+10. **AI-Native Buyers Marketing Gap**: How AI-native buyers bypass traditional marketing
 
 NOTE: NEVER dump full article content. Reference insights conversationally. If they want details, mention the article exists.
 
@@ -311,10 +314,26 @@ Keep responses under 50 words. Be direct, insightful, professional.`
 
     if (!response.ok) {
       const errorText = await response.text()
+
+      // Parse error to check for specific issues
+      let errorDetails
+      try {
+        errorDetails = JSON.parse(errorText)
+      } catch {
+        errorDetails = { error: { message: errorText } }
+      }
+
       console.error('❌ Anthropic API error:', response.status, response.statusText)
       console.error('❌ Error details:', errorText)
       console.error('❌ Request was for model:', 'claude-3-haiku-20240307')
       console.error('❌ Query:', sanitizedQuery.substring(0, 100))
+
+      // Check for credit/billing issues
+      if (errorDetails?.error?.message?.includes('credit balance')) {
+        console.error('💳 BILLING ISSUE: Anthropic account has insufficient credits')
+        console.error('💳 Action required: Add credits at https://console.anthropic.com/')
+      }
+
       return NextResponse.json(
         { error: 'AI service temporarily unavailable' },
         { status: 500 }
@@ -322,7 +341,7 @@ Keep responses under 50 words. Be direct, insightful, professional.`
     }
 
     const data = await response.json()
-    
+
     if (!data.content || !data.content[0] || !data.content[0].text) {
       console.error('Unexpected API response structure:', data)
       return NextResponse.json(
@@ -331,7 +350,21 @@ Keep responses under 50 words. Be direct, insightful, professional.`
       )
     }
 
-    return NextResponse.json({ 
+    // Log token usage for monthly tracking
+    const inputTokens = data.usage?.input_tokens || 0
+    const outputTokens = data.usage?.output_tokens || 0
+    const totalTokens = inputTokens + outputTokens
+
+    console.log('📊 Token Usage:', {
+      timestamp: new Date().toISOString(),
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      total_tokens: totalTokens,
+      model: 'claude-3-haiku-20240307',
+      query_preview: sanitizedQuery.substring(0, 50)
+    })
+
+    return NextResponse.json({
       answer: data.content[0].text,
       timestamp: new Date().toISOString()
     })
