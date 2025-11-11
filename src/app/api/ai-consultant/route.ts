@@ -311,8 +311,10 @@ Keep responses under 50 words. Be direct, insightful, professional.`
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('Anthropic API error:', response.status, response.statusText)
-      console.error('Error details:', errorText)
+      console.error('❌ Anthropic API error:', response.status, response.statusText)
+      console.error('❌ Error details:', errorText)
+      console.error('❌ Request was for model:', 'claude-3-haiku-20240307')
+      console.error('❌ Query:', sanitizedQuery.substring(0, 100))
       return NextResponse.json(
         { error: 'AI service temporarily unavailable' },
         { status: 500 }
