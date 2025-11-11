@@ -16,7 +16,7 @@ const ARTICLE_SLUGS: Record<string, string> = {
   'information-asymmetry-buying-ia-vs-ai': 'article-08-information-asymmetry',
   '7-ai-mistakes-costing-uk-businesses': 'article-09-7-ai-mistakes',
   'ai-native-buyers-marketing-gap': 'article-10-ai-native-buyers',
-  '8-ai-mistakes-costing-uk-businesses': 'article-10-8-ai-mistakes'
+  '8-ai-mistakes-costing-uk-businesses': 'article-11-8-ai-mistakes'
 }
 
 // Hero image mapping (LinkedIn illustrations)
