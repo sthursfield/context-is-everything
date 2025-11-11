@@ -561,7 +561,7 @@ Want me to dig deeper on any of this?
           return `<button data-contact-type="${linkText}" class="contact-link text-blue-600 hover:text-blue-800 underline cursor-pointer bg-transparent border-none p-0 font-inherit">${linkText}</button>`
         })
         // Handle headers
-        .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #1f2937;">$1</h2>')
+        .replace(/^## (.+)/gm, '<h2 style="font-size: 16px; font-weight: 600; margin: 8px 0 4px 0; color: #4b5563;">$1</h2>')
         // Handle remaining bold text
         .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
         // Handle regular external links
@@ -582,7 +582,7 @@ Want me to dig deeper on any of this?
       if (trimmedLine.startsWith('## ')) {
         const headerText = trimmedLine.replace(/^## \*\*(.+?)\*\*$/, '$1').replace(/^## /, '')
         return (
-          <h2 key={index} className="text-lg font-bold text-gray-900 mt-6 mb-3 first:mt-0">
+          <h2 key={index} className="text-lg font-bold text-gray-600 mt-6 mb-3 first:mt-0">
             {headerText}
           </h2>
         )
@@ -591,7 +591,7 @@ Want me to dig deeper on any of this?
       if (trimmedLine.startsWith('### ')) {
         const headerText = trimmedLine.replace(/^### \*\*(.+?)\*\*.*$/, '$1').replace(/^### /, '')
         return (
-          <h3 key={index} className="text-md font-semibold text-gray-900 mt-4 mb-2">
+          <h3 key={index} className="text-md font-semibold text-gray-600 mt-4 mb-2">
             {headerText}
           </h3>
         )
