@@ -1,0 +1,182 @@
+{
+  "site": {
+    "name": "Context is Everything",
+    "description": "AI strategy and implementation consultancy specializing in context-aware solutions for UK businesses",
+    "url": "https://www.context-is-everything.com",
+    "contact": "team@context-is-everything.com"
+  },
+  "navigation": {
+    "main": [
+      {
+        "title": "Home",
+        "url": "/",
+        "description": "AI consultancy homepage with interactive concierge"
+      },
+      {
+        "title": "AI Readiness Calculator",
+        "url": "/calculator",
+        "description": "Interactive tool to assess your organization's AI readiness"
+      },
+      {
+        "title": "Insights & Articles",
+        "url": "/insights",
+        "description": "Thought leadership on AI implementation, costs, and strategies"
+      }
+    ]
+  },
+  "articles": [
+    {
+      "id": "why-ai-projects-fail",
+      "title": "Why Most AI Projects Fail (And What the 5% Do Differently)",
+      "url": "/insights/why-ai-projects-fail",
+      "summary": "MIT study showing 95% AI failure rate and what successful implementations do differently",
+      "topics": ["AI implementation", "project management", "success patterns"],
+      "readingTime": "5 minutes"
+    },
+    {
+      "id": "worthless-technology-stack",
+      "title": "The Worthless Technology Stack: How Good Ideas Become Expensive Problems",
+      "url": "/insights/worthless-technology-stack",
+      "summary": "How organizations accumulate technology debt through well-intentioned decisions",
+      "topics": ["technology debt", "technical architecture", "organizational dynamics"],
+      "readingTime": "6 minutes"
+    },
+    {
+      "id": "hidden-vendor-costs",
+      "title": "The Hidden Vendor Costs Nobody Warns You About",
+      "url": "/insights/hidden-vendor-costs",
+      "summary": "Why AI implementation costs exceed vendor proposals by 3-5x",
+      "topics": ["vendor management", "hidden costs", "budgeting"],
+      "readingTime": "5 minutes"
+    },
+    {
+      "id": "complete-cost-of-ai",
+      "title": "The Complete Cost of AI (What They Don't Include in the Proposal)",
+      "url": "/insights/complete-cost-of-ai",
+      "summary": "Total cost framework including data, integration, training, and maintenance",
+      "topics": ["AI costs", "implementation planning", "budgeting"],
+      "readingTime": "7 minutes"
+    },
+    {
+      "id": "signs-you-need-ai",
+      "title": "5 Signs You Actually Need AI (And 5 Signs You Don't)",
+      "url": "/insights/signs-you-need-ai",
+      "summary": "Decision framework for AI readiness and appropriateness",
+      "topics": ["AI readiness", "decision frameworks", "strategic planning"],
+      "readingTime": "5 minutes"
+    },
+    {
+      "id": "faster-cheaper-better-ai",
+      "title": "Faster, Cheaper, Better: How AI Actually Delivers Value (And Where It Doesn't)",
+      "url": "/insights/faster-cheaper-better-ai",
+      "summary": "Pick two framework and trade-offs in AI delivery",
+      "topics": ["value delivery", "trade-offs", "expectations management"],
+      "readingTime": "6 minutes"
+    },
+    {
+      "id": "where-to-start-with-ai",
+      "title": "Where to Start with AI: The Three Questions Nobody Asks (But Should)",
+      "url": "/insights/where-to-start-with-ai",
+      "summary": "Three foundational questions before AI implementation",
+      "topics": ["getting started", "strategic planning", "problem identification"],
+      "readingTime": "5 minutes"
+    },
+    {
+      "id": "8-ai-mistakes",
+      "title": "8 AI Mistakes Costing UK Small Businesses £50K+ (And How to Avoid Them)",
+      "url": "/insights/8-ai-mistakes-costing-uk-businesses",
+      "summary": "Common expensive mistakes in AI implementation and prevention strategies",
+      "topics": ["AI mistakes", "cost prevention", "implementation guidance"],
+      "readingTime": "6 minutes"
+    },
+    {
+      "id": "7-ai-mistakes-retreat",
+      "title": "The Great AI Retreat: A Story in Four Acts",
+      "url": "/insights/7-ai-mistakes-costing-uk-businesses",
+      "summary": "UK SME AI adoption declined from 42% to 28% - analysis of seven critical implementation mistakes",
+      "topics": ["AI adoption trends", "implementation failures", "experimentation framework"],
+      "readingTime": "4 minutes"
+    },
+    {
+      "id": "information-asymmetry",
+      "title": "Information Asymmetry: Why Buying IA Beats Buying AI",
+      "url": "/insights/information-asymmetry-buying-ia-vs-ai",
+      "summary": "Why information advantage often matters more than AI capability",
+      "topics": ["information advantage", "strategic intelligence", "competitive advantage"],
+      "readingTime": "5 minutes"
+    },
+    {
+      "id": "ai-native-buyers",
+      "title": "The AI-Native Buyers Marketing Gap: Why Traditional Content Doesn't Reach Decision-Makers",
+      "url": "/insights/ai-native-buyers-marketing-gap",
+      "summary": "How AI-native buyers bypass traditional marketing channels",
+      "topics": ["buyer behavior", "marketing strategy", "AI discovery"],
+      "readingTime": "6 minutes"
+    }
+  ],
+  "services": {
+    "consulting": {
+      "title": "AI Strategy & Implementation",
+      "description": "Context-first approach to AI adoption treating initiatives as experiments, not implementations",
+      "keyAreas": [
+        "AI readiness assessment",
+        "Problem identification and scoping",
+        "Vendor evaluation and cost analysis",
+        "Implementation planning and oversight",
+        "Change management and adoption"
+      ]
+    },
+    "expertise": {
+      "team": [
+        {
+          "name": "Lindsay Smith",
+          "role": "CTO (Technical Leadership)",
+          "expertise": "Software company building, technical architecture, DevOps"
+        },
+        {
+          "name": "Robbie MacIntosh",
+          "role": "Operations Director",
+          "expertise": "Large-scale operations, crisis management, global coordination"
+        },
+        {
+          "name": "Spencer Thursfield",
+          "role": "Strategy Director",
+          "expertise": "Organizational dynamics, strategic planning, business analysis"
+        }
+      ]
+    }
+  },
+  "commonQuestions": [
+    {
+      "question": "How much does AI implementation really cost?",
+      "answer": "Software licensing is typically only 30-40% of total AI implementation costs. Full costs include integration (25-35%), training and change management (20-25%), and ongoing maintenance (15-20%). A £1,200 annual subscription often becomes £3,500-4,000 total cost. Mid-sized implementations range £80K-£400K.",
+      "relatedArticles": ["complete-cost-of-ai", "hidden-vendor-costs"]
+    },
+    {
+      "question": "When should we use AI vs when should we not?",
+      "answer": "AI makes sense when: problem is high-volume/repetitive, accuracy requirements are 70-85%, you have adequate data, and ROI timeline is under 12 months. Avoid AI for: low-volume complex decisions, ethical/moral judgments, extreme accuracy requirements (>95%), or rapidly changing parameters.",
+      "relatedArticles": ["signs-you-need-ai", "where-to-start-with-ai"]
+    },
+    {
+      "question": "Why do so many AI projects fail?",
+      "answer": "95% of AI projects fail (MIT study). Common mistakes: starting too broad, underestimating real costs, expecting perfect data, treating AI as set-and-forget, skipping human oversight, forcing adoption, and measuring wrong things. Successful implementations start small, measure honestly, and treat AI as experiments.",
+      "relatedArticles": ["why-ai-projects-fail", "8-ai-mistakes", "7-ai-mistakes-retreat"]
+    },
+    {
+      "question": "What's the difference between your approach and traditional AI consulting?",
+      "answer": "We treat AI initiatives as experiments, not implementations. This shifts focus from binary success/failure to learning and iteration. We emphasize context-specific solutions over standardized frameworks, pragmatic data standards over perfection, and incremental value demonstration over big-bang deployments.",
+      "relatedArticles": ["7-ai-mistakes-retreat", "information-asymmetry"]
+    },
+    {
+      "question": "How long does AI implementation take?",
+      "answer": "Pilot phase: 4-8 weeks for limited scope validation. Scaling: 8-16 weeks for broader deployment. Optimization: ongoing. Most organizations see meaningful results in 3-6 months, but factor in 50% contingency for initial timelines. Quick wins should be demonstrable within first pilot phase.",
+      "relatedArticles": ["faster-cheaper-better-ai", "where-to-start-with-ai"]
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-01-13",
+    "contentTypes": ["articles", "case studies", "frameworks", "tools"],
+    "targetAudience": ["UK SME decision makers", "CTOs", "Operations Directors", "Strategy Directors"],
+    "focusAreas": ["AI implementation", "strategic planning", "cost management", "change management"]
+  }
+}

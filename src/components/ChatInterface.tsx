@@ -501,6 +501,27 @@ Want me to dig deeper on any of this?
     return () => window.removeEventListener('headerButtonClick', handleHeaderButtonClick as EventListener)
   }, [])
 
+  // Track article link clicks
+  useEffect(() => {
+    const handleArticleLinkClick = async (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      const link = target.closest('a[href*="/insights/"]')
+
+      if (link) {
+        const href = link.getAttribute('href')
+        const text = link.textContent || ''
+
+        if (href && typeof window !== 'undefined') {
+          const { trackArticleClicked } = await import('@/lib/analytics')
+          trackArticleClicked(text, href)
+        }
+      }
+    }
+
+    document.addEventListener('click', handleArticleLinkClick)
+    return () => document.removeEventListener('click', handleArticleLinkClick)
+  }, [])
+
   // Convert markdown to HTML string for dangerouslySetInnerHTML
   const markdownToHtml = (text: string): string => {
     // Check if text contains HTML div structures (team cards)
@@ -870,6 +891,12 @@ This isn't about faster analysis. It's about smarter strategy.
     // Mark user as having interacted - always set to true when they submit anything
     setHasUserInteracted(true)
 
+    // Track chat query
+    if (typeof window !== 'undefined' && !isFromThreeFs) {
+      const { trackChatQuery } = await import('@/lib/analytics')
+      trackChatQuery(query.trim(), 'user_query')
+    }
+
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
@@ -933,6 +960,23 @@ This isn't about faster analysis. It's about smarter strategy.
     } else {
       // Add to conversation
       setMessages(prev => [...prev, assistantMessage])
+    }
+
+    // Track article mentions in response
+    if (typeof window !== 'undefined') {
+      const { detectArticleReferences, trackArticleMentioned, trackChatResponse } = await import('@/lib/analytics')
+      const mentionedArticles = detectArticleReferences(apiResponse)
+
+      if (mentionedArticles.length > 0) {
+        mentionedArticles.forEach(article => {
+          trackArticleMentioned(article, query.substring(0, 50))
+        })
+      }
+
+      trackChatResponse(
+        isFromThreeFs ? 'button_response' : 'user_query',
+        mentionedArticles.length > 0
+      )
     }
 
     setIsLoading(false)
